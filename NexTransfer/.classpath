@@ -2,6 +2,13 @@
 <classpath>
 	<classpathentry kind="src" path="src/main/java"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry exported="true" kind="con" path="org.springsource.ide.eclipse.gradle.classpathcontainer"/>
+	<classpathentry exported="true" kind="con" path="org.springsource.ide.eclipse.gradle.classpathcontainer">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry exported="true" kind="lib" path="C:/Users/jaehoon.kim/.gradle/caches/modules-2"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib"/>
+	<classpathentry kind="src" path="/MPIS"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -8,9 +8,23 @@ repositories {
 
 dependencies {
    providedCompile 'javax.servlet:servlet-api:2.5'
+   
+   compile 'commons-collections:commons-collections:3.2'
    compile 'org.springframework:spring-webmvc:3.2.2.RELEASE'
+   compile 'commons-net:commons-net:3.3'
+   compile 'org.slf4j:slf4j-api:1.7.10'
+   compile 'log4j:log4j:1.2.17'
+   compile 'org.mybatis:mybatis:3.2.8'
+   compile 'org.mybatis:mybatis-spring:1.2.2'
+   compile 'org.springframework:spring-jdbc:4.1.5.RELEASE'
+   compile 'org.apache.commons:commons-dbcp2:2.1'
+   compile 'commons-dbcp:commons-dbcp:1.4'
+   compile 'com.navercorp.lucy:lucy-xss:1.6.3'
+     
    runtime 'javax.servlet:jstl:1.1.2'
 }
 
+compileJava.options.encoding = 'UTF-8'
+
 /* Change context path (base url). otherwise defaults to name of project */
-jettyRunWar.contextPath = '' 
+jettyRunWar.contextPath = '/' 
