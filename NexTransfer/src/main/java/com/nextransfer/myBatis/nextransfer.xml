@@ -1,0 +1,4479 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="nextransfer">   
+    <resultMap type="java.util.HashMap" id="resultMap">
+        <result property="INDEX_CD" column="INDEX_CD" jdbcType="VARCHAR"/>
+        <result property="SEQ_NO" column="SEQ_NO" jdbcType="VARCHAR"/>
+        <result property="IMG_FILE_NM" column="IMG_FILE_NM" jdbcType="VARCHAR"/>
+        <result property="IMG_WIDTH" column="IMG_WIDTH" jdbcType="VARCHAR"/>
+        <result property="IMG_HEIGHT" column="IMG_HEIGHT" jdbcType="VARCHAR"/>
+        <result property="DOC_DESC" column="DOC_DESC" jdbcType="CLOB" javaType="java.lang.String" />
+    </resultMap>
+    
+    <resultMap type="java.util.HashMap" id="resultMap2">
+        <result property="IMG_FILE_NM" column="IMG_FILE_NM" jdbcType="VARCHAR"/>
+        <result property="CHG_DESC" column="CHG_DESC" jdbcType="CLOB" javaType="java.lang.String" />
+    </resultMap>
+
+    <resultMap type="java.util.HashMap" id="resultMap3">
+    	<result property="INDEX_CD" column="INDEX_CD" jdbcType="VARCHAR"/>
+        <result property="FUND_NM" column="FUND_NM" jdbcType="VARCHAR"/>
+        <result property="DOC_DESC" column="DOC_DESC" jdbcType="CLOB" javaType="java.lang.String" />
+    </resultMap>
+    
+    <resultMap type="java.util.HashMap" id="resultMap4">
+    	<result property="DOC_TYPE" column="DOC_TYPE" jdbcType="VARCHAR"/>
+        <result property="INDEX_CD" column="INDEX_CD" jdbcType="VARCHAR"/>
+        <result property="LVL_NUM" column="LVL_NUM" jdbcType="NUMERIC"/>
+        <result property="INDEX_NM" column="INDEX_NM" jdbcType="VARCHAR"/>
+        <result property="INPUT_YN" column="INPUT_YN" jdbcType="VARCHAR"/>
+        <result property="BASE_YN" column="BASE_YN" jdbcType="VARCHAR"/>
+        <result property="BASE_DESC" column="BASE_DESC" jdbcType="CLOB" javaType="java.lang.String" />
+    </resultMap>
+  
+    
+    <select id="selectFund" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT A.FUND_NM, 
+		       A.FUND_CD,
+		       A.PARMS_FUND,
+		       A.KITCA_FUND_CD, 
+		       A.ASSOC_CD_NEW, 
+		       (SELECT S_CODE_NM 
+		         FROM TB_COMMON_L 
+		        WHERE L_CODE = '101' 
+		              AND S_CODE = SUBSTR(A.ASSOC_CD_NEW, 0, 1)
+		       ) AS CODE101, 
+		       SUBSTR(A.ASSOC_CD_NEW, 0, 1)AS CODE101_CD, 
+		       (SELECT S_CODE_NM 
+		         FROM TB_COMMON_L 
+		        WHERE L_CODE = '102' 
+		              AND S_CODE = SUBSTR(A.ASSOC_CD_NEW, 2, 2)
+		       ) AS CODE102,  
+		       SUBSTR(A.ASSOC_CD_NEW, 2, 2)AS CODE102_CD, 
+		       (SELECT S_CODE_NM 
+		         FROM TB_COMMON_L 
+		        WHERE L_CODE = '103' 
+		              AND S_CODE = SUBSTR(A.ASSOC_CD_NEW, 4, 1)
+		       ) AS CODE103, 
+		       SUBSTR(A.ASSOC_CD_NEW, 4, 1)AS CODE103_CD, 
+		       (SELECT S_CODE_NM 
+		         FROM TB_COMMON_L 
+		        WHERE L_CODE = '104' 
+		              AND S_CODE = SUBSTR(A.ASSOC_CD_NEW, 5, 1)
+		       ) AS CODE104, 
+		       SUBSTR(A.ASSOC_CD_NEW, 5, 1)AS CODE104_CD, 
+		       (SELECT S_CODE_NM 
+		         FROM TB_COMMON_L 
+		        WHERE L_CODE = '105' 
+		              AND S_CODE = SUBSTR(A.ASSOC_CD_NEW, 6, 1)
+		       ) AS CODE105, 
+		       SUBSTR(A.ASSOC_CD_NEW, 6, 1)AS CODE105_CD, 
+		       (SELECT S_CODE_NM 
+		         FROM TB_COMMON_L 
+		        WHERE L_CODE = '106' 
+		              AND S_CODE = SUBSTR(A.ASSOC_CD_NEW, 7, 1)
+		       ) AS CODE106, 
+		       SUBSTR(A.ASSOC_CD_NEW, 7, 1)AS CODE106_CD, 
+		       (SELECT S_CODE_NM 
+		         FROM TB_COMMON_L 
+		        WHERE L_CODE = '107' 
+		              AND S_CODE = SUBSTR(A.ASSOC_CD_NEW, 8, 1)
+		       ) AS CODE107, 
+		       SUBSTR(A.ASSOC_CD_NEW, 8, 1)AS CODE107_CD, 
+		       (SELECT S_CODE_NM 
+		         FROM TB_COMMON_L 
+		        WHERE L_CODE = '108' 
+		              AND S_CODE = SUBSTR(A.ASSOC_CD_NEW, 9, 1)
+		       ) AS CODE108, 
+		       SUBSTR(A.ASSOC_CD_NEW, 9, 1)AS CODE108_CD, 
+		       (SELECT S_CODE_NM 
+		         FROM TB_COMMON_L 
+		        WHERE L_CODE = '109' 
+		              AND S_CODE = SUBSTR(A.ASSOC_CD_NEW, 10, 2)
+		       ) AS CODE109, 
+		       SUBSTR(A.ASSOC_CD_NEW, 10, 2)AS CODE109_CD, 
+		       (SELECT S_CODE_NM 
+		         FROM TB_COMMON_L 
+		        WHERE L_CODE = '110' 
+		              AND S_CODE = SUBSTR(A.ASSOC_CD_NEW, 12, 2)
+		       ) AS CODE110, 
+		       SUBSTR(A.ASSOC_CD_NEW, 12, 2)AS CODE110_CD, 
+		       (SELECT S_CODE_NM 
+		         FROM TB_COMMON_L 
+		        WHERE L_CODE = '111' 
+		              AND S_CODE = SUBSTR(A.ASSOC_CD_NEW, 14, 2)
+		       ) AS CODE111, 
+		       SUBSTR(A.ASSOC_CD_NEW, 14, 2)AS CODE111_CD, 
+		       (SELECT S_CODE_NM 
+		         FROM TB_COMMON_L 
+		        WHERE L_CODE = '112' 
+		              AND S_CODE = SUBSTR(A.ASSOC_CD_NEW, 16, 2)
+		       ) AS CODE112, 
+		       SUBSTR(A.ASSOC_CD_NEW, 16, 2)AS CODE112_CD, 
+		       (SELECT S_CODE_NM 
+		         FROM TB_COMMON_L 
+		        WHERE L_CODE = '113' 
+		              AND S_CODE = SUBSTR(A.ASSOC_CD_NEW, 18, 2)
+		       ) AS CODE113, 
+		       SUBSTR(A.ASSOC_CD_NEW, 18, 2)AS CODE113_CD, 
+		       (SELECT S_CODE_NM 
+		         FROM TB_COMMON_L 
+		        WHERE L_CODE = '114' 
+		              AND S_CODE = SUBSTR(A.ASSOC_CD_NEW, 20, 1)
+		       ) AS CODE114, 
+		       SUBSTR(A.ASSOC_CD_NEW, 20, 1)AS CODE114_CD, 
+		       A.ASSOC_CD_OLD, 
+		       A.SETTLE_DATE, 
+		       A.CONT_DATE, 
+			   to_date(to_char(sysdate, 'yyyyMMdd'),'yyyyMMdd') - to_date(A.CONT_DATE,'yyyyMMdd') DAYS_AFTER_CONT_DATE, 
+		       A.REDEM_DATE, 
+		       A.TRUST_COMP_CD, 
+		       A.MNG_COMP_CD, 
+		       A.WORK_DAY_TYPE, 
+		       A.STD_TM_TYPE, 
+		       A.BF_SALE_STD_DAY, 
+		       A.AF_SALE_STD_DAY, 
+		       A.BF_REFUND_STD_DAY, 
+		       A.AF_REFUND_STD_DAY, 
+		       A.BF_REFUND_PAY_DAY, 
+		       A.AF_REFUND_PAY_DAY, 
+		       A.CONT_QTY, 
+		       A.PER_AMT_TYPE, 
+		       A.FIRST_STD_PRICE, 
+		       A.FOREIGN_FUND_YN, 
+		       A.CONS_YN, 
+		       A.SALE_CHARGE_RATE, 
+		       A.REFUND_CHARGE, 
+		       A.OP_FEE_RATE, 
+		       A.SALE_FEE_RATE, 
+		       A.TRUST_FEE_RATE, 
+		       A.MNG_FEE_RATE, 
+	           A.EVAL_COMP_CD,
+	           A.EVAL_FEE_RATE,
+		       A.FEE_DIFF_YN, 
+		       A.BM_CD, 
+		       (SELECT S_CODE_NM 
+		         FROM TB_COMMON_L 
+		        WHERE L_CODE = '013' 
+		              AND S_CODE = A.BM_CD
+		       ) AS BM_NM, 
+		       A.BM_DESC, 
+		       A.CHG_YN, 
+		       (SELECT S_CODE_NM 
+		         FROM TB_COMMON_L 
+		        WHERE L_CODE = '009' 
+		              AND S_CODE = CHG_GRP_CD
+		       ) AS CHG_GRP_CD_NM, 
+		       A.CHG_GRP_CD, 
+		       A.PCHG_YN, 
+		       (SELECT S_CODE_NM 
+		         FROM TB_COMMON_L 
+		        WHERE L_CODE = '020' 
+		              AND S_CODE = PCHG_CD
+		       ) AS PCHG_CD_NM, 
+		       A.PCHG_CD, 
+		       A.BONUS_YN, 
+		       A.INVEST_OBJ_DESC, 
+		       A.INVEST_STRA_DESC, 
+		       A.DEAL_AMT, 
+		       A.ISSUE_AMT, 
+		       A.INVEST_FEE_RATE, 
+		       A.ETC_AMT, 
+		       A.INPUT_TYPE, 
+		       (SELECT MAX(B.VALID_DATE) 
+		         FROM TB_FUND_FILE_L B 
+		        WHERE B.DOC_TYPE = '1' 
+		              AND A.FUND_CD = B.FUND_CD 
+		       ) DATE1, 
+		       (SELECT MAX(B.VALID_DATE) 
+		         FROM TB_FUND_FILE_L B 
+		        WHERE B.DOC_TYPE = '2' 
+		              AND A.FUND_CD = B.FUND_CD 
+		       ) DATE2, 
+		       (SELECT MAX(B.VALID_DATE) 
+		         FROM TB_FUND_FILE_L B 
+		        WHERE B.DOC_TYPE = '3' 
+		              AND A.FUND_CD = B.FUND_CD 
+		       ) DATE3, 
+		       (SELECT MAX(B.VALID_DATE) 
+		         FROM TB_FUND_FILE_L B 
+		        WHERE B.DOC_TYPE = '4' 
+		              AND A.FUND_CD = B.FUND_CD 
+		       ) DATE4, 
+		       (SELECT MAX(B.VALID_DATE) 
+		         FROM TB_FUND_FILE_L B 
+		        WHERE B.DOC_TYPE = '5' 
+		              AND A.FUND_CD = B.FUND_CD 
+		       ) DATE5,
+				DECODE(( SELECT COUNT( * )
+					   FROM TB_FUND_CLASS_L L
+					   WHERE l.fund_cd = A.fund_cd
+						 AND CLASS_NM = '종류C-P'
+						 AND SUBSTR(ASSOC_CD_NEW, 10, 2) = '36'), 0, 'N', 'Y' ) AS C_P
+		  FROM TB_FUND_M A
+		 WHERE 1=1
+		<if test="fName != null and fName != ''">
+		   AND LOWER(A.FUND_NM) like '%' || LOWER(#{fName}) || '%'
+		</if>
+		<if test="pfCode != null and pfCode != ''">
+		   AND A.PARMS_FUND = #{pfCode}
+		</if>
+		<if test="pfCode == null or pfCode == ''">
+			<if test="fCode != null and fCode != ''">
+		   		AND A.FUND_CD = #{fCode}
+			</if>
+		</if>
+		<if test="gubun != null and gubun != ''">
+		   AND SUBSTR(A.ASSOC_CD_NEW, 5, 1) = #{gubun}
+		</if>
+		<if test="kind != null and kind != ''">
+		   AND SUBSTR(A.ASSOC_CD_NEW, 6, 1) = #{kind}
+		</if>
+   </select>
+   <insert id="insertFundM" parameterType="java.util.HashMap">
+	   INSERT INTO TB_FUND_M 
+	       ( 
+	           FUND_CD,
+	           FUND_NM,
+	           KITCA_FUND_CD,
+	           ASSOC_CD_NEW,
+	           ASSOC_CD_OLD,
+	           TRUST_COMP_CD,
+	           MNG_COMP_CD,
+	           WORK_DAY_TYPE,
+	           STD_TM_TYPE,
+	           BF_SALE_STD_DAY,
+	           AF_SALE_STD_DAY,
+	           BF_REFUND_STD_DAY,
+	           AF_REFUND_STD_DAY,
+	           BF_REFUND_PAY_DAY,
+	           AF_REFUND_PAY_DAY,
+	           CONT_QTY,
+	           PER_AMT_TYPE,
+	           FIRST_STD_PRICE,
+	           FOREIGN_FUND_YN,
+	           CONS_YN,
+	           <if test="sale_charge_rate != null and sale_charge_rate != ''">
+	           SALE_CHARGE_RATE,
+	           </if>
+	           <if test="refund_charge != null">
+	           REFUND_CHARGE,
+	           </if>
+	           <if test="op_fee_rate != null">
+	           OP_FEE_RATE,
+	           SALE_FEE_RATE,
+	           TRUST_FEE_RATE,
+	           MNG_FEE_RATE,
+	           </if>
+	           <if test="etc_amt != null and etc_amt != ''">
+	           ETC_AMT,
+	           </if>
+	           FEE_DIFF_YN,
+	           BM_CD,
+	           BM_DESC,
+	           <if test="chg_yn != null">
+	           CHG_YN,
+	           CHG_GRP_CD,
+	           </if>
+	           <if test="chg_yn == null">
+	           CHG_YN,
+	           </if>
+	           <if test="pchg_yn != null">
+	           PCHG_YN,
+	           PCHG_CD,
+	           </if>
+	           <if test="pchg_yn == null">
+	           PCHG_YN,
+	           </if>
+	           BONUS_YN,
+	           INPUT_TYPE,
+	           RULE_EXCLUD_YN,
+	           <if test="eval_comp_cd != null and eval_comp_cd != ''">
+	           EVAL_COMP_CD,
+	           </if>
+	           <if test="eval_fee_rate != null and eval_fee_rate != ''">
+	           EVAL_FEE_RATE,
+	           </if>
+	           REG_ID,
+	           REG_DATE,
+	           UPD_ID,
+	           UPD_DATE
+	       ) 
+	       VALUES 
+	       ( 
+	           #{fund_cd},
+	           #{fund_nm},
+	           #{kitca_fund_cd},
+	           #{assoc_cd_new},
+	           #{assoc_cd_old},
+	           #{trust_comp_cd},
+	           #{mng_comp_cd},
+	           #{work_day_type},
+	           #{std_tm_type},
+	           #{bf_sale_std_day},
+	           #{af_sale_std_day},
+	           #{bf_refund_std_day},
+	           #{af_refund_std_day},
+	           #{bf_refund_pay_day},
+	           #{af_refund_pay_day},
+	           #{cont_qty},
+	           #{per_amt_type},
+	           #{first_std_price},
+	           <if test="nation_chk != null">
+	           'Y',
+	           </if>
+	           <if test="nation_chk == null">
+	           'N',
+	           </if>
+	           <if test="company_chk != null">
+	           'Y',
+	           </if>
+	           <if test="company_chk == null">
+	           'N',
+	           </if>
+	           <if test="sale_charge_rate != null and sale_charge_rate != ''">
+	           #{sale_charge_rate},
+	           </if>
+	           <if test="refund_charge != null">
+	           #{refund_charge},
+	           </if>
+	           <if test="op_fee_rate != null">
+	           #{op_fee_rate},
+	           #{sale_fee_rate},
+	           #{trust_fee_rate},
+	           #{mng_fee_rate},
+	           </if>
+	           <if test="etc_amt != null and etc_amt != ''">
+	           #{etc_amt},
+	           </if>
+	           <if test="fee_diff_yn != null">
+	           'Y',
+	           </if>
+	           <if test="fee_diff_yn == null">
+	           'N',
+	           </if>
+	           #{bm_cd},
+	           #{bm_desc},
+	           <if test="chg_yn != null">
+	           'Y',
+	           #{chg_grp_cd},
+	           </if>
+	           <if test="chg_yn == null">
+	           'N',
+	           </if>
+	           <if test="pchg_yn != null">
+	           'Y',
+	           #{pchg_cd},
+	           </if>
+	           <if test="pchg_yn == null">
+	           'N',
+	           </if>
+	           <if test="bonus_yn != null">
+	           'Y',
+	           </if>
+	           <if test="bonus_yn == null">
+	           'N',
+	           </if>
+	           'W',
+	           <if test="rule_exclud_yn != null">
+	           'Y',
+	           </if>
+	           <if test="rule_exclud_yn == null">
+	           'N',
+	           </if>
+	           <if test="eval_comp_cd != null and eval_comp_cd != ''">
+	           #{eval_comp_cd},
+	           </if>
+	           <if test="eval_fee_rate != null and eval_fee_rate != ''">
+	           #{eval_fee_rate},
+	           </if>
+	           #{user_id},
+	           SYSDATE,
+	           #{user_id},
+	           SYSDATE
+	       ) 
+   </insert>
+   <select id="selectFundCnt" parameterType="java.util.HashMap" resultType="int">
+		SELECT COUNT(*) TOTCNT
+		  FROM TB_FUND_M A
+		 WHERE 1=1
+		<if test="fName != null and fName != ''">
+		   AND LOWER(A.FUND_NM) like '%' || LOWER(#{fName}) || '%'
+		</if>
+		<if test="fCode != null and fCode != ''">
+		   AND A.FUND_CD = #{fCode}
+		</if>
+		<if test="gubun != null and gubun != ''">
+		   AND SUBSTR(A.ASSOC_CD_NEW, 5, 1) = #{gubun}
+		</if>
+		<if test="kind != null and kind != ''">
+		   AND SUBSTR(A.ASSOC_CD_NEW, 6, 1) = #{kind}
+		</if>
+    </select>
+    
+    <select id="selectCode" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT A.L_CODE, 
+		       A.S_CODE, 
+		       A.L_CODE_NM, 
+		       A.S_CODE_NM, 
+		       A.CODE_DESC, 
+		       A.MEMO,
+		       A.USE_YN
+		  FROM TB_COMMON_L A 
+		 WHERE 1=1 
+		 <if test="use_yn != null and use_yn != ''">
+		   AND use_yn = #{use_yn}
+		 </if> 
+		 <if test="code != null and code != ''">
+		   AND L_CODE = #{code}
+		 </if>
+		 <if test="code == null or code == ''">
+		   AND 2=1
+		 </if>
+    </select>
+    
+    <select id="selectAllCode" resultType="java.util.HashMap">
+		SELECT A.L_CODE, 
+		       A.S_CODE, 
+		       A.L_CODE_NM, 
+		       A.S_CODE_NM, 
+		       A.CODE_DESC, 
+		       A.MEMO,
+		       A.USE_YN
+		  FROM TB_COMMON_L A 
+		 WHERE 1=1 
+		   AND USE_YN = 'Y'
+		 ORDER BY A.L_CODE, A.ORD, A.S_CODE
+    </select>
+    
+    <select id="popupSelectCode" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT A.L_CODE, 
+		       A.S_CODE, 
+		       A.L_CODE_NM, 
+		       A.S_CODE_NM, 
+		       A.CODE_DESC, 
+		       A.MEMO
+		  FROM TB_COMMON_L A 
+		 WHERE USE_YN = 'Y' 
+		 <if test="l_code != null and l_code != ''">
+		   AND L_CODE = #{l_code}
+		 </if>
+		 <if test="s_code != null and s_code != ''">
+		   AND S_CODE = #{s_code}
+		 </if>
+		 <if test="l_code_nm != null and l_code_nm != ''">
+		   AND LOWER(L_CODE_NM) LIKE '%' || LOWER(#{l_code_nm}) || '%'
+		 </if>
+		 <if test="s_code_nm != null and s_code_nm != ''">
+		   AND LOWER(S_CODE_NM) LIKE '%' || LOWER(#{s_code_nm}) || '%'
+		 </if>
+		 <if test="(l_code == null or l_code == '') and (s_code == null or s_code == '') and (l_code_nm == null or l_code_nm == '') and (s_code_nm == null or s_code_nm == '')">
+		   AND 1=2
+		 </if>
+    </select>
+
+    <select id="popupSelectCode2" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT * 
+		  FROM TB_COMMON_L 
+		 WHERE L_CODE = #{l_code}
+		       AND S_CODE LIKE  #{s_code} || '%%'
+		ORDER BY L_CODE, 
+		       S_CODE
+    </select>
+    
+    <insert id="insertCode" parameterType="java.util.HashMap">
+		INSERT INTO TB_COMMON_L 
+	       ( 
+	           L_CODE,
+	           S_CODE,
+	           L_CODE_NM,
+	           S_CODE_NM,
+	           CODE_DESC,
+	           MEMO,
+	           USE_YN,
+	           REG_ID,
+	           REG_DATE,
+	           UPD_ID,
+	           UPD_DATE 
+	       ) 
+	       VALUES 
+	       ( 
+	           #{l_code}, 
+	           #{s_code}, 
+	           #{l_code_nm}, 
+	           #{s_code_nm}, 
+	           #{code_desc}, 
+	           #{memo},
+	           #{use_yn},
+	           #{user_id},
+	           SYSDATE, 
+	           #{user_id},
+	           SYSDATE  
+	       ) 
+    </insert>
+    <update id="updateCode" parameterType="java.util.HashMap">
+		UPDATE TB_COMMON_L 
+		       SET L_CODE = #{l_code}, 
+		       S_CODE = #{s_code}, 
+		       L_CODE_NM = #{l_code_nm}, 
+		       S_CODE_NM = #{s_code_nm}, 
+		       CODE_DESC = #{code_desc}, 
+		       MEMO = #{memo},  
+		       USE_YN = #{use_yn},
+		       UPD_ID = #{user_id},
+		       UPD_DATE = SYSDATE 
+		 WHERE L_CODE = #{l_code}
+		   AND S_CODE = #{s_code}
+    </update>
+    <delete id="deleteCode" parameterType="java.util.HashMap">
+	    DELETE FROM TB_COMMON_L
+		 WHERE L_CODE = #{l_code}
+		   AND S_CODE = #{s_code}
+    </delete>
+    
+    <select id="selectIndex" parameterType="java.util.HashMap" resultMap="resultMap4">
+		SELECT A.DOC_TYPE, 
+		       A.INDEX_CD, 
+		       A.LVL_NUM, 
+		       A.INDEX_NM, 
+		       A.INPUT_YN, 
+		       A.BASE_YN, 
+		       NVL(DOC_DESC, A.BASE_DESC) AS BASE_DESC 
+		  FROM TB_INDEX_M A,
+		  (	SELECT FUND_CD, INDEX_CD, DOC_DESC
+			  FROM TB_DOCUMENT_L 
+			 WHERE FUND_CD = #{fCode} 
+			       AND DOC_TYPE = #{doc_type}) B
+		 WHERE DOC_TYPE = #{doc_type}
+		 AND A.INDEX_CD = B.INDEX_CD(+)
+		 <if test="docPrint != null and docPrint != ''">
+		   AND A.INPUT_YN = 'Y'
+		 </if>
+		 ORDER BY INDEX_CD
+    </select>
+   <insert id="insertDoc" parameterType="java.util.HashMap">
+	INSERT INTO TB_DOCUMENT_L 
+	       ( 
+	           FUND_CD,
+	           DOC_TYPE,
+	           INDEX_CD,
+	           DOC_DESC,
+	           REG_ID,
+	           REG_DATE,
+	           UPD_ID,
+	           UPD_DATE 
+	       ) 
+	       VALUES 
+	       ( 
+	           #{fCode}, 
+	           #{doc_type}, 
+	           #{index_cd}, 
+	           #{doc_desc},
+	           #{user_id},
+	           SYSDATE, 
+	           #{user_id},
+	           SYSDATE  
+	       ) 
+    </insert>
+    <select id="selectDocImg" parameterType="java.util.HashMap" resultMap="resultMap">
+	    SELECT INDEX_CD,
+		       '' || SEQ_NO AS SEQ_NO, 
+		       DECODE(IMG_FILE_NM, NULL , '', #{img_path} || IMG_FILE_NM ) AS IMG_FILE_NM, 
+		       '' || IMG_WIDTH AS IMG_WIDTH, 
+		       '' || IMG_HEIGHT AS IMG_HEIGHT, 
+		       NVL(DOC_DESC, '') DOC_DESC 
+		  FROM TB_DOCUMENT_EDITOR_L
+		  WHERE FUND_CD = #{fCode}
+		    AND DOC_TYPE in ('1','2')
+		    <if test="index_cd != null and index_cd != ''">
+		    AND INDEX_CD = #{index_cd}
+		    </if>
+		  ORDER BY INDEX_CD, SEQ_NO
+    </select>
+    <insert id="insertDocImg" parameterType="java.util.HashMap">
+		INSERT INTO TB_DOCUMENT_EDITOR_L 
+		       ( 
+		           FUND_CD,
+		           DOC_TYPE,
+		           INDEX_CD,
+		           SEQ_NO,
+		           IMG_FILE_NM,
+		           IMG_WIDTH,
+		           IMG_HEIGHT,
+		           DOC_DESC,
+		           REG_ID,
+		           REG_DATE,
+		           UPD_ID,
+		           UPD_DATE 
+		       ) 
+		       VALUES 
+		       ( 
+		           #{fCode}, 
+		           #{doc_type}, 
+		           #{index_cd}, 
+		           #{seq_no},
+		           #{img_file_nm},
+		           #{img_width},
+		           #{img_height},
+		           #{doc_desc},
+		           #{user_id},
+		           SYSDATE, 
+		           #{user_id},
+		           SYSDATE  
+		       ) 
+    </insert>
+    <delete id="updateDocImg" parameterType="java.util.HashMap">
+		UPDATE TB_DOCUMENT_EDITOR_L 
+			   SET UPD_ID = #{user_id}, 
+		<if test="img_file_nm != null and img_file_nm != ''">
+		       IMG_FILE_NM = #{img_file_nm}, 
+		</if>
+		<if test="img_width != null and img_width != ''">
+		       IMG_WIDTH = #{img_width}, 
+		</if>
+		<if test="img_height != null and img_height != ''">
+		       IMG_HEIGHT = #{img_height}, 
+		</if>
+		<if test="doc_desc != null and doc_desc != ''">
+		       DOC_DESC = #{doc_desc}, 
+		</if>
+		       UPD_DATE = SYSDATE 
+		 WHERE FUND_CD = #{fCode}
+		   AND DOC_TYPE = #{doc_type}
+		   AND INDEX_CD = #{index_cd}
+		   AND SEQ_NO = #{seq_no}
+    </delete>
+    <delete id="deleteDocImg" parameterType="java.util.HashMap">
+	    DELETE FROM TB_DOCUMENT_EDITOR_L
+		WHERE FUND_CD = #{fCode}
+		AND DOC_TYPE = #{doc_type}
+		AND SEQ_NO = #{seq_no}
+		AND INDEX_CD = #{index_cd}
+    </delete>
+    <delete id="deleteDocImgDRow" parameterType="java.util.HashMap">
+    	DELETE FROM TB_DOCUMENT_EDITOR_L
+		WHERE FUND_CD = #{fCode}
+		AND DOC_TYPE = #{doc_type} 
+		AND SEQ_NO >= #{least_seq}
+		AND INDEX_CD = #{index_cd}
+    </delete>
+    <delete id="deleteDoc" parameterType="java.util.HashMap">
+	    DELETE FROM TB_DOCUMENT_L
+		WHERE FUND_CD = #{fCode}
+		AND DOC_TYPE = #{doc_type}
+    </delete>
+    
+	<select id="maxFundCd" parameterType="java.util.HashMap" resultType="string">
+		SELECT 'F' || (SUBSTR( MAXCD, 2) + 1)
+		  FROM 
+		       (SELECT MAX(FUND_CD) AS MAXCD
+		         FROM TB_FUND_M A
+		       )
+    </select>
+
+    <select id="selectCompany" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT A.COMP_CD,
+		       A.COMP_TYPE,
+		       NVL(COMP_NM, COMP_ENM) AS COMP_NM, 
+		       A.COMP_ENM
+		  FROM TB_COMPANY_M A
+		 WHERE 1 = 1 
+		 <if test="comp_type != null and comp_type != ''">
+		   AND COMP_TYPE = #{comp_type}
+		 </if>
+
+    </select>
+    
+    <select id="selectNation" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT A.NATION_CD,
+		       A.NATION_NM,
+		       A.NATION_DESC
+		  FROM TB_INV_NATION_M A
+    </select>
+    <insert id="insertNation" parameterType="java.util.HashMap">
+	    INSERT INTO TB_FUND_INV_NATION_L 
+	       ( 
+	           FUND_CD,
+	           NATION_CD,
+	           REG_ID,
+	           REG_DATE,
+	           UPD_ID,
+	           UPD_DATE 
+	       ) 
+	       VALUES 
+	       ( 
+	           #{fund_cd}, 
+	           #{nation_cd}, 
+	           #{user_id}, 
+	           SYSDATE, 
+	           #{user_id}, 
+	           SYSDATE
+	       )
+    </insert>
+    <insert id="insertCompany" parameterType="java.util.HashMap">
+		INSERT INTO TB_FUND_CONS_COMP_L 
+		       ( 
+		           FUND_CD,
+		           CONS_COMP_CD,
+		           MANAGER_ID,
+		           WORK_CD,
+		           REG_ID,
+		           REG_DATE,
+		           UPD_ID,
+		           UPD_DATE 
+		       ) 
+		       VALUES 
+		       ( 
+		           #{fund_cd}, 
+		           #{cons_comp}, 
+		           #{manager_id}, 
+		           #{work_cd}, 
+		           #{user_id}, 
+		           SYSDATE, 
+		           #{user_id}, 
+		           SYSDATE
+		       ) 
+    </insert>
+    <insert id="insertDiff" parameterType="java.util.HashMap">
+		INSERT INTO TB_FUND_DIFF_FEE_L 
+		       ( 
+		           FUND_CD,
+		           GUBUN,
+		           CLASS_CD,
+		           SEQ_NO,
+		           <if test="gubun == 1">
+		           FEE_DESC,
+		           OP_FEE_RATE,
+		           SALE_FEE_RATE,
+		           TRUST_FEE_RATE,
+		           MNG_FEE_RATE,
+		           ETC_AMT,
+		           TOT_FEE_AMT,
+		           CTOT_FEE_AMT,
+		           </if>
+		           <if test="gubun == 2">
+		           FEE_AMT1,
+		           FEE_AMT3,
+		           FEE_AMT5,
+		           FEE_AMT10,
+		           </if>
+		           REG_ID,
+		           REG_DATE,
+		           UPD_ID,
+		           UPD_DATE 
+		       ) 
+		       VALUES 
+		       ( 
+		           #{fund_cd},
+		           #{gubun},
+		           #{class_cd},
+		           #{seq_no},
+		           <if test="gubun == 1">
+		           #{fee_desc},
+		           #{op_fee_rate},
+		           #{sale_fee_rate},
+		           #{trust_fee_rate},
+		           #{mng_fee_rate},
+		           #{etc_amt},
+		           #{tot_fee_amt},
+		           #{ctot_fee_amt},
+		           </if>
+		           <if test="gubun == 2">
+		           #{fee_amt1},
+		           #{fee_amt3},
+		           #{fee_amt5},
+		           #{fee_amt10},
+		           </if>
+		           #{user_id}, 
+		           SYSDATE, 
+		           #{user_id}, 
+		           SYSDATE
+		       ) 
+    </insert>
+    <insert id="insertInvest" parameterType="java.util.HashMap">
+		INSERT INTO TB_FUND_INVEST_L 
+		       ( 
+		           FUND_CD,
+		           L_CODE,
+		           S_CODE,
+		           MEMO,
+		           INVEST_DESC,
+		           REG_ID,
+		           REG_DATE,
+		           UPD_ID,
+		           UPD_DATE,
+		           UPD_YN,
+		           ADDITIONAL_DESC 
+		           ,ORD
+		       ) 
+		       VALUES 
+		       ( 
+		           #{fund_cd},
+		           #{l_code},
+		           #{s_code},
+		           #{memo},
+		           #{invest_desc},
+		           #{user_id},
+		           SYSDATE,
+		           #{user_id},
+		           SYSDATE,
+		           #{upd_yn},
+		           #{add_desc}
+		           ,#{ord}	 	 
+		       ) 
+    </insert>
+    <select id="selectManager" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+	    SELECT A.MANAGER_ID,
+		       A.MANAGER_NM,
+		       A.BIR_YEAR,
+		       A.POSITION,
+		       A.DEPT_NM,
+		       A.WORK_DESC
+		  FROM TB_MANAGER_M A
+		 ORDER BY A.MANAGER_NM
+    </select>
+    <select id="selectFundManager" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT A.FUND_CD, 
+		       (SELECT MANAGER_NM 
+		         FROM TB_MANAGER_M 
+		        WHERE MANAGER_ID = A.MANAGER_ID
+		       ) NAME, 
+		       A.START_DATE, 
+		       DECODE(A.END_DATE, '99991231', '', END_DATE) AS END_DATE,
+		       (SELECT S_CODE_NM 
+		         FROM TB_COMMON_L 
+		        WHERE L_CODE = '016' 
+		              AND S_CODE = A.MANAGER_TYPE
+		       ) TYPE, 
+		       A.VIEW_YN, 
+		       A.HIS_VIEW_YN 
+		  FROM TB_FUND_MANAGER_L A 
+		 WHERE A.FUND_CD = #{fCode}
+		 ORDER BY END_DATE
+    </select>
+    <select id="selectFundDiffFee" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT A.FUND_CD, 
+		       A.GUBUN, 
+		       A.CLASS_CD, 
+		       A.SEQ_NO, 
+		       A.FEE_DESC, 
+		       A.OP_FEE_RATE, 
+		       A.SALE_FEE_RATE, 
+		       A.TRUST_FEE_RATE, 
+		       A.MNG_FEE_RATE, 
+		       A.ETC_AMT, 
+		       A.TOT_FEE_AMT, 
+		       A.CTOT_FEE_AMT, 
+		       A.FEE_AMT1, 
+		       A.FEE_AMT3, 
+		       A.FEE_AMT5, 
+		       A.FEE_AMT10  
+		  FROM TB_FUND_DIFF_FEE_L A 
+		 WHERE A.FUND_CD = #{fCode}
+		 <if test="classCode != null and classCode !=''">
+		   AND A.CLASS_CD = #{classCode}
+		 </if>
+		 order by seq_no
+    </select>
+    <select id="selectFundInvNation" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT FUND_CD, 
+		       NATION_CD 
+		  FROM TB_FUND_INV_NATION_L
+		 WHERE FUND_CD = #{fCode}
+    </select>
+    <select id="selectFundConsComp" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT FUND_CD,
+		       CONS_COMP_CD,
+		       MANAGER_ID,
+		       WORK_CD 
+		  FROM TB_FUND_CONS_COMP_L
+		 WHERE FUND_CD = #{fCode}
+    </select>
+    <select id="selectFundInvest" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT FUND_CD,
+		       L_CODE,
+		       S_CODE,
+		       MEMO,
+		       INVEST_DESC,
+		       UPD_YN,
+		       NVL(ADDITIONAL_DESC, ' ') ADDITIONAL_DESC
+		       ,ORD
+		  FROM TB_FUND_INVEST_L
+		 WHERE FUND_CD = #{fCode}
+    </select>
+    
+    <select id="updateInvestTargetOrd" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+    update tb_fund_invest_l
+               set ord = #{ord}
+               where l_code = #{l_code}
+               and s_code = #{s_code}
+               and fund_cd = #{fCode}
+    </select>
+    
+    <update id="updateFundM" parameterType="java.util.HashMap" >
+    UPDATE TB_FUND_M SET 				
+		 KITCA_FUND_CD = #{kitca_fund_cd},				
+		 FUND_NM = #{fund_nm},		
+		 ASSOC_CD_NEW = #{assoc_cd_new}, 
+		 ASSOC_CD_OLD = #{assoc_cd_old},
+		 TRUST_COMP_CD = #{trust_comp_cd}, 
+		 MNG_COMP_CD = #{mng_comp_cd},
+		 WORK_DAY_TYPE = #{work_day_type}, 
+		 STD_TM_TYPE = #{std_tm_type},
+		 BF_SALE_STD_DAY = #{bf_sale_std_day}, 
+		 AF_SALE_STD_DAY = #{af_sale_std_day},
+		 BF_REFUND_STD_DAY = #{bf_refund_std_day}, 
+		 AF_REFUND_STD_DAY = #{af_refund_std_day},
+		 BF_REFUND_PAY_DAY = #{bf_refund_pay_day},
+		 AF_REFUND_PAY_DAY = #{af_refund_pay_day},
+		 CONT_QTY = #{cont_qty},
+		 PER_AMT_TYPE = #{per_amt_type}, 
+		 FIRST_STD_PRICE = #{first_std_price}, 
+		 <if test="nation_chk != null">
+		 FOREIGN_FUND_YN = 'Y',
+		 </if>
+		 <if test="nation_chk == null">
+		 FOREIGN_FUND_YN = 'N',
+		 </if>
+		 <if test="company_chk != null">
+		 CONS_YN = 'Y',
+		 </if>
+		 <if test="company_chk == null">
+		 CONS_YN = 'N',
+		 </if>
+		 <if test="sale_charge_rate != null" >
+		 SALE_CHARGE_RATE = #{sale_charge_rate},
+		 </if> 
+		 <if test="refund_charge != null">
+		 REFUND_CHARGE = #{refund_charge},
+		 </if>
+		 <if test="op_fee_rate != null">
+		 OP_FEE_RATE = #{op_fee_rate},
+		 SALE_FEE_RATE = #{sale_fee_rate}, 
+		 TRUST_FEE_RATE = #{trust_fee_rate}, 
+		 MNG_FEE_RATE = #{mng_fee_rate},
+		 </if>
+		 <if test="etc_amt != null">
+		 ETC_AMT = #{etc_amt}, 
+		 </if>
+		 <if test="fee_diff_yn != null">
+		 FEE_DIFF_YN = 'Y',
+		 </if>
+		 <if test="fee_diff_yn == null">
+		 FEE_DIFF_YN = 'N',
+		 </if>
+		 BM_CD = #{bm_cd},
+		 BM_DESC = #{bm_desc}, 
+		 <if test="chg_yn != null">
+		 CHG_YN = 'Y',
+		 CHG_GRP_CD = #{chg_grp_cd}, 
+		 </if>
+		 <if test="chg_yn == null">
+		 CHG_YN = 'N',
+		 CHG_GRP_CD = null, 
+		 </if>
+		 <if test="pchg_yn != null">
+		 PCHG_YN = 'Y',
+		 PCHG_CD = #{pchg_cd}, 
+		 </if>
+		 <if test="pchg_yn == null">
+		 PCHG_YN = 'N',
+		 PCHG_CD = null, 
+		 </if>
+		 <if test="bonus_yn != null">
+		 BONUS_YN = 'Y',
+		 </if>
+		 <if test="bonus_yn == null">
+		 BONUS_YN = 'N',
+		 </if>
+		<if test="rule_exclud_yn != null">
+		 RULE_EXCLUD_YN = 'Y',
+		 </if>
+		<if test="rule_exclud_yn == null">
+		 RULE_EXCLUD_YN = 'N',
+		 </if>
+		 <if test="eval_comp_cd != null and eval_comp_cd != ''">
+		 EVAL_COMP_CD = #{eval_comp_cd},
+		 </if>
+		 <if test="eval_fee_rate != null and eval_fee_rate != ''">
+		 EVAL_FEE_RATE = #{eval_fee_rate},
+		 </if>
+		 UPD_ID = #{user_id},
+		 UPD_DATE = SYSDATE
+	 WHERE FUND_CD = #{fund_cd}
+    </update>
+    <delete id="deleteNation" parameterType="java.util.HashMap" >
+	DELETE 
+	  FROM TB_FUND_INV_NATION_L 
+	 WHERE FUND_CD = #{fund_cd}
+    </delete>
+    <delete id="deleteCompany" parameterType="java.util.HashMap" >
+	DELETE 
+	  FROM TB_FUND_CONS_COMP_L 
+	 WHERE FUND_CD = #{fund_cd}
+    </delete>
+    <delete id="deleteDiff" parameterType="java.util.HashMap" >
+    DELETE 
+	  FROM TB_FUND_DIFF_FEE_L 
+	 WHERE FUND_CD = #{fund_cd}
+	 <if test="class_cd != null and class_cd !=''">
+	   AND CLASS_CD = #{class_cd}
+	 </if> 
+    </delete>
+    <delete id="deleteInvest" parameterType="java.util.HashMap" >
+	DELETE 
+	  FROM TB_FUND_INVEST_L 
+	 WHERE FUND_CD = #{fund_cd} 
+    </delete>
+    
+    <select id="selectDocInvest" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+	    SELECT ROWNUM, S_CODE_NM, MEMO, INVEST_DESC, L_CODE, S_CODE, ORD
+  FROM (SELECT ROWNUM,
+	    	   B.S_CODE_NM, 
+		       A.MEMO, 
+		       NVL(A.INVEST_DESC, B.CODE_DESC || A.ADDITIONAL_DESC) INVEST_DESC
+		       ,a.L_CODE 
+		       ,a.S_CODE
+		       ,nvl(a.ord,'') ord
+		  FROM TB_FUND_INVEST_L A, TB_COMMON_L B
+		 WHERE FUND_CD = #{fCode} 
+		       AND A.L_CODE = #{l_code}
+		       AND A.L_CODE = B.L_CODE
+		       AND A.S_CODE = B.S_CODE
+		       ORDER BY a.ord, b.ord)
+    </select>
+    
+    <select id="selectInvFee" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+	     SELECT A.FUND, 
+		       A.STOCK_CD AS JONG, 
+		       A.STOCK_NM, 
+		       A.ASSET_TYPE, 
+		       A.NETAMT_RATE, 
+		       NVL(B.FEE_RATE,0) FEE_RATE, 
+		       NVL(B.TOT_RATE, A.NETAMT_RATE/100 * NVL(B.FEE_RATE,0)) TOT_RATE 
+		  FROM 
+		       (SELECT T1.FUND , 
+		              T1.JONG AS STOCK_CD , 
+		              T1.KFNAME AS STOCK_NM , 
+		              T1.ASSET_TYPE , 
+		              ROUND(DECODE(T2.NETAMT , 0 , 0 , T1.ESTVALUE / T2.NETAMT * 100.0),2) AS NETAMT_RATE
+		         FROM 
+		              ( SELECT '80' ASSET_TYPE, 
+                             C.FUND_CD AS FUND , 
+                             A.JONG , 
+                             B.KFNAME , 
+                             A.ESTVALUE 
+                        FROM ZEDW.MAST_STOCK A , 
+                             ZEDW.INFO_STOCK B ,
+                             TB_FUND_M C
+                       WHERE A.WKDATE = TO_CHAR(ADD_MONTHS(SYSDATE,-2),'YYYYMMDD') 
+                                AND A.FUND = C.PARMS_FUND 
+                             AND C.FUND_CD = #{fCode}
+                             AND A.QTY > 0 
+                             AND A.JONG = B.JONG 
+                             AND B.SPCODE IN ('1400000','9011300','1500000') 
+                 UNION ALL
+                       SELECT '80' ASSET_TYPE, 
+                             C.FUND_CD AS FUND , 
+                             A.JONG , 
+                             B.FNAME , 
+                             A.WESTVALUE 
+                        FROM ZEDW.MAST_ISTOCK A , 
+                             ZEDW.INFO_ISTOCK B ,
+                             TB_FUND_M C
+                       WHERE A.WKDATE = TO_CHAR(ADD_MONTHS(SYSDATE,-2),'YYYYMMDD') 
+                                AND A.FUND = C.PARMS_FUND 
+                             AND C.FUND_CD = #{fCode} 
+                             AND A.JONG = B.JONG 
+                             AND B.SPCODE = '9011300' 
+                 UNION ALL
+                         SELECT '70' ASSET_TYPE, 
+                             C.FUND_CD AS FUND , 
+                             A.JONG , 
+                             B.ENAME , 
+                             A.WESTVALUE 
+                        FROM ZEDW.MAST_IMMF A , 
+                             ZEDW.INFO_IMMF B ,
+                             TB_FUND_M C
+                       WHERE A.WKDATE = TO_CHAR(ADD_MONTHS(SYSDATE,-2),'YYYYMMDD') 
+                                AND A.FUND = C.PARMS_FUND 
+                             AND C.FUND_CD = #{fCode} 
+                             AND A.JONG = B.JONG 
+                             AND B.SPCODE IN ('9041000') 
+                UNION ALL  
+                      SELECT '70' , 
+                             C.FUND_CD , 
+                             A.JONG , 
+                             B.KFNAME , 
+                             A.ESTVALUE 
+                        FROM ZEDW.MAST_MONEY A , 
+                             ZEDW.INFO_MONEY B ,
+                             TB_FUND_M C
+                       WHERE A.WKDATE = TO_CHAR(ADD_MONTHS(SYSDATE,-2),'YYYYMMDD') 
+                             AND A.FUND = C.PARMS_FUND  
+                             AND C.FUND_CD = #{fCode} 
+                             AND A.FUND_GB = '2' 
+                             AND A.QTY > 0 
+                             AND A.JONG = B.JONG 
+                             AND B.WKDATE = 
+                             (SELECT MAX(WKDATE) 
+                               FROM ZEDW.INFO_MONEY D 
+                              WHERE SUBSTR(D.SPCODE,1,2) = '32' 
+                             ) 
+                             AND B.SPCODE IN ('3200000' , '3211000' , '9041000' , '9040000' ) 
+		              ) T1 , 
+		              (SELECT FUND , 
+		                     NETAMT 
+		                FROM ZEDW.MAST_PRILEDGER
+		               WHERE WKDATE = TO_CHAR(ADD_MONTHS(SYSDATE,-2),'YYYYMMDD') 
+		                     AND FUND = #{fCode} 
+		              ) T2 
+		     ORDER BY ASSET_TYPE, 
+		              JONG 
+		       ) A, 
+		       TB_INV_FEE_L B 
+		 WHERE A.FUND = B.FUND_CD(+)
+		       AND A.STOCK_CD = B.STOCK_CD(+)
+    </select>
+
+    <select id="selectInvFeeForChildFund" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT  DISTINCT M.fund FUND
+		        , I.JONG
+		        , I.KFNAME STOCK_NM
+		        , '70' asset_type
+		        , round(M.estvalue / P.netamt * 100, 2) netamt_rate
+		        , round(nvl(INVEST_FEE_RATE ,0),2) FEE_RATE
+		        , nvl(B.TOT_RATE, 0) TOT_RATE
+		 FROM   zedw.mast_money M 
+		        , zedw.info_money I 
+		        , zedw.mast_priledger P
+		        , zedw.info_fund F
+		        , tb_fund_m D
+		        , TB_INV_FEE_L B
+		WHERE 1=1 
+		AND M.wkdate = I.wkdate 
+		AND M.wkdate = P.wkdate 
+		AND M.jong = I.jong 
+		AND B.STOCK_CD = I.JONG
+		AND M.fund = P.fund 
+		AND M.wkdate = TO_CHAR(ADD_MONTHS(SYSDATE,-2),'YYYYMMDD') 
+		AND M.fund = #{fCode} 
+		AND I.spcode in ('3212000','3213000')
+		AND M.wkdate = F.WKDATE
+		AND F.KSD_JONGCD = I.STDJONG
+		AND D.PARMS_FUND = F.FUND 
+		AND M.FUND = B.FUND_CD(+)
+    </select>
+
+    <insert id="insertInvFee" parameterType="java.util.HashMap" >
+		INSERT INTO TB_INV_FEE_L 
+		       ( 
+		           FUND_CD,
+		           STOCK_CD,
+		           STOCK_NM,
+		           ASSET_TYPE,
+		           NETAMT_RATE,
+		           FEE_RATE,
+		           TOT_RATE,
+		           REG_ID,
+		           REG_DATE,
+		           UPD_ID,
+		           UPD_DATE 
+		       ) 
+		       VALUES 
+		       ( 
+		           #{fCode},
+		           #{stock_cd}, 
+		           #{stock_nm}, 
+		           #{asset_type}, 
+		           #{netamt_rate}, 
+		           #{fee_rate}, 
+		           #{tot_rate}, 
+		           #{user_id},
+		           SYSDATE,
+		           #{user_id},
+		           SYSDATE
+		       ) 
+    </insert>
+    <delete id="deleteInvFee" parameterType="java.util.HashMap" >
+			DELETE 
+			  FROM TB_INV_FEE_L   
+			 WHERE FUND_CD = #{fCode}  
+    </delete>
+    <update id="updateFundInvFee" parameterType="java.util.HashMap" >
+    UPDATE TB_FUND_M SET 				
+		 INVEST_FEE_RATE = #{inv_fee_rate},
+		 UPD_ID = #{user_id},
+		 UPD_DATE = SYSDATE
+	 WHERE FUND_CD = #{fCode}
+    </update>
+    <select id="selectMenu" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+	    SELECT MENU_ID, 
+		       MENU_NM, 
+		       REF_W_ID,
+		       LVL_NUM, 
+		       PMENU_ID 
+		  FROM TB_MENU_M
+		 ORDER BY MENU_ID
+    </select>
+    <select id="selectMain1" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT FUND_NM, 
+              FUND_CD, 
+              SUBSTR(SETTLE_DATE, 0, 4) || '-' || SUBSTR(SETTLE_DATE, 5, 2) || '-' || SUBSTR(SETTLE_DATE, 7, 2) AS SETTLE_DATE, 
+              SUBSTR(CONT_DATE, 0, 4) || '-' || SUBSTR(CONT_DATE, 5, 2) || '-' || SUBSTR(CONT_DATE, 7, 2) AS CONT_DATE, 
+              SUBSTR(INPUT_TYPE, 0, 4) || '-' || SUBSTR(INPUT_TYPE, 5, 2) || '-' || SUBSTR(INPUT_TYPE, 7, 2) AS INPUT_TYPE,
+              SUBSTR(H_DATE, 0, 4) || '-' || SUBSTR(H_DATE, 5, 2) || '-' || SUBSTR(H_DATE, 7, 2) AS H_DATE
+		  FROM 
+		       (SELECT ROWNUM AS NUM, 
+		              A.* 
+		         FROM 
+				(SELECT * 
+				  FROM 
+				       (SELECT FUND_NM, 
+				              FUND_CD, 
+				              SETTLE_DATE, 
+				              CONT_DATE, 
+				              INPUT_TYPE, 
+				              DECODE( CODE104 , '2' , DATE1 , '1' , DATE2 , '3' , DATE2, '4' , DATE5 , '5' , DATE5 , '6' , DATE5 ) H_DATE 
+				         FROM 
+				              (SELECT A.FUND_NM, 
+				                     A.FUND_CD, 
+				                     A.KITCA_FUND_CD, 
+				                     A.ASSOC_CD_NEW, 
+				                     SUBSTR(A.ASSOC_CD_NEW, 4, 1) AS CODE103, 
+				                     SUBSTR(A.ASSOC_CD_NEW, 5, 1) AS CODE104, 
+				                     A.SETTLE_DATE, 
+				                     A.CONT_DATE, 
+				                     A.REDEM_DATE, 
+				                     A.INPUT_TYPE, 
+				                     (SELECT MAX(B.VALID_DATE) 
+				                       FROM TB_FUND_FILE_L B 
+				                      WHERE B.DOC_TYPE = '1' 
+				                            AND A.FUND_CD = B.FUND_CD 
+				                     ) DATE1, 
+				                     (SELECT MAX(B.VALID_DATE) 
+				                       FROM TB_FUND_FILE_L B 
+				                      WHERE B.DOC_TYPE = '2' 
+				                            AND A.FUND_CD = B.FUND_CD 
+				                     ) DATE2, 
+				                     (SELECT MAX(B.VALID_DATE) 
+				                       FROM TB_FUND_FILE_L B 
+				                      WHERE B.DOC_TYPE = '5' 
+				                            AND A.FUND_CD = B.FUND_CD 
+				                     ) DATE5 
+				                FROM TB_FUND_M A 
+				              ) 
+				       ) 
+				 WHERE H_DATE IS NOT NULL 
+				 ORDER BY H_DATE
+		              ) A 
+		       ) 
+		 WHERE NUM BETWEEN #{sPage} AND #{ePage} 
+    </select>
+    <select id="selectMain1cnt" parameterType="java.util.HashMap" resultType="int">
+		SELECT COUNT(*) AS CNT 
+		  FROM 
+		       (SELECT FUND_NM, 
+		              FUND_CD, 
+		              SETTLE_DATE, 
+		              CONT_DATE, 
+		              INPUT_TYPE, 
+		              DECODE( CODE104 , '2' , DATE1 , '1' , DATE2 , '3' , DATE2, '4' , DATE5 , '5' , DATE5 , '6' , DATE5 ) H_DATE 
+		         FROM 
+		              (SELECT A.FUND_NM, 
+		                     A.FUND_CD, 
+		                     A.KITCA_FUND_CD, 
+		                     A.ASSOC_CD_NEW, 
+		                     SUBSTR(A.ASSOC_CD_NEW, 4, 1) AS CODE103, 
+		                     SUBSTR(A.ASSOC_CD_NEW, 5, 1) AS CODE104, 
+		                     A.SETTLE_DATE, 
+		                     A.CONT_DATE, 
+		                     A.REDEM_DATE, 
+		                     A.INPUT_TYPE, 
+		                     (SELECT MAX(B.VALID_DATE) 
+		                       FROM TB_FUND_FILE_L B 
+		                      WHERE B.DOC_TYPE = '1' 
+		                            AND A.FUND_CD = B.FUND_CD 
+		                     ) DATE1, 
+		                     (SELECT MAX(B.VALID_DATE) 
+		                       FROM TB_FUND_FILE_L B 
+		                      WHERE B.DOC_TYPE = '2' 
+		                            AND A.FUND_CD = B.FUND_CD 
+		                     ) DATE2, 
+		                     (SELECT MAX(B.VALID_DATE) 
+		                       FROM TB_FUND_FILE_L B 
+		                      WHERE B.DOC_TYPE = '5' 
+		                            AND A.FUND_CD = B.FUND_CD 
+		                     ) DATE5 
+		                FROM TB_FUND_M A 
+		              ) 
+		       ) 
+		 WHERE H_DATE IS NOT NULL 
+		 ORDER BY H_DATE
+    </select>
+    <select id="selectMain2" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT FUND_NM, 
+              FUND_CD, 
+              SUBSTR(SETTLE_DATE, 0, 4) || '-' || SUBSTR(SETTLE_DATE, 5, 2) || '-' || SUBSTR(SETTLE_DATE, 7, 2) AS SETTLE_DATE, 
+              SUBSTR(CONT_DATE, 0, 4) || '-' || SUBSTR(CONT_DATE, 5, 2) || '-' || SUBSTR(CONT_DATE, 7, 2) AS CONT_DATE, 
+              SUBSTR(INPUT_TYPE, 0, 4) || '-' || SUBSTR(INPUT_TYPE, 5, 2) || '-' || SUBSTR(INPUT_TYPE, 7, 2) AS INPUT_TYPE,
+              SUBSTR(H_DATE, 0, 4) || '-' || SUBSTR(H_DATE, 5, 2) || '-' || SUBSTR(H_DATE, 7, 2) AS H_DATE 
+		  FROM 
+		       (SELECT ROWNUM AS NUM, 
+		              A.* 
+		         FROM 
+				(SELECT * 
+				  FROM 
+				       (SELECT FUND_NM, 
+				              FUND_CD, 
+				              SETTLE_DATE, 
+				              CONT_DATE, 
+				              INPUT_TYPE, 
+				              DECODE( CODE104 , '2' , DATE1 , '1' , DATE2 , '3' , DATE2, '4' , DATE5 , '5' , DATE5 , '6' , DATE5 ) H_DATE 
+				         FROM 
+				              (SELECT A.FUND_NM, 
+				                     A.FUND_CD, 
+				                     A.KITCA_FUND_CD, 
+				                     A.ASSOC_CD_NEW, 
+				                     SUBSTR(A.ASSOC_CD_NEW, 4, 1) AS CODE103, 
+				                     SUBSTR(A.ASSOC_CD_NEW, 5, 1) AS CODE104, 
+				                     A.SETTLE_DATE, 
+				                     A.CONT_DATE, 
+				                     A.REDEM_DATE, 
+				                     A.INPUT_TYPE, 
+				                     (SELECT MAX(B.VALID_DATE) 
+				                       FROM TB_FUND_FILE_L B 
+				                      WHERE B.DOC_TYPE = '1' 
+				                            AND A.FUND_CD = B.FUND_CD 
+				                     ) DATE1, 
+				                     (SELECT MAX(B.VALID_DATE) 
+				                       FROM TB_FUND_FILE_L B 
+				                      WHERE B.DOC_TYPE = '2' 
+				                            AND A.FUND_CD = B.FUND_CD 
+				                     ) DATE2, 
+				                     (SELECT MAX(B.VALID_DATE) 
+				                       FROM TB_FUND_FILE_L B 
+				                      WHERE B.DOC_TYPE = '5' 
+				                            AND A.FUND_CD = B.FUND_CD 
+				                     ) DATE5 
+				                FROM TB_FUND_M A 
+				              ) 
+		                  WHERE CODE103 IN ('1', '2', '3')
+				       ) 
+				 WHERE H_DATE IS NOT NULL 
+		     	   AND H_DATE BETWEEN TO_CHAR(ADD_MONTHS(SYSDATE, -3), 'YYYYMMDD') AND TO_CHAR(ADD_MONTHS(SYSDATE, 1), 'YYYYMMDD')
+				 ORDER BY H_DATE DESC
+		              ) A 
+		       ) 
+		 WHERE NUM BETWEEN #{sPage} AND #{ePage} 
+    </select>
+    <select id="selectMain2cnt" parameterType="java.util.HashMap" resultType="int">
+		SELECT COUNT(*) AS CNT 
+		  FROM 
+		       (SELECT FUND_NM, 
+		              FUND_CD, 
+		              SETTLE_DATE, 
+		              CONT_DATE, 
+		              INPUT_TYPE, 
+		              DECODE( CODE104 , '2' , DATE1 , '1' , DATE2 , '3' , DATE2, '4' , DATE5 , '5' , DATE5 , '6' , DATE5 ) H_DATE 
+		         FROM 
+		              (SELECT A.FUND_NM, 
+		                     A.FUND_CD, 
+		                     A.KITCA_FUND_CD, 
+		                     A.ASSOC_CD_NEW, 
+		                     SUBSTR(A.ASSOC_CD_NEW, 4, 1) AS CODE103, 
+		                     SUBSTR(A.ASSOC_CD_NEW, 5, 1) AS CODE104, 
+		                     A.SETTLE_DATE, 
+		                     A.CONT_DATE, 
+		                     A.REDEM_DATE, 
+		                     A.INPUT_TYPE, 
+		                     (SELECT MAX(B.VALID_DATE) 
+		                       FROM TB_FUND_FILE_L B 
+		                      WHERE B.DOC_TYPE = '1' 
+		                            AND A.FUND_CD = B.FUND_CD 
+		                     ) DATE1, 
+		                     (SELECT MAX(B.VALID_DATE) 
+		                       FROM TB_FUND_FILE_L B 
+		                      WHERE B.DOC_TYPE = '2' 
+		                            AND A.FUND_CD = B.FUND_CD 
+		                     ) DATE2, 
+		                     (SELECT MAX(B.VALID_DATE) 
+		                       FROM TB_FUND_FILE_L B 
+		                      WHERE B.DOC_TYPE = '5' 
+		                            AND A.FUND_CD = B.FUND_CD 
+		                     ) DATE5 
+		                FROM TB_FUND_M A 
+		              ) 
+                  WHERE CODE103 IN ('1', '2', '3')
+		       ) 
+		 WHERE H_DATE IS NOT NULL 
+     	   AND H_DATE BETWEEN TO_CHAR(ADD_MONTHS(SYSDATE, -3), 'YYYYMMDD') AND TO_CHAR(ADD_MONTHS(SYSDATE, 1), 'YYYYMMDD')
+		 ORDER BY H_DATE
+    </select>
+    <select id="selectMain3" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT FUND_NM, 
+              FUND_CD, 
+              SUBSTR(SETTLE_DATE, 0, 4) || '-' || SUBSTR(SETTLE_DATE, 5, 2) || '-' || SUBSTR(SETTLE_DATE, 7, 2) AS SETTLE_DATE, 
+              SUBSTR(CONT_DATE, 0, 4) || '-' || SUBSTR(CONT_DATE, 5, 2) || '-' || SUBSTR(CONT_DATE, 7, 2) AS CONT_DATE, 
+              SUBSTR(REDEM_DATE, 0, 4) || '-' || SUBSTR(REDEM_DATE, 5, 2) || '-' || SUBSTR(REDEM_DATE, 7, 2) AS REDEM_DATE,
+              SUBSTR(H_DATE, 0, 4) || '-' || SUBSTR(H_DATE, 5, 2) || '-' || SUBSTR(H_DATE, 7, 2) AS H_DATE 
+		  FROM 
+		       (SELECT ROWNUM AS NUM, 
+		              A.* 
+		         FROM 
+				(SELECT * 
+				  FROM 
+				       (SELECT FUND_NM, 
+				              FUND_CD, 
+				              SETTLE_DATE, 
+				              CONT_DATE, 
+				              REDEM_DATE, 
+				              INPUT_TYPE, 
+				              DECODE( CODE104 , '2' , DATE1 , '1' , DATE2 , '3' , DATE2, '4' , DATE5 , '5' , DATE5 , '6' , DATE5 ) H_DATE 
+				         FROM 
+				              (SELECT A.FUND_NM, 
+				                     A.FUND_CD, 
+				                     A.KITCA_FUND_CD, 
+				                     A.ASSOC_CD_NEW, 
+				                     SUBSTR(A.ASSOC_CD_NEW, 4, 1) AS CODE103, 
+				                     SUBSTR(A.ASSOC_CD_NEW, 5, 1) AS CODE104, 
+				                     A.SETTLE_DATE, 
+				                     A.CONT_DATE, 
+				                     A.REDEM_DATE, 
+				                     A.INPUT_TYPE, 
+				                     (SELECT MAX(B.VALID_DATE) 
+				                       FROM TB_FUND_FILE_L B 
+				                      WHERE B.DOC_TYPE = '1' 
+				                            AND A.FUND_CD = B.FUND_CD 
+				                     ) DATE1, 
+				                     (SELECT MAX(B.VALID_DATE) 
+				                       FROM TB_FUND_FILE_L B 
+				                      WHERE B.DOC_TYPE = '2' 
+				                            AND A.FUND_CD = B.FUND_CD 
+				                     ) DATE2, 
+				                     (SELECT MAX(B.VALID_DATE) 
+				                       FROM TB_FUND_FILE_L B 
+				                      WHERE B.DOC_TYPE = '5' 
+				                            AND A.FUND_CD = B.FUND_CD 
+				                     ) DATE5 
+				                FROM TB_FUND_M A 
+				               WHERE REDEM_DATE BETWEEN TO_CHAR(ADD_MONTHS(SYSDATE, -3), 'YYYYMMDD') AND TO_CHAR(SYSDATE, 'YYYYMMDD') 
+				              ) 
+				       ) 
+				 WHERE H_DATE IS NOT NULL 
+				ORDER BY H_DATE
+		              ) A 
+		       ) 
+		 WHERE NUM BETWEEN #{sPage} AND #{ePage} 
+    </select>
+    <select id="selectMain3cnt" parameterType="java.util.HashMap" resultType="int">
+		SELECT COUNT(*) AS CNT 
+		  FROM 
+		       (SELECT FUND_NM, 
+		              FUND_CD, 
+		              SETTLE_DATE, 
+		              CONT_DATE, 
+		              REDEM_DATE, 
+		              INPUT_TYPE, 
+		              DECODE( CODE104 , '2' , DATE1 , '1' , DATE2 , '3' , DATE2, '4' , DATE5 , '5' , DATE5 , '6' , DATE5 ) H_DATE 
+		         FROM 
+		              (SELECT A.FUND_NM, 
+		                     A.FUND_CD, 
+		                     A.KITCA_FUND_CD, 
+		                     A.ASSOC_CD_NEW, 
+		                     SUBSTR(A.ASSOC_CD_NEW, 4, 1) AS CODE103, 
+		                     SUBSTR(A.ASSOC_CD_NEW, 5, 1) AS CODE104, 
+		                     A.SETTLE_DATE, 
+		                     A.CONT_DATE, 
+		                     A.REDEM_DATE, 
+		                     A.INPUT_TYPE, 
+		                     (SELECT MAX(B.VALID_DATE) 
+		                       FROM TB_FUND_FILE_L B 
+		                      WHERE B.DOC_TYPE = '1' 
+		                            AND A.FUND_CD = B.FUND_CD 
+		                     ) DATE1, 
+		                     (SELECT MAX(B.VALID_DATE) 
+		                       FROM TB_FUND_FILE_L B 
+		                      WHERE B.DOC_TYPE = '2' 
+		                            AND A.FUND_CD = B.FUND_CD 
+		                     ) DATE2, 
+		                     (SELECT MAX(B.VALID_DATE) 
+		                       FROM TB_FUND_FILE_L B 
+		                      WHERE B.DOC_TYPE = '5' 
+		                            AND A.FUND_CD = B.FUND_CD 
+		                     ) DATE5 
+		                FROM TB_FUND_M A 
+		               WHERE REDEM_DATE BETWEEN TO_CHAR(ADD_MONTHS(SYSDATE, -3), 'YYYYMMDD') AND TO_CHAR(SYSDATE, 'YYYYMMDD')  
+		              ) 
+		       ) 
+		 WHERE H_DATE IS NOT NULL 
+		ORDER BY H_DATE
+    </select>
+    <select id="selectMain4" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT SUBSTR(VALID_DATE, 7) AS DATE1, 
+		       COUNT(*) AS CNT
+		  FROM 
+		       (SELECT FUND_CD, 
+		              MAX(VALID_DATE) AS VALID_DATE, 
+		              MAX(STD_DATE) AS STD_DATE 
+		         FROM 
+		              (SELECT FUND_CD, 
+		                     MAX(VALID_DATE) AS VALID_DATE, 
+		                     MAX(STD_DATE) AS STD_DATE, 
+		                     COUNT(*) AS cnt 
+		                FROM 
+		                     (SELECT * 
+		                       FROM TB_FUND_FILE_L 
+		                      WHERE  #{yyyymm} >= SUBSTR(VALID_DATE, 0, 6)
+		                     )  
+		               WHERE DOC_TYPE = '2' 
+		                     AND FUND_CD IN 
+		                     (SELECT FUND_CD 
+		                       FROM TB_FUND_M 
+		                      WHERE SUBSTR(ASSOC_CD_NEW, 4, 1) IN ( '1', '2', '3') 
+		                            AND SUBSTR(ASSOC_CD_NEW, 5, 1) != '2' 
+		                     ) 
+		               GROUP BY FUND_CD 
+		                  UNION ALL 
+		              SELECT FUND_CD, 
+		                     MAX(VALID_DATE) AS VALID_DATE, 
+		                     MAX(STD_DATE) AS STD_DATE, 
+		                     COUNT(*) AS cnt 
+		                FROM 
+		                     (SELECT * 
+		                       FROM TB_FUND_FILE_L 
+		                      WHERE #{yyyymm} >= SUBSTR(VALID_DATE, 0, 6)
+		                     )  
+		               WHERE DOC_TYPE = '1' 
+		                     AND FUND_CD IN 
+		                     (SELECT FUND_CD 
+		                       FROM TB_FUND_M 
+		                      WHERE SUBSTR(ASSOC_CD_NEW, 4, 1) IN ( '1', '2', '3') 
+		                            AND SUBSTR(ASSOC_CD_NEW, 5, 1) = '2' 
+		                     ) 
+		               GROUP BY FUND_CD 
+		              ) 
+		        WHERE CNT = 1 
+		        GROUP BY FUND_CD 
+		       ) 
+		 WHERE SUBSTR(VALID_DATE, 0, 6) = #{yyyymm}
+		 GROUP BY VALID_DATE 
+		ORDER BY VALID_DATE 
+    </select>
+    <select id="selectMain5" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT SUBSTR(STD_DATE, 7) AS DATE1, 
+		       COUNT(*) AS CNT
+		  FROM 
+		       (SELECT FUND_CD, 
+		              MAX(VALID_DATE) AS VALID_DATE, 
+		              MAX(STD_DATE) AS STD_DATE 
+		         FROM 
+		              (SELECT FUND_CD, 
+		                     MAX(VALID_DATE) AS VALID_DATE, 
+		                     MAX(STD_DATE) AS STD_DATE, 
+		                     COUNT(*) AS cnt 
+		                FROM 
+		                     (SELECT * 
+		                       FROM TB_FUND_FILE_L 
+		                      WHERE #{yyyymm} >= SUBSTR(VALID_DATE, 0, 6)
+		                     )  
+		               WHERE DOC_TYPE = '2' 
+		                     AND FUND_CD IN 
+		                     (SELECT FUND_CD 
+		                       FROM TB_FUND_M 
+		                      WHERE SUBSTR(ASSOC_CD_NEW, 4, 1) IN ( '1', '2', '3') 
+		                            AND SUBSTR(ASSOC_CD_NEW, 5, 1) != '2' 
+		                     ) 
+		               GROUP BY FUND_CD 
+		                  UNION ALL 
+		              SELECT FUND_CD, 
+		                     MAX(VALID_DATE) AS VALID_DATE, 
+		                     MAX(STD_DATE) AS STD_DATE, 
+		                     COUNT(*) AS cnt 
+		                FROM 
+		                     (SELECT * 
+		                       FROM TB_FUND_FILE_L 
+		                      WHERE #{yyyymm} >= SUBSTR(VALID_DATE, 0, 6)
+		                     )  
+		               WHERE DOC_TYPE = '1' 
+		                     AND FUND_CD IN 
+		                     (SELECT FUND_CD 
+		                       FROM TB_FUND_M 
+		                      WHERE SUBSTR(ASSOC_CD_NEW, 4, 1) IN ( '1', '2', '3') 
+		                            AND SUBSTR(ASSOC_CD_NEW, 5, 1) = '2' 
+		                     ) 
+		               GROUP BY FUND_CD 
+		              ) 
+		        WHERE CNT = 1 
+		        GROUP BY FUND_CD 
+		       ) 
+		 WHERE SUBSTR(STD_DATE, 0, 6) = #{yyyymm} 
+		 GROUP BY STD_DATE 
+		ORDER BY STD_DATE
+    </select>
+    <select id="selectMain6" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT SUBSTR(VALID_DATE, 7) AS DATE1, 
+		       COUNT(*) AS CNT
+		  FROM 
+		       (SELECT FUND_CD, 
+		              MAX(VALID_DATE) AS VALID_DATE, 
+		              MAX(STD_DATE) AS STD_DATE 
+		         FROM 
+		              (SELECT FUND_CD, 
+		                     MAX(VALID_DATE) AS VALID_DATE, 
+		                     MAX(STD_DATE) AS STD_DATE, 
+		                     COUNT(*) AS cnt 
+		                FROM 
+		                     (SELECT * 
+		                       FROM TB_FUND_FILE_L 
+		                      WHERE #{yyyymm} >= SUBSTR(VALID_DATE, 0, 6)
+		                     )  
+		               WHERE DOC_TYPE = '2' 
+		                     AND FUND_CD IN 
+		                     (SELECT FUND_CD 
+		                       FROM TB_FUND_M 
+		                      WHERE SUBSTR(ASSOC_CD_NEW, 4, 1) IN ( '1', '2', '3') 
+		                            AND SUBSTR(ASSOC_CD_NEW, 5, 1) != '2' 
+		                     ) 
+		               GROUP BY FUND_CD 
+		                  UNION ALL 
+		              SELECT FUND_CD, 
+		                     MAX(VALID_DATE) AS VALID_DATE, 
+		                     MAX(STD_DATE) AS STD_DATE, 
+		                     COUNT(*) AS cnt 
+		                FROM 
+		                     (SELECT * 
+		                       FROM TB_FUND_FILE_L 
+		                      WHERE #{yyyymm} >= SUBSTR(VALID_DATE, 0, 6)
+		                     ) 
+		               WHERE DOC_TYPE = '1' 
+		                     AND FUND_CD IN 
+		                     (SELECT FUND_CD 
+		                       FROM TB_FUND_M 
+		                      WHERE SUBSTR(ASSOC_CD_NEW, 4, 1) IN ( '1', '2', '3') 
+		                            AND SUBSTR(ASSOC_CD_NEW, 5, 1) = '2' 
+		                     ) 
+		               GROUP BY FUND_CD 
+		              ) 
+		        WHERE CNT > 1 
+		        GROUP BY FUND_CD 
+		       ) 
+		 WHERE SUBSTR(VALID_DATE, 0, 6) = #{yyyymm}
+		 GROUP BY VALID_DATE 
+		ORDER BY VALID_DATE 
+    </select>
+    <select id="selectMain7" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT SUBSTR(STD_DATE, 7) AS DATE1, 
+		       COUNT(*) AS CNT
+		  FROM 
+		       (SELECT FUND_CD, 
+		              MAX(VALID_DATE) AS VALID_DATE, 
+		              MAX(STD_DATE) AS STD_DATE 
+		         FROM 
+		              (SELECT FUND_CD, 
+		                     MAX(VALID_DATE) AS VALID_DATE, 
+		                     MAX(STD_DATE) AS STD_DATE, 
+		                     COUNT(*) AS cnt 
+		                FROM 
+		                     (SELECT * 
+		                       FROM TB_FUND_FILE_L 
+		                      WHERE #{yyyymm} >= SUBSTR(VALID_DATE, 0, 6)
+		                     )  
+		               WHERE DOC_TYPE = '2' 
+		                     AND FUND_CD IN 
+		                     (SELECT FUND_CD 
+		                       FROM TB_FUND_M 
+		                      WHERE SUBSTR(ASSOC_CD_NEW, 4, 1) IN ( '1', '2', '3') 
+		                            AND SUBSTR(ASSOC_CD_NEW, 5, 1) != '2' 
+		                     ) 
+		               GROUP BY FUND_CD 
+		                  UNION ALL 
+		              SELECT FUND_CD, 
+		                     MAX(VALID_DATE) AS VALID_DATE, 
+		                     MAX(STD_DATE) AS STD_DATE, 
+		                     COUNT(*) AS cnt 
+		                FROM 
+		                     (SELECT * 
+		                       FROM TB_FUND_FILE_L 
+		                      WHERE #{yyyymm} >= SUBSTR(VALID_DATE, 0, 6)
+		                     )  
+		               WHERE DOC_TYPE = '1' 
+		                     AND FUND_CD IN 
+		                     (SELECT FUND_CD 
+		                       FROM TB_FUND_M 
+		                      WHERE SUBSTR(ASSOC_CD_NEW, 4, 1) IN ( '1', '2', '3') 
+		                            AND SUBSTR(ASSOC_CD_NEW, 5, 1) = '2' 
+		                     ) 
+		               GROUP BY FUND_CD 
+		              ) 
+		        WHERE CNT > 1 
+		        GROUP BY FUND_CD 
+		       ) 
+		 WHERE SUBSTR(STD_DATE, 0, 6) = #{yyyymm} 
+		 GROUP BY STD_DATE 
+		ORDER BY STD_DATE
+    </select>
+    <select id="selectMain8" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+	    SELECT * 
+		  FROM 
+		       (SELECT FUND_CD, 
+		              FILE_NM 
+		         FROM TB_FUND_ETC_FILE_L 
+		        WHERE DOC_DIR_TYPE = '00' 
+		     ORDER BY REG_DATE DESC 
+		       ) 
+		 WHERE 5 >= ROWNUM 
+    </select>
+    
+    <select id="selectFundClass" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT FUND_CD, 
+		       CLASS_NM, 
+		       KITCA_FUND_CD,
+		       JOIN_SDESC,
+		       JOIN_DDESC,
+		       DECODE(SALE_CHARGE_DIFF_YN, 'Y', 'Y', DECODE(NVL(SALE_CHARGE_RATE, 0), 0, DECODE(NVL(SALE_AFTER_CHARGE,''),'','N','Y'),'Y')) AS DIFF_YN
+		  FROM TB_FUND_CLASS_L 
+		 WHERE FUND_CD = #{fCode}
+		 ORDER BY SORT_NUM, CLASS_CD
+    </select>
+    <select id="selectCompanyM" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT COMP_CD, 
+		       COMP_TYPE, 
+		       NVL(COMP_NM, COMP_ENM) AS COMP_NM, 
+		       COMP_ENM, 
+		       PNAME, 
+		       ADDR, 
+		       TEL_NO, 
+		       HOMEPAGE,
+		       HISTORY,
+		       ASSET_DESC,
+		       STOCK_HOLDER,
+		       DOC_MNG_POSITION,
+		       DOC_MNG_NM,
+		       MEMO 
+		  FROM TB_COMPANY_M 
+		 WHERE COMP_TYPE = '1'
+    </select>
+    <select id="selectCons_yn" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT COUNT(CONS_YN) CONS_CNT 
+		  FROM TB_FUND_M A 
+		 WHERE A.FUND_CD IN 
+		       (SELECT FUND_CD 
+		         FROM TB_MOJA_FUND_L 
+		        WHERE CHILD_FUND_CD = #{fCode}
+		        UNION ALL 
+		        SELECT #{fCode} FROM DUAL
+		       ) 
+		       AND CONS_YN = 'Y'
+    </select>
+    <select id="selectFundComp" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+	    SELECT DISTINCT (SELECT FUND_NM FROM TB_FUND_M WHERE FUND_CD = A.FUND_CD) FUND_CD, 
+			   HISTORY,
+		       (SELECT S_CODE_NM FROM TB_COMMON_L WHERE L_CODE = '008' AND S_CODE = WORK_CD ) AS WORK_CD,
+		       COMP_NM, 
+		       COMP_ENM, 
+		       ADDR,
+		       TEL_NO,
+		       FAX_NO 
+		       , (SELECT CODE_DESC FROM TB_COMMON_L WHERE L_CODE = '008' AND S_CODE = WORK_CD ) AS CODE_DESC
+		  FROM TB_FUND_CONS_COMP_L A, 
+		       (SELECT COMP_CD, 
+		              NVL(COMP_NM, COMP_ENM) AS COMP_NM, 
+		              COMP_ENM, 
+		              HISTORY,
+		              ADDR,
+		              TEL_NO,
+		              FAX_NO 
+		         FROM TB_COMPANY_M 
+		        WHERE COMP_TYPE = '4' 
+		       ) B 
+		 WHERE A.CONS_COMP_CD = B.COMP_CD 
+		 	AND FUND_CD IN 
+		       (SELECT DISTINCT FUND_CD FROM (SELECT FUND_CD 
+		         FROM TB_MOJA_FUND_L 
+		        WHERE CHILD_FUND_CD = #{fCode}
+		           UNION ALL 
+		       SELECT #{fCode} 
+		         FROM DUAL )
+		       )
+		       ORDER BY COMP_NM
+	</select>
+    <select id="selectFundComp2" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT DISTINCT COMP_NM, 
+		       HISTORY, 
+		       COMP_ENM, 
+		       ADDR, 
+		       TEL_NO, 
+		       FAX_NO 
+		  FROM TB_FUND_CONS_COMP_L A, 
+		       (SELECT COMP_CD, 
+		              NVL(COMP_NM, COMP_ENM) AS COMP_NM, 
+		              COMP_ENM, 
+		              HISTORY, 
+		              ADDR, 
+		              TEL_NO, 
+		              FAX_NO 
+		         FROM TB_COMPANY_M 
+		        WHERE COMP_TYPE = '4' 
+		       ) B 
+		 WHERE A.CONS_COMP_CD = B.COMP_CD 
+		       AND FUND_CD IN 
+		       (SELECT FUND_CD 
+		         FROM TB_MOJA_FUND_L 
+		        WHERE CHILD_FUND_CD = #{fCode}
+		        UNION ALL
+				SELECT #{fCode} FROM dual 
+		       )
+	</select>
+	<select id="selectFundManagerQty" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT MANAGER_NM, 
+		       CNT, 
+		       ROUND(QTY/100000000) AS QTY, 
+		       B_CNT, 
+		       ROUND(B_QTY/100000000) AS B_QTY, 
+		       BIR_YEAR, 
+		       (SELECT S_CODE_NM FROM TB_COMMON_L WHERE L_CODE = '012' AND S_CODE = POSITION ) AS POSITION, 
+		       DEPT_NM, 
+		       WORK_DESC,
+		       (SELECT TO_CHAR(LAST_DAY(ADD_MONTHS (SYSDATE, -1)), 'YY.MM.DD') 
+		         FROM dual
+		       ) STRDATE,
+		       C.MANAGER_TYPE MANAGER_TYPE 
+		  FROM 
+		       (SELECT A.MANAGER_ID, 
+		              NVL(CNT, 0) CNT, 
+		              NVL(QTY, 0) QTY, 
+		              NVL(B_CNT, 0) B_CNT, 
+		              NVL(B_QTY, 0) B_QTY 
+		         FROM 
+		              (SELECT SUM(NVL(QTY, 0)) QTY, 
+		                     SUM(CNT) CNT, 
+		                     MANAGER_ID 
+		                FROM 
+		                     (
+								SELECT DECODE(CNT, 0, 0, 
+								       (SELECT NVL(QTY, 0) 
+								         FROM ZEDW.MAST_PRILEDGER 
+								        WHERE FUND = PARMS_FUND 
+								              AND WKDATE = TO_CHAR(SYSDATE -1 , 'YYYYMMDD') 
+								       )) QTY, 
+								       BONUS_YN, 
+								       MANAGER_ID, 
+								       CNT 
+								  FROM 
+								       (SELECT A.FUND_CD, 
+								              A.MANAGER_ID, 
+								              DECODE(CONT_DATE, NULL, 0, 
+								              CASE 
+								                  WHEN TO_CHAR(LAST_DAY(ADD_MONTHS (SYSDATE, -1)), 'YYYYMMDD') BETWEEN START_DATE AND END_DATE 
+								                  THEN 1 
+								                  ELSE 0 
+								              END) CNT, 
+								              BONUS_YN, 
+								              PARMS_FUND 
+								         FROM TB_FUND_MANAGER_L A, 
+								                (SELECT CONT_DATE AS CONT_DATE,
+                                                            BONUS_YN, 
+                                                            PARMS_FUND,
+                                                            FUND_CD,
+                                                            REDEM_DATE
+                                                  FROM TB_FUND_M
+                                                 WHERE substr(assoc_cd_new, 5,1) IN ('1','2')
+                                                UNION
+                                                SELECT CONTDATE AS CONT_DATE,
+                                                            NULL AS BONUS_YN,
+                                                            FUND AS PARMS_FUND,
+                                                            FUND AS FUND_CD,
+                                                            REDEMDATE AS REDEM_DATE
+                                                   FROM ZEDW.INFO_FUND
+                                                  WHERE WKDATE = TO_CHAR(sysdate-1, 'YYYYMMDD')
+                                                    AND FUND_GB = '1'
+                                                    AND MOJA_FUNDGB IN ('0','1')) M 
+								        WHERE MANAGER_ID IN 
+								              (SELECT MANAGER_ID 
+								                FROM TB_FUND_MANAGER_L A 
+								               WHERE A.FUND_CD = #{fCode}
+								                     AND A.MANAGER_TYPE IN ( '1', '3' ) 
+								                     AND VIEW_YN = 'Y' 
+								              ) 
+								              AND A.FUND_CD = M.FUND_CD 
+								              and nvl(REDEM_DATE, '99999999') > TO_CHAR(SYSDATE, 'YYYYMMDD') 
+								       ) B 
+		                     ) 
+		               GROUP BY MANAGER_ID 
+		              ) A, 
+		              (SELECT SUM(NVL(QTY, 0)) B_QTY, 
+		                     SUM(CNT) B_CNT, 
+		                     MANAGER_ID 
+		                FROM 
+		                     (
+								SELECT DECODE(CNT, 0, 0, 
+								       (SELECT NVL(QTY, 0) 
+								         FROM ZEDW.MAST_PRILEDGER 
+								        WHERE FUND = PARMS_FUND 
+								              AND WKDATE = TO_CHAR(SYSDATE -1 , 'YYYYMMDD') 
+								       )) QTY, 
+								       BONUS_YN, 
+								       MANAGER_ID, 
+								       CNT 
+								  FROM 
+								       (SELECT A.FUND_CD, 
+								              A.MANAGER_ID, 
+								              DECODE(CONT_DATE, NULL, 0, 
+								              CASE 
+								                  WHEN TO_CHAR(LAST_DAY(ADD_MONTHS (SYSDATE, -1)), 'YYYYMMDD') BETWEEN START_DATE AND END_DATE 
+								                  THEN 1 
+								                  ELSE 0 
+								              END) CNT, 
+								              BONUS_YN, 
+								              PARMS_FUND 
+								         FROM TB_FUND_MANAGER_L A, 
+								                (SELECT CONT_DATE AS CONT_DATE,
+                                                            BONUS_YN, 
+                                                            PARMS_FUND,
+                                                            FUND_CD,
+                                                            REDEM_DATE
+                                                  FROM TB_FUND_M
+                                                 WHERE substr(assoc_cd_new, 5,1) IN ('1','2')
+                                                UNION
+                                                SELECT CONTDATE AS CONT_DATE,
+                                                            NULL AS BONUS_YN,
+                                                            FUND AS PARMS_FUND,
+                                                            FUND AS FUND_CD,
+                                                            REDEMDATE AS REDEM_DATE
+                                                   FROM ZEDW.INFO_FUND
+                                                  WHERE WKDATE = TO_CHAR(sysdate-1, 'YYYYMMDD')
+                                                    AND FUND_GB = '1'
+                                                    AND MOJA_FUNDGB IN ('0','1')) M
+								        WHERE MANAGER_ID IN 
+								              (SELECT MANAGER_ID 
+								                FROM TB_FUND_MANAGER_L A 
+								               WHERE A.FUND_CD = #{fCode}
+								                     AND A.MANAGER_TYPE IN ( '1', '3' ) 
+								                     AND VIEW_YN = 'Y' 
+								              ) 
+								              AND A.FUND_CD = M.FUND_CD 
+								              and nvl(REDEM_DATE, '99999999') > TO_CHAR(SYSDATE, 'YYYYMMDD') 
+								       ) B 
+		                     ) 
+		               WHERE BONUS_YN = 'Y' 
+		               GROUP BY MANAGER_ID 
+		              ) B 
+		        WHERE A.MANAGER_ID = B.MANAGER_ID(+) 
+		       ) A, 
+		       TB_MANAGER_M B,
+		       TB_FUND_MANAGER_L C 
+		 WHERE A.MANAGER_ID = b.MANAGER_ID
+		   AND A.MANAGER_ID = C.MANAGER_ID
+           AND C.FUND_CD = #{fCode}
+           and C.VIEW_YN = 'Y'   
+	</select>
+	<select id="selectFundManagerQty2" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT MANAGER_NM, 
+		       CNT, 
+		       ROUND(QTY/100000000) AS QTY, 
+		       B_CNT, 
+		       ROUND(B_QTY/100000000) AS B_QTY, 
+		       BIR_YEAR, 
+		       (SELECT S_CODE_NM FROM TB_COMMON_L WHERE L_CODE = '012' AND S_CODE = POSITION ) AS POSITION, 
+		       DEPT_NM, 
+		       WORK_DESC,
+		       (SELECT TO_CHAR(LAST_DAY(ADD_MONTHS (SYSDATE, -1)), 'YY.MM.DD') 
+		         FROM dual
+		       ) STRDATE 
+		  FROM 
+		       (SELECT A.MANAGER_ID, 
+		              NVL(CNT, 0) CNT, 
+		              NVL(QTY, 0) QTY, 
+		              NVL(B_CNT, 0) B_CNT, 
+		              NVL(B_QTY, 0) B_QTY 
+		         FROM 
+		              (SELECT SUM(NVL(QTY, 0)) QTY, 
+		                     SUM(CNT) CNT, 
+		                     MANAGER_ID 
+		                FROM 
+		                     (
+								SELECT DECODE(CNT, 0, 0, 
+								       (SELECT NVL(QTY, 0) 
+								         FROM ZEDW.MAST_PRILEDGER 
+								        WHERE FUND = PARMS_FUND 
+								              AND WKDATE = TO_CHAR(SYSDATE -1 , 'YYYYMMDD') 
+								       )) QTY, 
+								       BONUS_YN, 
+								       MANAGER_ID, 
+								       CNT 
+								  FROM 
+								       (SELECT A.FUND_CD, 
+								              A.MANAGER_ID, 
+								              DECODE(CONT_DATE, NULL, 0, 
+								              CASE 
+								                  WHEN TO_CHAR(LAST_DAY(ADD_MONTHS (SYSDATE, -1)), 'YYYYMMDD') BETWEEN START_DATE AND END_DATE 
+								                  THEN 1 
+								                  ELSE 0 
+								              END) CNT, 
+								              BONUS_YN, 
+								              PARMS_FUND 
+								         FROM TB_FUND_MANAGER_L A, 
+								                (SELECT CONT_DATE AS CONT_DATE,
+                                                            BONUS_YN, 
+                                                            PARMS_FUND,
+                                                            FUND_CD,
+                                                            REDEM_DATE
+                                                  FROM TB_FUND_M
+                                                 WHERE substr(assoc_cd_new, 5,1) IN ('1','2')
+                                                UNION
+                                                 SELECT CONTDATE AS CONT_DATE,
+                                                            NULL AS BONUS_YN,
+                                                            FUND AS PARMS_FUND,
+                                                            FUND AS FUND_CD,
+                                                            REDEMDATE AS REDEM_DATE
+                                                   FROM ZEDW.INFO_FUND
+                                                  WHERE WKDATE = TO_CHAR(sysdate-1, 'YYYYMMDD')
+                                                    AND FUND_GB = '1'
+                                                    AND MOJA_FUNDGB IN ('0','1')) M 
+								        WHERE MANAGER_ID IN 
+								              (SELECT MANAGER_ID 
+								                FROM TB_FUND_MANAGER_L A 
+								               WHERE A.FUND_CD = #{fCode}
+								                     AND A.MANAGER_TYPE = '2' 
+								                     AND VIEW_YN = 'Y' 
+								              ) 
+								              AND A.FUND_CD = M.FUND_CD(+)
+								              AND nvl(REDEM_DATE, '99999999') > TO_CHAR(SYSDATE, 'YYYYMMDD')  
+								       ) B 
+		                     ) 
+		               GROUP BY MANAGER_ID 
+		              ) A, 
+		              (SELECT SUM(NVL(QTY, 0)) B_QTY, 
+		                     SUM(CNT) B_CNT, 
+		                     MANAGER_ID 
+		                FROM 
+		                     (
+								SELECT DECODE(CNT, 0, 0, 
+								       (SELECT NVL(QTY, 0) 
+								         FROM ZEDW.MAST_PRILEDGER 
+								        WHERE FUND = PARMS_FUND 
+								              AND WKDATE = TO_CHAR(SYSDATE -1 , 'YYYYMMDD') 
+								       )) QTY, 
+								       BONUS_YN, 
+								       MANAGER_ID, 
+								       CNT 
+								  FROM 
+								       (SELECT A.FUND_CD, 
+								              A.MANAGER_ID, 
+								              DECODE(CONT_DATE, NULL, 0, 
+								              CASE 
+								                  WHEN TO_CHAR(LAST_DAY(ADD_MONTHS (SYSDATE, -1)), 'YYYYMMDD') BETWEEN START_DATE AND END_DATE 
+								                  THEN 1 
+								                  ELSE 0 
+								              END) CNT, 
+								              BONUS_YN, 
+								              PARMS_FUND 
+								         FROM TB_FUND_MANAGER_L A, 
+								                (SELECT CONT_DATE AS CONT_DATE,
+                                                            BONUS_YN, 
+                                                            PARMS_FUND,
+                                                            FUND_CD,
+                                                            REDEM_DATE
+                                                  FROM TB_FUND_M
+                                                  WHERE substr(assoc_cd_new, 5,1) IN ('1','2')
+                                                UNION
+                                                  SELECT CONTDATE AS CONT_DATE,
+                                                            NULL AS BONUS_YN,
+                                                            FUND AS PARMS_FUND,
+                                                            FUND AS FUND_CD,
+                                                            REDEMDATE AS REDEM_DATE
+                                                   FROM ZEDW.INFO_FUND
+                                                  WHERE WKDATE = TO_CHAR(sysdate-1, 'YYYYMMDD')
+                                                    AND FUND_GB = '1'
+                                                    AND MOJA_FUNDGB IN ('0','1')) M 
+								        WHERE MANAGER_ID IN 
+								              (SELECT MANAGER_ID 
+								                FROM TB_FUND_MANAGER_L A 
+								               WHERE A.FUND_CD = #{fCode}
+								                     AND A.MANAGER_TYPE = '2'
+								                     AND VIEW_YN = 'Y' 
+								              ) 
+								              AND A.FUND_CD = M.FUND_CD(+)
+								              AND nvl(REDEM_DATE, '99999999') > TO_CHAR(SYSDATE, 'YYYYMMDD')  
+								       ) B 
+		                     ) 
+		               WHERE BONUS_YN = 'Y' 
+		               GROUP BY MANAGER_ID 
+		              ) B 
+		        WHERE A.MANAGER_ID = B.MANAGER_ID(+) 
+		       ) A, 
+		       TB_MANAGER_M B 
+		 WHERE A.MANAGER_ID = b.MANAGER_ID  
+	</select>
+	<select id="selectMoFundManagerQty" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT MANAGER_NM, 
+<!-- 			   LISTAGG( FUND_NM, '' ) WITHIN GROUP (ORDER BY FUND_NM ) FUND_NM, -->
+			   FUND_NM, 
+			   MAX( CNT ) CNT, 
+			   MAX( QTY ) QTY, 
+			   MAX( B_CNT ) B_CNT,
+			   MAX( B_QTY ) B_QTY, 
+			   MAX( BIR_YEAR ) BIR_YEAR, 
+			   MAX( POSITION ) POSITION,
+			   MAX( DEPT_NM ) DEPT_NM, 
+			   MAX( WORK_DESC ) WORK_DESC, 
+			   MAX( STRDATE ) STRDATE,
+			   MAX( FUND_CD ) FUND_CD
+		FROM (
+				SELECT FUND_CD,
+				       FUND_NM, 
+				       MANAGER_NM, 
+				       CNT, 
+				       ROUND(QTY/100000000) AS QTY, 
+				       B_CNT, 
+				       ROUND(B_QTY/100000000) AS B_QTY, 
+				       BIR_YEAR, 
+				       (SELECT S_CODE_NM FROM TB_COMMON_L WHERE L_CODE = '012' AND S_CODE = POSITION ) AS POSITION, 
+				       DEPT_NM, 
+				       WORK_DESC, 
+				       STRDATE 
+				  FROM 
+				       (SELECT A.FUND_CD, 
+				              (SELECT FUND_NM 
+				                FROM TB_FUND_M M 
+				               WHERE M.FUND_CD = A.FUND_CD 
+				              ) FUND_NM, 
+				              B.MANAGER_ID 
+				         FROM TB_MOJA_FUND_L A, 
+				              TB_FUND_MANAGER_L B 
+				        WHERE A.CHILD_FUND_CD = #{fCode} 
+				              AND A.FUND_CD = B.FUND_CD 
+				              AND VIEW_YN = 'Y'
+				       ) NM, 
+				       (SELECT MANAGER_NM, 
+				              A.MANAGER_ID, 
+				              CNT, 
+				              QTY, 
+				              B_CNT, 
+				              B_QTY, 
+				              BIR_YEAR, 
+				              POSITION, 
+				              DEPT_NM, 
+				              WORK_DESC, 
+				              (SELECT TO_CHAR(LAST_DAY(ADD_MONTHS (SYSDATE, -1)), 'YY.MM.DD') 
+				                FROM dual 
+				              ) STRDATE 
+				         FROM 
+				              (SELECT A.MANAGER_ID, 
+				                     NVL(CNT, 0) CNT, 
+				                     NVL(QTY, 0) QTY, 
+				                     NVL(B_CNT, 0) B_CNT, 
+				                     NVL(B_QTY, 0) B_QTY 
+				                FROM 
+				                     (SELECT SUM(NVL(QTY, 0)) QTY, 
+				                            SUM(CNT) CNT, 
+				                            MANAGER_ID 
+				                       FROM 
+				                            (
+											SELECT DECODE(CNT, 0, 0, 
+											       (SELECT NVL(QTY, 0) 
+											         FROM ZEDW.MAST_PRILEDGER 
+											        WHERE FUND = PARMS_FUND 
+											              AND WKDATE = TO_CHAR(SYSDATE -1 , 'YYYYMMDD') 
+											       )) QTY, 
+											       BONUS_YN, 
+											       MANAGER_ID, 
+											       CNT 
+											  FROM 
+											       (SELECT A.FUND_CD, 
+											              A.MANAGER_ID, 
+											              DECODE(CONT_DATE, NULL, 0, 
+											              CASE 
+											                  WHEN TO_CHAR(LAST_DAY(ADD_MONTHS (SYSDATE, -1)), 'YYYYMMDD') BETWEEN START_DATE AND END_DATE 
+											                  THEN 1 
+											                  ELSE 0 
+											              END) CNT, 
+											              BONUS_YN, 
+											              PARMS_FUND 
+											         FROM TB_FUND_MANAGER_L A, 
+											                (SELECT CONT_DATE AS CONT_DATE,
+		                                                            BONUS_YN, 
+		                                                            PARMS_FUND,
+		                                                            FUND_CD,
+		                                                            REDEM_DATE
+			                                                  FROM TB_FUND_M
+			                                                 WHERE substr(assoc_cd_new, 5,1) IN ('1','2')
+			                                                UNION
+			                                                 SELECT CONTDATE AS CONT_DATE,
+			                                                            NULL AS BONUS_YN,
+			                                                            FUND AS PARMS_FUND,
+			                                                            FUND AS FUND_CD,
+			                                                            REDEMDATE AS REDEM_DATE
+			                                                  FROM ZEDW.INFO_FUND
+			                                                  WHERE WKDATE = TO_CHAR(sysdate-1, 'YYYYMMDD')
+			                                                    AND FUND_GB = '1'
+			                                                    AND MOJA_FUNDGB IN ('0','1')) M 
+											        WHERE MANAGER_ID IN 
+											              (SELECT MANAGER_ID 
+											                FROM TB_FUND_MANAGER_L A 
+											               WHERE A.FUND_CD IN   
+											                     (SELECT FUND_CD 
+											                       FROM TB_MOJA_FUND_L 
+											                      WHERE CHILD_FUND_CD = #{fCode} 
+											                     )  
+											                     AND A.MANAGER_TYPE IN ( '1', '3' ) 
+											                     AND VIEW_YN = 'Y' 
+											              ) 
+											              AND A.FUND_CD = M.FUND_CD(+)
+											              AND nvl(REDEM_DATE, '99999999') > TO_CHAR(SYSDATE, 'YYYYMMDD')  
+											       ) B  
+				                            ) 
+				                      GROUP BY MANAGER_ID 
+				                     ) A, 
+				                     (SELECT SUM(NVL(QTY, 0)) B_QTY, 
+				                            SUM(CNT) B_CNT, 
+				                            MANAGER_ID 
+				                       FROM 
+				                            (
+											SELECT DECODE(CNT, 0, 0, 
+											       (SELECT NVL(QTY, 0) 
+											         FROM ZEDW.MAST_PRILEDGER 
+											        WHERE FUND = PARMS_FUND 
+											              AND WKDATE = TO_CHAR(SYSDATE -1 , 'YYYYMMDD') 
+											       )) QTY, 
+											       BONUS_YN, 
+											       MANAGER_ID, 
+											       CNT 
+											  FROM 
+											       (SELECT A.FUND_CD, 
+											              A.MANAGER_ID, 
+											              DECODE(CONT_DATE, NULL, 0, 
+											              CASE 
+											                  WHEN TO_CHAR(LAST_DAY(ADD_MONTHS (SYSDATE, -1)), 'YYYYMMDD') BETWEEN START_DATE AND END_DATE 
+											                  THEN 1 
+											                  ELSE 0 
+											              END) CNT, 
+											              BONUS_YN, 
+											              PARMS_FUND 
+											         FROM TB_FUND_MANAGER_L A, 
+											                (SELECT CONT_DATE AS CONT_DATE,
+                                                           			BONUS_YN, 
+	                                                    	        PARMS_FUND,
+		                                                            FUND_CD,
+		                                                            REDEM_DATE
+		                                                  FROM TB_FUND_M
+		                                                 WHERE substr(assoc_cd_new, 5,1) IN ('1','2')
+		                                                UNION
+		                                                  SELECT CONTDATE AS CONT_DATE,
+		                                                            NULL AS BONUS_YN,
+		                                                            FUND AS PARMS_FUND,
+		                                                            FUND AS FUND_CD,
+		                                                            REDEMDATE AS REDEM_DATE
+		                                                   FROM ZEDW.INFO_FUND
+		                                                  WHERE WKDATE = TO_CHAR(sysdate-1, 'YYYYMMDD')
+		                                                    AND FUND_GB = '1'
+		                                                    AND MOJA_FUNDGB IN ('0','1')) M 
+											        WHERE MANAGER_ID IN 
+											              (SELECT MANAGER_ID 
+											                FROM TB_FUND_MANAGER_L A 
+											               WHERE A.FUND_CD IN   
+											                     (SELECT FUND_CD 
+											                       FROM TB_MOJA_FUND_L 
+											                      WHERE CHILD_FUND_CD = #{fCode} 
+											                     )  
+											                     AND A.MANAGER_TYPE IN ( '1', '3' ) 
+											                     AND VIEW_YN = 'Y' 
+											              ) 
+											              AND A.FUND_CD = M.FUND_CD(+)
+											              AND nvl(REDEM_DATE, '99999999') > TO_CHAR(SYSDATE, 'YYYYMMDD')  
+											       ) B  
+				                            ) 
+				                      WHERE BONUS_YN = 'Y' 
+				                      GROUP BY MANAGER_ID 
+				                     ) B 
+				               WHERE A.MANAGER_ID = B.MANAGER_ID(+) 
+				              ) A, 
+				              TB_MANAGER_M B 
+				        WHERE A.MANAGER_ID = b.MANAGER_ID 
+				       ) DE 
+				 WHERE NM.MANAGER_ID = DE.MANAGER_ID )
+		GROUP BY MANAGER_NM, FUND_NM
+        ORDER BY FUND_NM, MANAGER_NM
+	</select>
+	<select id="selectMoFundManagerQty2" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT MANAGER_NM, 
+			   LISTAGG( FUND_NM, '
+' ) WITHIN GROUP (ORDER BY FUND_NM ) FUND_NM, 
+			   MAX( CNT ) CNT, 
+			   MAX( QTY ) QTY, 
+			   MAX( B_CNT ) B_CNT,
+			   MAX( B_QTY ) B_QTY, 
+			   MAX( BIR_YEAR ) BIR_YEAR, 
+			   MAX( POSITION ) POSITION,
+			   MAX( DEPT_NM ) DEPT_NM, 
+			   MAX( WORK_DESC ) WORK_DESC, 
+			   MAX( STRDATE ) STRDATE,
+			   MAX( FUND_CD ) FUND_CD
+		FROM (
+				SELECT FUND_CD,
+				       FUND_NM, 
+				       MANAGER_NM, 
+				       CNT, 
+				       ROUND(QTY/100000000) AS QTY, 
+				       B_CNT, 
+				       ROUND(B_QTY/100000000) AS B_QTY, 
+				       BIR_YEAR, 
+				       (SELECT S_CODE_NM FROM TB_COMMON_L WHERE L_CODE = '012' AND S_CODE = POSITION ) AS POSITION, 
+				       DEPT_NM, 
+				       WORK_DESC, 
+				       STRDATE 
+				  FROM 
+				       (SELECT A.FUND_CD, 
+				              (SELECT FUND_NM 
+				                FROM TB_FUND_M M 
+				               WHERE M.FUND_CD = A.FUND_CD 
+				              ) FUND_NM, 
+				              B.MANAGER_ID 
+				         FROM TB_MOJA_FUND_L A, 
+				              TB_FUND_MANAGER_L B 
+				        WHERE A.CHILD_FUND_CD = #{fCode} 
+				              AND A.FUND_CD = B.FUND_CD 
+				              AND VIEW_YN = 'Y'
+				       ) NM, 
+				       (SELECT MANAGER_NM, 
+				              A.MANAGER_ID, 
+				              CNT, 
+				              QTY, 
+				              B_CNT, 
+				              B_QTY, 
+				              BIR_YEAR, 
+				              POSITION, 
+				              DEPT_NM, 
+				              WORK_DESC, 
+				              (SELECT TO_CHAR(LAST_DAY(ADD_MONTHS (SYSDATE, -1)), 'YY.MM.DD') 
+				                FROM dual 
+				              ) STRDATE 
+				         FROM 
+				              (SELECT A.MANAGER_ID, 
+				                     NVL(CNT, 0) CNT, 
+				                     NVL(QTY, 0) QTY, 
+				                     NVL(B_CNT, 0) B_CNT, 
+				                     NVL(B_QTY, 0) B_QTY 
+				                FROM 
+				                     (SELECT SUM(NVL(QTY, 0)) QTY, 
+				                            SUM(CNT) CNT, 
+				                            MANAGER_ID 
+				                       FROM 
+				                            (
+											SELECT DECODE(CNT, 0, 0, 
+											       (SELECT NVL(QTY, 0) 
+											         FROM ZEDW.MAST_PRILEDGER 
+											        WHERE FUND = PARMS_FUND 
+											              AND WKDATE = TO_CHAR(SYSDATE -1 , 'YYYYMMDD') 
+											       )) QTY, 
+											       BONUS_YN, 
+											       MANAGER_ID, 
+											       CNT 
+											  FROM 
+											       (SELECT A.FUND_CD, 
+											              A.MANAGER_ID, 
+											              DECODE(CONT_DATE, NULL, 0, 
+											              CASE 
+											                  WHEN TO_CHAR(LAST_DAY(ADD_MONTHS (SYSDATE, -1)), 'YYYYMMDD') BETWEEN START_DATE AND END_DATE 
+											                  THEN 1 
+											                  ELSE 0 
+											              END) CNT, 
+											              BONUS_YN, 
+											              PARMS_FUND 
+											         FROM TB_FUND_MANAGER_L A, 
+											                (SELECT CONT_DATE AS CONT_DATE,
+			                                                            BONUS_YN, 
+			                                                            PARMS_FUND,
+			                                                            FUND_CD,
+			                                                            REDEM_DATE
+			                                                  FROM TB_FUND_M
+			                                                 WHERE substr(assoc_cd_new, 5,1) IN ('1','2')
+			                                                UNION
+			                                                  SELECT CONTDATE AS CONT_DATE,
+			                                                            NULL AS BONUS_YN,
+			                                                            FUND AS PARMS_FUND,
+			                                                            FUND AS FUND_CD,
+			                                                            REDEMDATE AS REDEM_DATE
+			                                                   FROM ZEDW.INFO_FUND
+			                                                  WHERE WKDATE = TO_CHAR(sysdate-1, 'YYYYMMDD')
+			                                                    AND FUND_GB = '1'
+			                                                    AND MOJA_FUNDGB IN ('0','1')) M 
+											        WHERE MANAGER_ID IN 
+											              (SELECT MANAGER_ID 
+											                FROM TB_FUND_MANAGER_L A 
+											               WHERE A.FUND_CD IN   
+											                     (SELECT FUND_CD 
+											                       FROM TB_MOJA_FUND_L 
+											                      WHERE CHILD_FUND_CD = #{fCode} 
+											                     )  
+											                     AND A.MANAGER_TYPE = '2' 
+											                     AND VIEW_YN = 'Y' 
+											              ) 
+											              AND A.FUND_CD = M.FUND_CD(+)
+											              AND nvl(REDEM_DATE, '99999999') > TO_CHAR(SYSDATE, 'YYYYMMDD')  
+											       ) B  
+				                            ) 
+				                      GROUP BY MANAGER_ID 
+				                     ) A, 
+				                     (SELECT SUM(NVL(QTY, 0)) B_QTY, 
+				                            SUM(CNT) B_CNT, 
+				                            MANAGER_ID 
+				                       FROM 
+				                            (
+											SELECT DECODE(CNT, 0, 0, 
+											       (SELECT NVL(QTY, 0) 
+											         FROM ZEDW.MAST_PRILEDGER 
+											        WHERE FUND = PARMS_FUND 
+											              AND WKDATE = TO_CHAR(SYSDATE -1 , 'YYYYMMDD') 
+											       )) QTY, 
+											       BONUS_YN, 
+											       MANAGER_ID, 
+											       CNT 
+											  FROM 
+											       (SELECT A.FUND_CD, 
+											              A.MANAGER_ID, 
+											              DECODE(CONT_DATE, NULL, 0, 
+											              CASE 
+											                  WHEN TO_CHAR(LAST_DAY(ADD_MONTHS (SYSDATE, -1)), 'YYYYMMDD') BETWEEN START_DATE AND END_DATE 
+											                  THEN 1 
+											                  ELSE 0 
+											              END) CNT, 
+											              BONUS_YN, 
+											              PARMS_FUND 
+											         FROM TB_FUND_MANAGER_L A, 
+											                (SELECT CONT_DATE AS CONT_DATE,
+			                                                            BONUS_YN, 
+			                                                            PARMS_FUND,
+			                                                            FUND_CD,
+			                                                            REDEM_DATE
+			                                                   FROM TB_FUND_M
+			                                                  WHERE substr(assoc_cd_new, 5,1) IN ('1','2')
+			                                                UNION
+			                                                SELECT CONTDATE AS CONT_DATE,
+			                                                            NULL AS BONUS_YN,
+			                                                            FUND AS PARMS_FUND,
+			                                                            FUND AS FUND_CD,
+			                                                            REDEMDATE AS REDEM_DATE
+			                                                   FROM ZEDW.INFO_FUND
+			                                                  WHERE WKDATE = TO_CHAR(sysdate-1, 'YYYYMMDD')
+			                                                    AND FUND_GB = '1'
+			                                                    AND MOJA_FUNDGB IN ('0','1')) M 
+											        WHERE MANAGER_ID IN 
+											              (SELECT MANAGER_ID 
+											                FROM TB_FUND_MANAGER_L A 
+											               WHERE A.FUND_CD IN   
+											                     (SELECT FUND_CD 
+											                       FROM TB_MOJA_FUND_L 
+											                      WHERE CHILD_FUND_CD = #{fCode} 
+											                     )  
+											                     AND A.MANAGER_TYPE = '2' 
+											                     AND VIEW_YN = 'Y' 
+											              ) 
+											              AND A.FUND_CD = M.FUND_CD(+)
+											              AND nvl(REDEM_DATE, '99999999') > TO_CHAR(SYSDATE, 'YYYYMMDD')  
+											       ) B  
+				                            ) 
+				                      WHERE BONUS_YN = 'Y' 
+				                      GROUP BY MANAGER_ID 
+				                     ) B 
+				               WHERE A.MANAGER_ID = B.MANAGER_ID(+) 
+				              ) A, 
+				              TB_MANAGER_M B 
+				        WHERE A.MANAGER_ID = b.MANAGER_ID 
+				       ) DE 
+				 WHERE NM.MANAGER_ID = DE.MANAGER_ID )
+		GROUP BY MANAGER_NM
+	</select>
+	<select id="selectFundConsMan" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT (SELECT FUND_NM FROM TB_FUND_M WHERE FUND_CD = L.FUND_CD ) FUND_NM, 
+		       (SELECT NVL(COMP_NM, COMP_ENM) FROM TB_COMPANY_M WHERE COMP_CD = CONS_COMP_CD) COMP_NM, 
+		       (SELECT MANAGER_NM FROM TB_MANAGER_M WHERE MANAGER_ID = L.MANAGER_ID ) MANAGER_NM,
+		       (SELECT WORK_DESC FROM TB_MANAGER_M WHERE MANAGER_ID = L.MANAGER_ID ) WORK_DESC
+		  FROM tb_fund_cons_comp_l L
+		 WHERE WORK_CD != '1' 
+		   AND FUND_CD = #{fCode}
+	</select>
+	<insert id="copyFundM" parameterType="java.util.HashMap">
+		INSERT INTO TB_FUND_M
+		       (
+		           FUND_CD,
+		           FUND_NM,
+		           PARMS_FUND,
+		           KITCA_FUND_CD,
+		           ASSOC_CD_NEW,
+		           ASSOC_CD_OLD,
+		           SETTLE_DATE,
+		           CONT_DATE,
+		           REDEM_DATE,
+		           TRUST_COMP_CD,
+		           MNG_COMP_CD,
+		           WORK_DAY_TYPE,
+		           STD_TM_TYPE,
+		           BF_SALE_STD_DAY,
+		           AF_SALE_STD_DAY,
+		           BF_REFUND_STD_DAY,
+		           AF_REFUND_STD_DAY,
+		           BF_REFUND_PAY_DAY,
+		           AF_REFUND_PAY_DAY,
+		           CONT_QTY,
+		           PER_AMT_TYPE,
+		           FIRST_STD_PRICE,
+		           FOREIGN_FUND_YN,
+		           CONS_YN,
+		           SALE_CHARGE_RATE,
+		           REFUND_CHARGE,
+		           OP_FEE_RATE,
+		           SALE_FEE_RATE,
+		           TRUST_FEE_RATE,
+		           MNG_FEE_RATE,
+		           FEE_DIFF_YN,
+		           BM_CD,
+		           BM_DESC,
+		           CHG_YN,
+		           CHG_GRP_CD,
+		           BONUS_YN,
+		           INVEST_OBJ_DESC,
+		           INVEST_STRA_DESC,
+		           DEAL_AMT,
+		           ISSUE_AMT,
+		           INVEST_FEE_RATE,
+		           ETC_AMT,
+		           INPUT_TYPE,
+		           REG_ID,
+		           REG_DATE,
+		           UPD_ID,
+		           UPD_DATE,
+		           RULE_EXCLUD_YN,
+		           EVAL_COMP_CD,
+		           EVAL_FEE_RATE
+		       )
+		SELECT #{new_fund_cd},
+		       'copy_' || A.FUND_NM,
+		       NULL,
+		       NULL,
+		       A.ASSOC_CD_NEW,
+		       A.ASSOC_CD_OLD,
+		       NULL,
+		       NULL,
+		       NULL,
+		       A.TRUST_COMP_CD,
+		       A.MNG_COMP_CD,
+		       A.WORK_DAY_TYPE,
+		       A.STD_TM_TYPE,
+		       A.BF_SALE_STD_DAY,
+		       A.AF_SALE_STD_DAY,
+		       A.BF_REFUND_STD_DAY,
+		       A.AF_REFUND_STD_DAY,
+		       A.BF_REFUND_PAY_DAY,
+		       A.AF_REFUND_PAY_DAY,
+		       A.CONT_QTY,
+		       A.PER_AMT_TYPE,
+		       A.FIRST_STD_PRICE,
+		       A.FOREIGN_FUND_YN,
+		       A.CONS_YN,
+		       A.SALE_CHARGE_RATE,
+		       A.REFUND_CHARGE,
+		       A.OP_FEE_RATE,
+		       A.SALE_FEE_RATE,
+		       A.TRUST_FEE_RATE,
+		       A.MNG_FEE_RATE,
+		       A.FEE_DIFF_YN,
+		       A.BM_CD,
+		       A.BM_DESC,
+		       A.CHG_YN,
+		       A.CHG_GRP_CD,
+		       A.BONUS_YN,
+		       A.INVEST_OBJ_DESC,
+		       A.INVEST_STRA_DESC,
+		       0,
+		       0,
+		       0,
+		       0,
+		       'C',
+		       #{user_id},
+		       SYSDATE,
+		       #{user_id},
+		       SYSDATE,
+		       A.RULE_EXCLUD_YN,
+		       A.EVAL_COMP_CD,
+		       A.EVAL_FEE_RATE
+		  FROM TB_FUND_M A
+		 WHERE A.FUND_CD = #{old_fund_cd}
+	</insert>
+	<insert id="copyFundClass" parameterType="java.util.HashMap">
+	INSERT INTO TB_FUND_CLASS_L
+	       (
+	           FUND_CD,
+	           CLASS_CD,
+	           CLASS_NM,
+	           KITCA_FUND_CD,
+	           ASSOC_CD_NEW,
+	           ASSOC_CD_OLD,
+	           JOIN_SDESC,
+	           JOIN_DDESC,
+	           SALE_CHARGE_RATE,
+	           REFUND_CHARGE,
+	           OP_FEE_RATE,
+	           SALE_FEE_RATE,
+	           TRUST_FEE_RATE,
+	           MNG_FEE_RATE,
+	           SALE_CHARGE_DIFF_YN,
+	           SALE_FEE_DIFF_YN,
+	           CONT_DATE,
+	           REDEM_DATE,
+	           REG_ID,
+	           REG_DATE,
+	           UPD_ID,
+	           UPD_DATE,
+	           ETC_AMT
+	       )
+	SELECT #{new_fund_cd},
+	       A.CLASS_CD,
+	       A.CLASS_NM,
+	       NULL,
+	       A.ASSOC_CD_NEW,
+	       A.ASSOC_CD_OLD,
+	       A.JOIN_SDESC,
+	       A.JOIN_DDESC,
+	       A.SALE_CHARGE_RATE,
+	       A.REFUND_CHARGE,
+	       A.OP_FEE_RATE,
+	       A.SALE_FEE_RATE,
+	       A.TRUST_FEE_RATE,
+	       A.MNG_FEE_RATE,
+	       A.SALE_CHARGE_DIFF_YN,
+	       A.SALE_FEE_DIFF_YN,
+	       NULL,
+	       NULL,
+	       #{user_id},
+	       SYSDATE,
+	       #{user_id},
+	       SYSDATE,
+	       0
+	  FROM TB_FUND_CLASS_L A
+	 WHERE A.FUND_CD = #{old_fund_cd}
+	</insert>
+	<insert id="copyFundDiffFee" parameterType="java.util.HashMap">
+	INSERT INTO TB_FUND_DIFF_FEE_L
+	       (
+	           FUND_CD,
+	           GUBUN,
+	           CLASS_CD,
+	           SEQ_NO,
+	           FEE_DESC,
+	           OP_FEE_RATE,
+	           SALE_FEE_RATE,
+	           TRUST_FEE_RATE,
+	           MNG_FEE_RATE,
+	           ETC_AMT,
+	           TOT_FEE_AMT,
+	           CTOT_FEE_AMT,
+	           FEE_AMT1,
+	           FEE_AMT3,
+	           FEE_AMT5,
+	           FEE_AMT10,
+	           REG_ID,
+	           REG_DATE,
+	           UPD_ID,
+	           UPD_DATE
+	       )
+	SELECT #{new_fund_cd},
+	       A.GUBUN,
+	       A.CLASS_CD,
+	       A.SEQ_NO,
+	       A.FEE_DESC,
+	       A.OP_FEE_RATE,
+	       A.SALE_FEE_RATE,
+	       A.TRUST_FEE_RATE,
+	       A.MNG_FEE_RATE,
+	       A.ETC_AMT,
+	       A.TOT_FEE_AMT,
+	       A.CTOT_FEE_AMT,
+	       A.FEE_AMT1,
+	       A.FEE_AMT3,
+	       A.FEE_AMT5,
+	       A.FEE_AMT10,
+	       #{user_id},
+	       SYSDATE,
+	       #{user_id},
+	       SYSDATE
+	  FROM TB_FUND_DIFF_FEE_L A
+	 WHERE A.FUND_CD = #{old_fund_cd}
+	</insert>
+	<insert id="copyTermFee" parameterType="java.util.HashMap">
+	INSERT INTO TB_TERM_FEE_L
+	       (
+	           FUND_CD,
+	           CLASS_CD,
+	           FEE_TYPE,
+	           SEQ_NO,
+	           START_DATE,
+	           END_DATE,
+	           FEE_DESC,
+	           REG_ID,
+	           REG_DATE,
+	           UPD_ID,
+	           UPD_DATE
+	       )
+	SELECT #{new_fund_cd},
+	       A.CLASS_CD,
+	       A.FEE_TYPE,
+	       A.SEQ_NO,
+	       A.START_DATE,
+	       A.END_DATE,
+	       A.FEE_DESC,
+	       #{user_id},
+	       SYSDATE,
+	       #{user_id},
+	       SYSDATE
+	  FROM TB_TERM_FEE_L A
+	 WHERE A.FUND_CD = #{old_fund_cd}
+	</insert>
+	<insert id="copyDocument" parameterType="java.util.HashMap">
+	INSERT INTO TB_DOCUMENT_L
+	       (
+	           FUND_CD,
+	           DOC_TYPE,
+	           INDEX_CD,
+	           DOC_DESC,
+	           REG_ID,
+	           REG_DATE,
+	           UPD_ID,
+	           UPD_DATE
+	       )
+	SELECT #{new_fund_cd},
+	       A.DOC_TYPE,
+	       A.INDEX_CD,
+	       A.DOC_DESC,
+	       #{user_id},
+	       SYSDATE,
+	       #{user_id},
+	       SYSDATE
+	  FROM TB_DOCUMENT_L A
+	 WHERE A.FUND_CD = #{old_fund_cd}
+	</insert>
+	<insert id="copyFundArticle" parameterType="java.util.HashMap">
+	INSERT INTO TB_FUND_ARTICLE_L
+	       (
+	           FUND_CD,
+	           ARTICLE_CD,
+	           CHAP_CD,
+	           ARTICLE_NM,
+	           INPUT_YN,
+	           REF_ARTICLE_CD,
+	           SORT_NUM,
+	           REG_ID,
+	           REG_DATE,
+	           UPD_ID,
+	           UPD_DATE
+	       )
+	SELECT #{new_fund_cd},
+	       A.ARTICLE_CD,
+	       A.CHAP_CD,
+	       A.ARTICLE_NM,
+	       A.INPUT_YN,
+	       A.REF_ARTICLE_CD,
+	       A.SORT_NUM,
+	       #{user_id},
+	       SYSDATE,
+	       #{user_id},
+	       SYSDATE
+	  FROM TB_FUND_ARTICLE_L A
+	 WHERE A.FUND_CD = #{old_fund_cd}
+	</insert>
+	<insert id="copyFundRule" parameterType="java.util.HashMap">
+	INSERT INTO TB_FUND_RULE_L
+	       (
+	           FUND_CD,
+	           ARTICLE_CD,
+	           INDEX_CD,
+	           LVL_NUM,
+	           RULE_DESC,
+	           MEMO,
+	           REG_ID,
+	           REG_DATE,
+	           UPD_ID,
+	           UPD_DATE
+	       )
+	SELECT #{new_fund_cd},
+	       A.ARTICLE_CD,
+	       A.INDEX_CD,
+	       A.LVL_NUM,
+	       A.RULE_DESC,
+	       A.MEMO,
+	       #{user_id},
+	       SYSDATE,
+	       #{user_id},
+	       SYSDATE
+	  FROM TB_FUND_RULE_L A
+	 WHERE A.FUND_CD = #{old_fund_cd}
+	</insert>
+	<select id="selectFnGetInterestsTrade" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT * FROM TABLE( FN_GET_INTERESTS_TRADE ( #{fCode})) 
+	</select>
+	<select id="selectCompAssetM" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT A.COMP_CD,
+		       A.STD_DATE,
+		       A.STOCK_AMT,
+		       A.MIX_STOCK_AMT,
+		       A.MIX_BOND_AMT,
+		       A.BOND_AMT,
+		       A.SUB_TOT_AMT,
+		       A.SHORT_FINANCE,
+		       A.DERIV_AMT,
+		       A.ESTATE_AMT,
+		       A.FF_AMT,
+		       A.SPECIAL_AMT,
+		       A.PEF_AMT,
+		       A.ADVISORY_AMT,
+		       A.TOT_AMT,
+		       A.F_STD_DATE1,
+		       A.CASH1,
+		       A.SEC_AMT1,
+		       A.LOAN_SEC_AMT1,
+		       A.TASSET_AMT1,
+		       A.OTHER_ASSET_AMT1,
+		       A.ASSET_TOT_AMT1,
+		       A.DEPO_DEBT_AMT1,
+		       A.OTHER_DEBT_AMT1,
+		       A.DEBT_TOT_AMT1,
+		       A.CAPITAL_AMT1,
+		       A.CAPITAL_SUR_AMT1,
+		       A.OTHER_INCOME1,
+		       A.SURPLUS1,
+		       A.CAPITAL_TOT_AMT1,
+		       A.I_STD_DATE1,
+		       A.OP_INCOME1,
+		       A.OP_EXP1,
+		       A.OP_PROF1,
+		       A.NOP_INCOME1,
+		       A.NOP_EXP1,
+		       A.BF_NET_AMT1,
+		       A.NET_AMT1,
+		       A.F_STD_DATE2,
+		       A.CASH2,
+		       A.SEC_AMT2,
+		       A.LOAN_SEC_AMT2,
+		       A.TASSET_AMT2,
+		       A.OTHER_ASSET_AMT2,
+		       A.ASSET_TOT_AMT2,
+		       A.DEPO_DEBT_AMT2,
+		       A.OTHER_DEBT_AMT2,
+		       A.DEBT_TOT_AMT2,
+		       A.CAPITAL_AMT2,
+		       A.CAPITAL_SUR_AMT2,
+		       A.OTHER_INCOME2,
+		       A.SURPLUS2,
+		       A.CAPITAL_TOT_AMT2,
+		       A.I_STD_DATE2,
+		       A.OP_INCOME2,
+		       A.OP_EXP2,
+		       A.OP_PROF2,
+		       A.NOP_INCOME2,
+		       A.NOP_EXP2,
+		       A.BF_NET_AMT2,
+		       A.NET_AMT2
+		  FROM TB_COMP_ASSET_M A
+		  WHERE ROWNUM = 1
+	</select>
+
+	<select id="selectCompanyType2" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT NVL(COMP_NM, COMP_ENM) AS COMP_NM, 
+		       ADDR,
+		       TEL_NO, 
+		       FAX_NO, 
+		       HOMEPAGE, 
+		       HISTORY
+		  FROM TB_COMPANY_M 
+		 WHERE COMP_CD = 
+		       (SELECT TRUST_COMP_CD 
+		         FROM TB_FUND_M 
+		        WHERE FUND_CD = #{fCode}
+		       ) 
+		   AND COMP_TYPE = '2'
+	</select>
+
+	<select id="selectCompanyType3" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT NVL(COMP_NM, COMP_ENM) AS COMP_NM,  
+		       ADDR,
+		       TEL_NO, 
+		       FAX_NO, 
+		       HOMEPAGE, 
+		       HISTORY
+		  FROM TB_COMPANY_M 
+		 WHERE COMP_CD = 
+		       (SELECT MNG_COMP_CD 
+		         FROM TB_FUND_M 
+		        WHERE FUND_CD = #{fCode}
+		       ) 
+		   AND COMP_TYPE = '3'
+	</select>
+
+	<select id="selectCompanyType4" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		select NVL(COMP_NM, COMP_ENM) AS COMP_NM
+		     , addr
+		     , tel_no
+		     , homepage
+		     , history
+		  from tb_company_m
+		 where comp_cd in(
+		 					select eval_comp_cd
+  							  from tb_fund_m  
+  							 where fund_cd = #{fCode} 
+		 				 ) 
+		   and comp_type = '5'
+	</select>
+
+	<select id="selectPARMS2921_1" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT B.RPT_CODE ,
+		       RPT_CODE_GB ,
+		       LPAD(' ',DECODE(RPT_CODE_GB , 'L' , 0 , 'M' , 1 , 'N',2,3) * 3,' ')|| TRIM(B.RPT_NAME) AS RPT_NAME ,
+		       NVL(TRUNC( SUM(A.ACCT_AMT1) / 1000000),0) AS ACCT_AMT1 ,
+		       NVL(TRUNC( SUM(A.ACCT_AMT2) / 1000000),0) AS ACCT_AMT2 ,
+		       NVL(TRUNC( SUM(A.ACCT_AMT3) / 1000000),0) AS ACCT_AMT3 
+		  FROM 
+		       (SELECT RPT_CODE ,
+		              ACCT_AMT AS ACCT_AMT1 ,
+		              0 AS ACCT_AMT2 ,
+		              0 AS ACCT_AMT3 
+		         FROM TB_FS_DATA 
+		        WHERE FUND_CD = #{fCode}
+		              AND RPT_GB = '02' 
+		              AND TERM_SORT = 1 
+		           UNION ALL 
+		       SELECT RPT_CODE ,
+		              0 AS ACCT_AMT1 ,
+		              ACCT_AMT AS ACCT_AMT2 ,
+		              0 AS ACCT_AMT3 
+		         FROM TB_FS_DATA 
+		        WHERE FUND_CD = #{fCode}
+		              AND RPT_GB = '02' 
+		              AND TERM_SORT = 2 
+		           UNION ALL 
+		       SELECT RPT_CODE ,
+		              0 AS ACCT_AMT1 ,
+		              0 AS ACCT_AMT2 ,
+		              ACCT_AMT AS ACCT_AMT3 
+		         FROM TB_FS_DATA 
+		        WHERE FUND_CD = #{fCode}
+		              AND RPT_GB = '02' 
+		              AND TERM_SORT = 3 
+		       ) A , 
+		       TB_FS_DATA_INFO B 
+		 WHERE A.RPT_CODE (+)= B.RPT_CODE 
+		       AND B.RPT_GB = '02' 
+		       AND (B.RPT_CODE_GB NOT IN ('S') OR B.RPT_CODE IN('300010','300020','300030')) /*요약재무상태표 조회일 경우 조건 추가*/ 
+		 GROUP BY B.RPT_CODE,
+		       B.RPT_NAME , 
+		       RPT_CODE_GB 
+		ORDER BY SUBSTR(B.RPT_CODE,1,1)||DECODE(SUBSTR(B.RPT_CODE,2,5),'00000','99999',SUBSTR(B.RPT_CODE,2,5))
+	</select>
+	<select id="selectPARMS2921_2" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT B.RPT_CODE , 
+		       RPT_CODE_GB , 
+		       LPAD(' ',DECODE(RPT_CODE_GB , 'L' , 0 , 'M' , 1 , 'N',2,3) * 3,' ')|| TRIM(B.RPT_NAME) AS RPT_NAME , 
+		       NVL(TRUNC( SUM(A.ACCT_AMT1) / 1000000),0) AS ACCT_AMT1 , 
+		       NVL(TRUNC( SUM(A.ACCT_AMT2) / 1000000),0) AS ACCT_AMT2 , 
+		       NVL(TRUNC( SUM(A.ACCT_AMT3) / 1000000),0) AS ACCT_AMT3 
+		  FROM 
+		       (SELECT RPT_CODE , 
+		              ACCT_AMT AS ACCT_AMT1 , 
+		              0 AS ACCT_AMT2 , 
+		              0 AS ACCT_AMT3 
+		         FROM TB_FS_DATA 
+		        WHERE FUND_CD = #{fCode}
+		              AND RPT_GB = '03' 
+		              AND TERM_SORT = 1 
+		           UNION ALL 
+		       SELECT RPT_CODE , 
+		              0 AS ACCT_AMT1 , 
+		              ACCT_AMT AS ACCT_AMT2 , 
+		              0 AS ACCT_AMT3 
+		         FROM TB_FS_DATA 
+		        WHERE FUND_CD = #{fCode}
+		              AND RPT_GB = '03' 
+		              AND TERM_SORT = 2 
+		           UNION ALL 
+		       SELECT RPT_CODE , 
+		              0 AS ACCT_AMT1 , 
+		              0 AS ACCT_AMT2 , 
+		              ACCT_AMT AS ACCT_AMT3 
+		         FROM TB_FS_DATA 
+		        WHERE FUND_CD = #{fCode}
+		              AND RPT_GB = '03' 
+		              AND TERM_SORT = 3 
+		       ) A , 
+		       TB_FS_DATA_INFO B 
+		 WHERE A.RPT_CODE (+)= B.RPT_CODE 
+		       AND B.RPT_GB = '03' 
+		       AND B.RPT_CODE IN ('100000','100010','100020','100030','100040','200000','300000','400000','500000' ,'400010','400020','400030','400040','400050','400060') 
+		 GROUP BY B.RPT_CODE, 
+		       B.RPT_NAME , 
+		       RPT_CODE_GB 
+		    UNION ALL 
+		SELECT RPT_CODE , 
+		       'L' , 
+		       '매매회전율' || DECODE(MAX(PAR_FUND_CD) , '' , '' ,'('||MAX(PAR_FUND_CD)||')') AS RPT_NAME , 
+		       NVL(SUM(A.ACCT_AMT1),0) AS ACCT_AMT1 , 
+		       NVL(SUM(A.ACCT_AMT2),0) AS ACCT_AMT2 , 
+		       NVL(SUM(A.ACCT_AMT3),0) AS ACCT_AMT3 
+		  FROM 
+		       (SELECT RPT_CODE , 
+		              ACCT_AMT AS ACCT_AMT1 , 
+		              0 AS ACCT_AMT2 , 
+		              0 AS ACCT_AMT3 , 
+		              PAR_FUND_CD 
+		         FROM TB_FS_DATA 
+		        WHERE FUND_CD = #{fCode}
+		              AND RPT_GB = '03' 
+		              AND TERM_SORT = 1 
+		              AND 
+		              ( 
+		                  RPT_CODE = '900000' 
+		              ) 
+		           UNION ALL 
+		       SELECT RPT_CODE , 
+		              0 AS ACCT_AMT1 , 
+		              ACCT_AMT AS ACCT_AMT2 , 
+		              0 AS ACCT_AMT3 , 
+		              PAR_FUND_CD 
+		         FROM TB_FS_DATA 
+		        WHERE FUND_CD = #{fCode}
+		              AND RPT_GB = '03' 
+		              AND TERM_SORT = 2 
+		              AND
+		              ( 
+		                  RPT_CODE = '900000' 
+		              ) 
+		           UNION ALL 
+		       SELECT RPT_CODE , 
+		              0 AS ACCT_AMT1 , 
+		              0 AS ACCT_AMT2 , 
+		              ACCT_AMT AS ACCT_AMT3 , 
+		              PAR_FUND_CD 
+		         FROM TB_FS_DATA 
+		        WHERE FUND_CD = #{fCode}
+		              AND RPT_GB = '03' 
+		              AND TERM_SORT = 3 
+		              AND 
+		              ( 
+		                  RPT_CODE = '900000' 
+		              ) 
+		       ) A 
+		 GROUP BY RPT_CODE 
+		ORDER BY RPT_CODE
+	</select>
+	<select id="selectPARMS2921_3" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT B.RPT_CODE ,
+		       RPT_CODE_GB ,
+		       LPAD(' ',DECODE(RPT_CODE_GB , 'L' , 0 , 'M' , 1 , 'N',2,3) * 3,' ')|| TRIM(B.RPT_NAME) AS RPT_NAME ,
+		       NVL(TRUNC( SUM(A.ACCT_AMT1) / 1000000),0) AS ACCT_AMT1 ,
+		       NVL(TRUNC( SUM(A.ACCT_AMT2) / 1000000),0) AS ACCT_AMT2 ,
+		       NVL(TRUNC( SUM(A.ACCT_AMT3) / 1000000),0) AS ACCT_AMT3 
+		  FROM 
+		       (SELECT RPT_CODE ,
+		              ACCT_AMT AS ACCT_AMT1 ,
+		              0 AS ACCT_AMT2 ,
+		              0 AS ACCT_AMT3 
+		         FROM TB_FS_DATA 
+		        WHERE FUND_CD = #{fCode}
+		              AND RPT_GB = '02' 
+		              AND TERM_SORT = 1 
+		           UNION ALL 
+		       SELECT RPT_CODE ,
+		              0 AS ACCT_AMT1 ,
+		              ACCT_AMT AS ACCT_AMT2 ,
+		              0 AS ACCT_AMT3 
+		         FROM TB_FS_DATA 
+		        WHERE FUND_CD = #{fCode}
+		              AND RPT_GB = '02' 
+		              AND TERM_SORT = 2 
+		           UNION ALL 
+		       SELECT RPT_CODE ,
+		              0 AS ACCT_AMT1 ,
+		              0 AS ACCT_AMT2 ,
+		              ACCT_AMT AS ACCT_AMT3 
+		         FROM TB_FS_DATA 
+		        WHERE FUND_CD = #{fCode}
+		              AND RPT_GB = '02' 
+		              AND TERM_SORT = 3 
+		       ) A , 
+		       TB_FS_DATA_INFO B 
+		 WHERE A.RPT_CODE (+)= B.RPT_CODE 
+		       AND B.RPT_GB = '02' 
+		 GROUP BY B.RPT_CODE,
+		       B.RPT_NAME , 
+		       RPT_CODE_GB 
+		ORDER BY SUBSTR(B.RPT_CODE,1,1)||DECODE(SUBSTR(B.RPT_CODE,2,5),'00000','99999',SUBSTR(B.RPT_CODE,2,5))
+	</select>
+	<select id="selectPARMS2921_4" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT B.RPT_CODE ,
+		       B.RPT_CODE_GB ,
+		       LPAD(' ',DECODE(RPT_CODE_GB , 'L' , 0 , 'M' , 1 , 'N',2,3) * 3,' ')|| TRIM(B.RPT_NAME) AS RPT_NAME ,
+		       NVL(TRUNC( SUM(A.ACCT_AMT1) / 1000000),0) AS ACCT_AMT1 ,
+		       NVL(TRUNC( SUM(A.ACCT_AMT2) / 1000000),0) AS ACCT_AMT2 ,
+		       NVL(TRUNC( SUM(A.ACCT_AMT3) / 1000000),0) AS ACCT_AMT3 
+		  FROM 
+		       (SELECT RPT_CODE ,
+		              ACCT_AMT AS ACCT_AMT1 ,
+		              0 AS ACCT_AMT2 ,
+		              0 AS ACCT_AMT3 
+		         FROM TB_FS_DATA 
+		        WHERE FUND_CD = #{fCode} 
+		              AND RPT_GB = '04' 
+		              AND TERM_SORT = 1 
+		           UNION ALL 
+		       SELECT RPT_CODE ,
+		              0 AS ACCT_AMT1 ,
+		              ACCT_AMT AS ACCT_AMT2 ,
+		              0 AS ACCT_AMT3 
+		         FROM TB_FS_DATA 
+		        WHERE FUND_CD = #{fCode}
+		              AND RPT_GB = '04' 
+		              AND TERM_SORT = 2 
+		           UNION ALL 
+		       SELECT RPT_CODE ,
+		              0 AS ACCT_AMT1 ,
+		              0 AS ACCT_AMT2 ,
+		              ACCT_AMT AS ACCT_AMT3 
+		         FROM TB_FS_DATA 
+		        WHERE FUND_CD = #{fCode}
+		              AND RPT_GB = '04' 
+		              AND TERM_SORT = 3 
+		       ) A , 
+		       TB_FS_DATA_INFO B 
+		 WHERE A.RPT_CODE (+)= B.RPT_CODE 
+		       AND B.RPT_GB = '04' 
+		 GROUP BY B.RPT_CODE,
+		       B.RPT_NAME , 
+		       RPT_CODE_GB 
+		ORDER BY B.RPT_CODE
+	</select>
+	<select id="selectPARMS2921_5" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT * FROM TABLE(FN_GET_CONT_REDEM_DATA( #{fCode} ))
+	</select>
+	<select id="selectPARMS2921_6" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT  STD_DATE,
+			       FUND_CD,
+			       CLASS_CD,
+			       INQ_GUBUN,
+			       GUBUN,
+			       FNAME,
+			       INQ_TERM1,
+			       INQ_TERM2,
+			       INQ_TERM3,
+			       INQ_TERM4,
+			       INQ_TERM5,
+			       TO_CHAR(RATE1, 'FM990.00') RATE1,
+			       TO_CHAR(RATE2, 'FM990.00') RATE2,
+			       TO_CHAR(RATE3, 'FM990.00') RATE3,
+			       TO_CHAR(RATE4, 'FM990.00') RATE4,
+			       TO_CHAR(RATE5, 'FM990.00') RATE5,
+			       REG_ID,
+       	    	   REG_DATE 
+        FROM TB_RATE_RETURN_DATA WHERE INQ_GUBUN = '2' AND FUND_CD = #{fCode} AND GUBUN = '1'
+		UNION
+		SELECT STD_DATE,
+			       FUND_CD,
+			       CLASS_CD,
+			       INQ_GUBUN,
+			       GUBUN,
+			       FNAME,
+			       INQ_TERM1,
+			       INQ_TERM2,
+			       INQ_TERM3,
+			       INQ_TERM4,
+			       INQ_TERM5,
+			       TO_CHAR(RATE1, 'FM990.00') RATE1,
+			       TO_CHAR(RATE2, 'FM990.00') RATE2,
+			       TO_CHAR(RATE3, 'FM990.00') RATE3,
+			       TO_CHAR(RATE4, 'FM990.00') RATE4,
+			       TO_CHAR(RATE5, 'FM990.00') RATE5,
+			       REG_ID,
+       	    	   REG_DATE  
+		FROM TB_RATE_RETURN_DATA WHERE INQ_GUBUN = '2' AND FUND_CD = #{fCode} AND GUBUN IS NULL
+		UNION
+		SELECT STD_DATE,
+			       FUND_CD,
+			       CLASS_CD,
+			       INQ_GUBUN,
+			       GUBUN,
+			       FNAME,
+			       INQ_TERM1,
+			       INQ_TERM2,
+			       INQ_TERM3,
+			       INQ_TERM4,
+			       INQ_TERM5,
+			       TO_CHAR(RATE1, 'FM990.00') RATE1,
+			       TO_CHAR(RATE2, 'FM990.00') RATE2,
+			       TO_CHAR(RATE3, 'FM990.00') RATE3,
+			       TO_CHAR(RATE4, 'FM990.00') RATE4,
+			       TO_CHAR(RATE5, 'FM990.00') RATE5,
+			       REG_ID,
+       	    	   REG_DATE  
+		FROM TB_RATE_RETURN_DATA WHERE INQ_GUBUN = '2' AND FUND_CD = #{fCode} AND GUBUN = '9'
+	</select>
+	<select id="selectPARMS2921_6_grp" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT * FROM TB_RATE_RETURN_DATA 
+		 WHERE INQ_GUBUN = '2' 
+		   AND FUND_CD = #{fCode}
+		   AND GUBUN IN ( 1, 9 )
+	</select>
+	<select id="selectPARMS2921_7" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT STD_DATE,
+			       FUND_CD,
+			       CLASS_CD,
+			       INQ_GUBUN,
+			       GUBUN,
+			       FNAME,
+			       INQ_TERM1,
+			       INQ_TERM2,
+			       INQ_TERM3,
+			       INQ_TERM4,
+			       INQ_TERM5,
+			       TO_CHAR(RATE1, 'FM990.00') RATE1,
+			       TO_CHAR(RATE2, 'FM990.00') RATE2,
+			       TO_CHAR(RATE3, 'FM990.00') RATE3,
+			       TO_CHAR(RATE4, 'FM990.00') RATE4,
+			       TO_CHAR(RATE5, 'FM990.00') RATE5,
+			       REG_ID,
+       	    	   REG_DATE  
+       	  FROM TB_RATE_RETURN_DATA 
+		WHERE INQ_GUBUN = '1' 
+		AND FUND_CD = #{fCode}
+	</select>
+	<select id="selectPARMS2921_7_grp" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT * FROM TB_RATE_RETURN_DATA 
+		 WHERE INQ_GUBUN = '1' 
+		   AND FUND_CD = #{fCode}
+		   AND GUBUN IN ( 1, 9 )
+	</select>
+	<select id="selectPARMS2921_8" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT TO_CHAR(TO_DATE(MAX(A.INQ_DATE), 'yyyymmdd'), 'yyyy.mm.dd' ) AS INQ_DATE, 
+		       NVL(A.CURRENCY, '합계' ) AS CURRENCY, 
+		       SUM(A.STOCK) AS STOCK, 
+		       SUM(A.BOND) AS BOND, 
+		       SUM(A.BILL) AS BILL, 
+		       SUM(A.BENEFICIARY) AS BENEFICIARY, 
+		       SUM(A.DERIV) AS DERIV, 
+		       SUM(A.DERIV_OTC) AS DERIV_OTC, 
+		       SUM(A.REAL_ESTATE) AS REAL_ESTATE, 
+		       SUM(A.SPC_AMT) AS SPC_AMT, 
+		       SUM(A.SPC_ETC_AMT) AS SPC_ETC_AMT, 
+		       SUM(A.CASH) AS CASH, 
+		       SUM(A.ETC) AS ETC, 
+		       SUM(A.TOT_ASSET) AS TOT_ASSET, 
+		       SUM(A.STOCK_WT) AS STOCK_WT, 
+		       SUM(A.BOND_WT) AS BOND_WT, 
+		       SUM(A.BILL_WT) AS BILL_WT, 
+		       SUM(A.BENEFICIARY_WT) AS BENEFICIARY_WT, 
+		       SUM(A.DERIV_WT) AS DERIV_WT, 
+		       SUM(A.DERIV_OTC_WT) AS DERIV_OTC_WT, 
+		       SUM(A.REAL_ESTATE_WT) AS REAL_ESTATE_WT, 
+		       SUM(A.SPC_AMT_WT) AS SPC_AMT_WT, 
+		       SUM(A.SPC_ETC_AMT_WT) AS SPC_ETC_AMT_WT, 
+		       SUM(A.CASH_WT) AS CASH_WT, 
+		       SUM(A.ETC_WT) AS ETC_WT, 
+		       SUM(A.TOT_ASSET_WT) AS TOT_ASSET_WT 
+		  FROM TB_ASSET_COMPOSITION A 
+		 WHERE fund_cd = #{fCode} 
+		 GROUP BY ROLLUP (CURRENCY) 
+	</select>
+	<select id="selectPARMS2921" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT * 
+		  FROM TB_SETTLE_TERM_INFO 
+		 WHERE FUND_CD = #{fCode}
+	</select>
+	<select id="selectPARMS2921_9" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT TERM1, 
+		       TO_CHAR(TO_DATE(START_DATE1, 'yyyymmdd'), 'yy.mm.dd') AS START_DATE1, 
+		       TO_CHAR(TO_DATE(END_DATE1, 'yyyymmdd'), 'yy.mm.dd') AS END_DATE1, 
+		       CASE 
+		           WHEN END_DATE1 > 20130827 
+		           THEN 
+		               CASE 
+		                   WHEN CHK1 > 300 
+		                   THEN '적정' 
+		                   ELSE '해당사항 없음 주1)' 
+		               END 
+		           ELSE 
+		               CASE 
+		                   WHEN CHK1 > 50 
+		                   THEN '적정' 
+		                   ELSE '해당사항 없음 주1)' 
+		               END 
+		       END AS CHK1, 
+		       TERM2, 
+		       TO_CHAR(TO_DATE(START_DATE2, 'yyyymmdd'), 'yy.mm.dd') AS START_DATE2, 
+		       TO_CHAR(TO_DATE(END_DATE2, 'yyyymmdd'), 'yy.mm.dd') AS END_DATE2, 
+		       CASE 
+		           WHEN END_DATE2 > 20130827 
+		           THEN 
+		               CASE 
+		                   WHEN CHK2 > 300 
+		                   THEN '적정' 
+		                   ELSE '해당사항 없음 주1)' 
+		               END 
+		           ELSE 
+		               CASE 
+		                   WHEN CHK2 > 50 
+		                   THEN '적정' 
+		                   ELSE '해당사항 없음 주1)' 
+		               END 
+		       END AS CHK2, 
+		       TERM3, 
+		       TO_CHAR(TO_DATE(START_DATE3, 'yyyymmdd'), 'yy.mm.dd') AS START_DATE3, 
+		       TO_CHAR(TO_DATE(END_DATE3, 'yyyymmdd'), 'yy.mm.dd') AS END_DATE3, 
+		       CASE 
+		           WHEN END_DATE3 > 20130827 
+		           THEN 
+		               CASE 
+		                   WHEN CHK3 > 300 
+		                   THEN '적정' 
+		                   ELSE '해당사항 없음 주1)' 
+		               END 
+		           ELSE 
+		               CASE 
+		                   WHEN CHK3 > 50 
+		                   THEN '적정' 
+		                   ELSE '해당사항 없음 주1)' 
+		               END 
+		       END AS CHK3
+		  FROM 
+		       (SELECT TERM1, 
+		              START_DATE1, 
+		              END_DATE1, 
+		              (SELECT ROUND(acct_amt/100000000) AS AMT 
+		                FROM TB_FS_DATA 
+		               WHERE fund_cd = #{fCode} 
+		                     AND rpt_gb = '02' 
+		                     AND rpt_code = '110000' 
+		                     AND term_sort = 1 
+		              ) CHK1, 
+		              TERM2, 
+		              START_DATE2, 
+		              END_DATE2, 
+		              (SELECT ROUND(acct_amt/100000000) AS AMT 
+		                FROM TB_FS_DATA 
+		               WHERE fund_cd = #{fCode}
+		                     AND rpt_gb = '02' 
+		                     AND rpt_code = '110000' 
+		                     AND term_sort = 2 
+		              ) CHK2, 
+		              TERM3, 
+		              START_DATE3, 
+		              END_DATE3, 
+		              (SELECT ROUND(acct_amt/100000000) AS AMT 
+		                FROM TB_FS_DATA 
+		               WHERE fund_cd = #{fCode}
+		                     AND rpt_gb = '02' 
+		                     AND rpt_code = '110000' 
+		                     AND term_sort = 3 
+		              ) CHK3 
+		         FROM TB_SETTLE_TERM_INFO A 
+		        WHERE FUND_CD = #{fCode}
+		          AND term1 != '0'
+		       )
+	</select>
+	<select id="selectPARMS2921_10" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT INQ_TERM , 
+		       RTRIM(XMLAGG(XMLELEMENT(x, fname, ',') 
+		ORDER BY inq_term).EXTRACT('//text()'), ',') v2 
+		  FROM 
+		       (SELECT * 
+		         FROM TABLE(FN_GET_MANAGER_HISTORY( #{fCode} )) 
+		       ) 
+		 GROUP BY INQ_TERM 
+		 ORDER BY DECODE(INSTR(inq_term ,'최초설정일') , 1 ,'0' ,INQ_TERM) 
+		 
+	</select>
+	
+	<select id="selectPARMS2921_10_bak" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+	    SELECT MANAGER_NM, L.FUND_CD, L.MANAGER_ID, L.START_DATE, L.END_DATE, L.MANAGER_TYPE, L.VIEW_YN, L.HIS_VIEW_YN
+		  FROM TB_FUND_MANAGER_L L , TB_MANAGER_M M
+		 WHERE L.MANAGER_ID = M.MANAGER_ID
+		   AND HIS_VIEW_YN = 'Y'
+		   AND L.FUND_CD = #{fCode}
+		 ORDER BY START_DATE , END_DATE, MANAGER_NM
+	</select>
+	
+	
+	<select id="selectMofundList" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT L.FUND_CD, 
+		       (SELECT FUND_NM 
+		         FROM TB_FUND_M M 
+		        WHERE M.FUND_CD = L.FUND_CD
+		       ) AS FUND_NM,
+           (SELECT M.INVEST_STRA_DESC
+		         FROM TB_FUND_M M 
+		        WHERE M.FUND_CD = L.FUND_CD
+		       ) AS INVEST_STRA_DESC, 
+	       (SELECT 
+	              (SELECT s_code_nm 
+	                FROM TB_COMMON_L 
+	               WHERE l_code = '013' 
+	                     AND s_code = M.BM_CD 
+	              ) 
+	         FROM TB_FUND_M M
+	        WHERE M.FUND_CD = L.FUND_CD 
+	       ) AS BM_NM
+		  FROM TB_MOJA_FUND_L L 
+		 WHERE CHILD_FUND_CD = #{fCode}
+		 ORDER BY ORD
+	</select>
+	<select id="selectJafundList" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+	      SELECT 
+		        (SELECT FUND_NM 
+		          FROM TB_FUND_M M 
+		         WHERE M.FUND_CD = L.FUND_CD 
+		        ) AS MO_FUND_NM 
+		        ,(SELECT FUND_NM 
+		          FROM TB_FUND_M M 
+		         WHERE M.FUND_CD = L.CHILD_FUND_CD 
+		        ) AS FUND_NM 
+		       ,NVL(L.INVEST_LIMIT2, L.INVEST_LIMIT) AS INVEST_LIMIT
+		       ,O.ORD
+		   FROM TB_MOJA_FUND_L L, (select fund_cd, ord from tb_moja_fund_l where CHILD_FUND_CD = #{fCode}) O 
+		  WHERE L.fund_cd = o.fund_cd(+)
+		    and L.FUND_CD IN 
+		        (SELECT FUND_CD 
+		          FROM TB_MOJA_FUND_L 
+		         WHERE CHILD_FUND_CD = #{fCode}
+		         UNION ALL
+		         SELECT #{fCode} FROM dual
+		        ) 
+		        ORDER BY O.ORD, MO_FUND_NM, FUND_NM
+	</select>
+	<select id="selectChkForeign" parameterType="java.util.HashMap" resultType="int">
+		SELECT COUNT(*) AS CNT
+		  FROM TB_FUND_M 
+		 WHERE FUND_CD IN 
+		       (SELECT FUND_CD 
+		         FROM TB_MOJA_FUND_L 
+		        WHERE CHILD_FUND_CD = #{fCode} 
+		           UNION ALL 
+		       SELECT #{fCode} 
+		         FROM DUAL
+		       )
+		AND FOREIGN_FUND_YN = 'Y'
+	</select>
+	<select id="selectChgGrpM"  parameterType="java.util.HashMap" resultMap="resultMap2">
+		SELECT 	DECODE(IMG_FILE_NM, NULL , '', #{img_path} || IMG_FILE_NM ) AS IMG_FILE_NM,
+       			CHG_DESC,
+            	IMG_HEIGHT
+		  FROM TB_CHG_GRP_M 
+		 WHERE CHG_GRP_CD = 
+		       (SELECT CHG_GRP_CD 
+		         FROM TB_FUND_M 
+		        WHERE fund_cd = #{fCode} 
+		       )
+	</select>
+	<select id="selectSaleChgDiff" parameterType="java.util.HashMap" resultType="int">
+		SELECT SUM(CNT) AS CNT
+		  FROM 
+		       (
+			SELECT COUNT(*) AS CNT 
+			  FROM tb_fund_class_l 
+			 WHERE fund_cd = #{fCode} 
+			       AND (SALE_CHARGE_DIFF_YN = 'Y' 
+			       OR 
+			       (
+			           SALE_CHARGE_RATE > 0 
+			           AND SALE_CHARGE_RATE IS NOT NULL 
+			       ))
+		       UNION All 
+		       SELECT COUNT(*) AS CNT 
+		         FROM TB_FUND_M 
+		        WHERE SALE_CHARGE_RATE > 0 
+		              AND SALE_CHARGE_RATE IS NOT NULL 
+		              AND fund_cd = #{fCode}  
+		       )
+	</select>
+	<select id="selectInvest001" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT DECODE(ORD, null, ROWNUM, ORD) ORD, 
+		       FUND_NM, 
+		       INVEST_OBJ_DESC, 
+		       INVEST_LIMIT 
+		  FROM 
+		       (SELECT '000' AS S_CODE, 
+		              FUND_NM, 
+		              INVEST_OBJ_DESC, 
+		              A.INVEST_LIMIT,
+		              A.ORD
+		         FROM tb_fund_m M, 
+		              (SELECT * 
+		                FROM TB_MOJA_FUND_L 
+		               WHERE CHILD_FUND_CD = #{fCode} 
+		              ) A 
+		        WHERE M.FUND_CD = A.FUND_CD 
+		           UNION ALL 
+		       SELECT B.S_CODE, 
+		              B.S_CODE_NM, 
+		              NVL(A.INVEST_DESC, B.CODE_DESC || A.ADDITIONAL_DESC) INVEST_DESC, 
+		              A.MEMO,
+		              A.ORD
+		         FROM TB_FUND_INVEST_L A, 
+		              TB_COMMON_L B 
+		        WHERE FUND_CD = #{fCode}  
+		              AND A.L_CODE = #{l_code} 
+		              AND A.L_CODE = B.L_CODE 
+		              AND A.S_CODE = B.S_CODE 
+		       ) 
+		ORDER BY ORD, S_CODE
+	</select>
+	<select id="selectInvest002" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT ROWNUM, 
+		       S_CODE_NM, 
+		       MEMO, 
+		       INVEST_DESC
+		 FROM (
+		SELECT B.S_CODE_NM, 
+		       A.MEMO, 
+		       NVL(A.INVEST_DESC, B.CODE_DESC) INVEST_DESC 
+		  FROM TB_FUND_INVEST_L A, 
+		       TB_COMMON_L B 
+		 WHERE FUND_CD = #{fCode} 
+		       AND A.L_CODE = #{l_code}  
+		       AND A.L_CODE = B.L_CODE 
+		       AND A.S_CODE = B.S_CODE 
+		ORDER BY B.L_CODE, B.ORD, B.S_CODE)
+	</select>
+	<select id="selectBm" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT NVL(S_CODE_NM, '-') AS S_CODE_NM, 
+		       NVL(CODE_DESC, '') AS CODE_DESC, 
+		       NVL(BM_DESC, '-') AS BM_DESC
+		  FROM 
+		       (SELECT NVL(bm_cd, '99999') AS bm_cd,
+		              bm_desc 
+		         FROM TB_FUND_M 
+		        WHERE fund_cd = #{fCode}
+		       ) M, 
+		       (SELECT * 
+		         FROM TB_COMMON_L 
+		        WHERE l_code = '013' 
+		       ) C 
+		 WHERE M.BM_CD = C.S_CODE(+)
+	</select>
+	<select id="selectInvNatM" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT DISTINCT NATION_NM, 
+		       GDP_STD_YEAR, 
+		       GDP_AMT, 
+		       GDP_GROW_YEAR1, 
+		       GDP_GROW_YEAR2, 
+		       GDP_GROW_YEAR3, 
+		       GDP_GROW_RATE1, 
+		       GDP_GROW_RATE2, 
+		       GDP_GROW_RATE3, 
+		       POP_STD_YEAR,
+		       POP_CNT,
+		       OUT_STD_YEAR,
+		       OUT_AMT,
+		       IN_STD_YEAR,
+		       IN_AMT,
+		       NATION_DESC 
+		  FROM TB_FUND_INV_NATION_L L, 
+		       TB_INV_NATION_M M 
+		 WHERE L.NATION_CD = M.NATION_CD 
+		       AND L.FUND_CD IN 
+		       (SELECT FUND_CD 
+		         FROM TB_MOJA_FUND_L 
+		        WHERE CHILD_FUND_CD = #{fCode} 
+		           UNION ALL 
+		       SELECT #{fCode} 
+		         FROM DUAL
+		       )
+	</select>
+	<select id="selectClassFee" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT FEE_DESC, 
+		       CLASS_NM, 
+		       JOIN_SDESC, 
+		       JOIN_DDESC, 
+		       DECODE(SALE_CHARGE_DIFF_YN, 'Y', '*' , '') || TO_CHAR(SALE_CHARGE_RATE,  '0D999') AS SALE_CHARGE_RATE,
+		       REFUND_CHARGE, 
+		       OP_FEE_RATE, 
+		       DECODE(SALE_FEE_DIFF_YN, 'Y' , '*', '' ) || TO_CHAR(SALE_FEE_RATE,  '0D999') AS SALE_FEE_RATE,
+		       TRUST_FEE_RATE, 
+		       MNG_FEE_RATE, 
+		       CONT_DATE, 
+		       ETC_AMT, 
+		       SEQ_NO,
+		       SALE_AFTER_CHARGE 
+		  FROM 
+		       (SELECT NVL(F.FEE_DESC, '') AS FEE_DESC, 
+		              L.CLASS_NM, 
+		              L.JOIN_SDESC, 
+		              L.JOIN_DDESC, 
+		              DECODE(SALE_CHARGE_DIFF_YN, 'Y', T.FEE_DESC , L.SALE_CHARGE_RATE) AS SALE_CHARGE_RATE, 
+		              L.REFUND_CHARGE, 
+		              DECODE(M.FEE_DIFF_YN, 'Y', F.OP_FEE_RATE, L.OP_FEE_RATE) AS OP_FEE_RATE, 
+		              DECODE(M.FEE_DIFF_YN, 'Y', NVL(F.SALE_FEE_RATE, DECODE(SALE_FEE_DIFF_YN, 'Y' , TO_CHAR(T2.FEE_DESC, '0D999') , F.SALE_FEE_RATE )), NVL(L.SALE_FEE_RATE, DECODE(SALE_FEE_DIFF_YN, 'Y' , TO_CHAR(T2.FEE_DESC, '0D999') , L.SALE_FEE_RATE ))) AS SALE_FEE_RATE, 
+		              DECODE(M.FEE_DIFF_YN, 'Y', F.TRUST_FEE_RATE, L.TRUST_FEE_RATE) AS TRUST_FEE_RATE, 
+		              DECODE(M.FEE_DIFF_YN, 'Y', F.MNG_FEE_RATE, L.MNG_FEE_RATE) AS MNG_FEE_RATE, 
+		              L.CONT_DATE, 
+		              DECODE(M.FEE_DIFF_YN, 'Y', F.ETC_AMT, L.ETC_AMT) AS ETC_AMT, 
+		              F.SEQ_NO, 
+		              SALE_FEE_DIFF_YN,
+                  	  SALE_CHARGE_DIFF_YN,
+                  	  L.SALE_AFTER_CHARGE
+		         FROM TB_FUND_CLASS_L L, 
+		              TB_FUND_M M, 
+		              (SELECT * 
+		                FROM TB_FUND_DIFF_FEE_L 
+		               WHERE GUBUN = '1' 
+		              ) F , 
+		              (SELECT * 
+		                FROM TB_TERM_FEE_L 
+		               WHERE FEE_TYPE = '1' 
+		                     AND TO_CHAR(SYSDATE,'YYYYMMDD') BETWEEN START_DATE AND END_DATE 
+		              ) T ,
+		              (SELECT * 
+		                FROM TB_TERM_FEE_L 
+		               WHERE FEE_TYPE = '2' 
+		                     AND TO_CHAR(SYSDATE,'YYYYMMDD') BETWEEN START_DATE AND END_DATE 
+		              ) T2
+		        WHERE L.FUND_CD = #{fCode} 
+		              AND L.FUND_CD = M.FUND_CD 
+		              AND L.FUND_CD = F.FUND_CD (+) 
+		              AND L.CLASS_CD = F.CLASS_CD (+) 
+		              AND L.FUND_CD = T.FUND_CD (+) 
+		              AND L.CLASS_CD = T.CLASS_CD (+) 
+		              AND L.FUND_CD = T2.FUND_CD (+) 
+		              AND L.CLASS_CD = T2.CLASS_CD (+) 
+		     ORDER BY FEE_DESC, 
+		              L.SORT_NUM, 
+		              L.CLASS_CD, 
+		              F.SEQ_NO 
+		       )
+	</select>
+	<select id="selectInvest000" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT C.S_CODE_NM,
+			   C.CODE_DESC
+		  FROM TB_FUND_INVEST_L I, 
+		       TB_COMMON_L C 
+		 WHERE FUND_CD = #{fCode}  
+		       AND I.L_CODE = #{l_code} 
+		       AND I.L_CODE = C.L_CODE 
+		       AND I.S_CODE = C.S_CODE
+		 ORDER BY C.S_CODE
+	</select>
+	<select id="selectStdTmtype" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT STD_TM_TYPE, 
+		       (SELECT S_CODE_NM 
+		         FROM TB_COMMON_L C 
+		        WHERE C.L_CODE = '010' 
+		              AND C.S_CODE = STD_TM_TYPE 
+		       ) STD_TM, 
+		       (SELECT S_CODE_NM 
+		         FROM TB_COMMON_L C 
+		        WHERE C.L_CODE = '011' 
+		              AND C.S_CODE = BF_SALE_STD_DAY 
+		       ) BF_SALE_STD_DAY, 
+		       (SELECT S_CODE_NM 
+		         FROM TB_COMMON_L C 
+		        WHERE C.L_CODE = '011' 
+		              AND C.S_CODE = AF_SALE_STD_DAY 
+		       ) AF_SALE_STD_DAY, 
+		       (SELECT S_CODE_NM 
+		         FROM TB_COMMON_L C 
+		        WHERE C.L_CODE = '011' 
+		              AND C.S_CODE = BF_REFUND_STD_DAY 
+		       ) BF_REFUND_STD_DAY, 
+		       (SELECT S_CODE_NM 
+		         FROM TB_COMMON_L C 
+		        WHERE C.L_CODE = '011' 
+		              AND C.S_CODE = AF_REFUND_STD_DAY 
+		       ) AF_REFUND_STD_DAY, 
+		       (SELECT S_CODE_NM 
+		         FROM TB_COMMON_L C 
+		        WHERE C.L_CODE = '011' 
+		              AND C.S_CODE = BF_REFUND_PAY_DAY 
+		       ) BF_REFUND_PAY_DAY, 
+		       (SELECT S_CODE_NM 
+		         FROM TB_COMMON_L C 
+		        WHERE C.L_CODE = '011' 
+		              AND C.S_CODE = AF_REFUND_PAY_DAY 
+		       ) AF_REFUND_PAY_DAY , 
+		       (SELECT S_CODE_NM 
+		         FROM TB_COMMON_L C 
+		        WHERE C.L_CODE = '011' 
+		              AND C.S_CODE = (BF_REFUND_PAY_DAY  - 2)
+		       ) BF_REFUND_PAY_DAY1, 
+		       (SELECT S_CODE_NM 
+		         FROM TB_COMMON_L C 
+		        WHERE C.L_CODE = '011' 
+		              AND C.S_CODE = (AF_REFUND_PAY_DAY  - 2)
+		       ) AF_REFUND_PAY_DAY1, 
+		       FIRST_STD_PRICE, 
+		       M.CONT_QTY, 
+		       (SELECT S_CODE_NM 
+		         FROM TB_COMMON_L C 
+		        WHERE C.L_CODE = '014' 
+		              AND C.S_CODE = M.PER_AMT_TYPE 
+		       ) PER_AMT_TYPE, 
+		       #{img_path}|| 'images/docu/4/' || '매입_' || 
+		       REPLACE((SELECT S_CODE_NM 
+		         FROM TB_COMMON_L C 
+		        WHERE C.L_CODE = '010' 
+		              AND C.S_CODE = STD_TM_TYPE 
+		       ), '시', '') || '_' || BF_SALE_STD_DAY || '_A.jpg' AS IMG1,
+		       #{img_path}|| 'images/docu/4/' || '매입_' || 
+		       REPLACE((SELECT S_CODE_NM 
+		         FROM TB_COMMON_L C 
+		        WHERE C.L_CODE = '010' 
+		              AND C.S_CODE = STD_TM_TYPE 
+		       ), '시', '') || '_' || AF_SALE_STD_DAY || '_B.jpg' AS IMG2,
+		       #{img_path}|| 'images/docu/4/' || '환매_' || 
+		       REPLACE((SELECT S_CODE_NM 
+		         FROM TB_COMMON_L C 
+		        WHERE C.L_CODE = '010' 
+		              AND C.S_CODE = STD_TM_TYPE 
+		       ), '시', '') || '_' || BF_REFUND_STD_DAY || BF_REFUND_PAY_DAY || '_A.jpg' AS IMG3,
+		       #{img_path}|| 'images/docu/4/' || '환매_' || 
+		       REPLACE((SELECT S_CODE_NM 
+		         FROM TB_COMMON_L C 
+		        WHERE C.L_CODE = '010' 
+		              AND C.S_CODE = STD_TM_TYPE 
+		       ), '시', '') || '_' || AF_REFUND_STD_DAY  || AF_REFUND_PAY_DAY || '_B.jpg' AS IMG4
+		  FROM TB_FUND_M M 	
+		 WHERE fund_cd = #{fCode} 
+	</select>
+	<select id="selectFundHistory" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT STD_DATE, 
+		       HIS_DESC 
+		  FROM TB_FUND_HIS_L 
+		 WHERE FUND_CD = #{fCode} 
+	</select>
+	<select id="selectRefundCharge1" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT '투자신탁' AS FUND_NM, 
+		       REFUND_CHARGE 
+		  FROM TB_FUND_M 
+		 WHERE FUND_CD = #{fCode} 
+	</select>
+	<select id="selectRefundCharge2" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT CLASS_NM AS FUND_NM, 
+		       REFUND_CHARGE 
+		  FROM TB_FUND_CLASS_L 	
+		 WHERE FUND_CD = #{fCode} 
+		 ORDER BY SORT_NUM, CLASS_CD
+	</select>
+	<select id="selectCClassCnt" parameterType="java.util.HashMap" resultType="int">
+		SELECT COUNT(*) AS CNT
+		  FROM TB_FUND_CLASS_L 
+		 WHERE fund_cd = #{fCode} 
+		 AND SUBSTR(ASSOC_CD_NEW, 6, 1) = '4' 
+	</select>
+	<select id="selectChgFund" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT fund_nm, invest_desc
+		  FROM tb_chg_fund_l l, tb_fund_m m
+		 WHERE l.chg_fund_cd = m.fund_cd 
+		   AND m.chg_yn = 'Y'
+		   and l.CHG_GRP_CD = 
+				       (SELECT CHG_GRP_CD 
+				         FROM TB_FUND_M 
+				        WHERE FUND_CD = #{fCode}
+				       )
+		ORDER BY fund_nm				       
+	</select>
+	<select id="selectCharge001" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT NVL(SALE_CHARGE_RATE, '0')  SALE_CHARGE_RATE,
+		       NVL(REFUND_CHARGE, '0') REFUND_CHARGE,
+		       NVL(OP_FEE_RATE, 0) OP_FEE_RATE,
+		       NVL(SALE_FEE_RATE, 0) SALE_FEE_RATE, 
+		       NVL(TRUST_FEE_RATE, 0) TRUST_FEE_RATE,
+		       NVL(MNG_FEE_RATE, 0) MNG_FEE_RATE,
+		       NVL(ETC_AMT, 0) ETC_AMT,
+		       (NVL(OP_FEE_RATE, 0) + NVL(SALE_FEE_RATE, 0) + NVL(TRUST_FEE_RATE, 0)  + NVL(MNG_FEE_RATE, 0) + NVL(ETC_AMT, 0)) AS TOT,
+		       (NVL(OP_FEE_RATE, 0) + NVL(SALE_FEE_RATE, 0) + NVL(TRUST_FEE_RATE, 0)  + NVL(MNG_FEE_RATE, 0) + NVL(ETC_AMT, 0) + NVL(INVEST_FEE_RATE,0) ) AS CTOT
+		  FROM TB_FUND_M
+		 WHERE FUND_CD = #{fCode}
+	</select>
+	<select id="selectCharge002" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT '' AS FEE_DESC,
+		       OP_FEE_RATE,
+		       DECODE(SALE_FEE_DIFF_YN, 'Y' , '*' || TO_CHAR(T2.FEE_DESC ,  '0D999') , '' || TO_CHAR(SALE_FEE_RATE,  '0D999') ) AS SALE_FEE_RATE,
+		       TRUST_FEE_RATE,
+		       MNG_FEE_RATE,
+		       ETC_AMT,
+		       CLASS_NM,
+		       JOIN_SDESC,
+		       REFUND_CHARGE,
+		       (OP_FEE_RATE + DECODE(SALE_FEE_DIFF_YN, 'Y' , T.FEE_DESC  , SALE_FEE_RATE ) + TRUST_FEE_RATE + MNG_FEE_RATE + ETC_AMT 
+		       ) AS TOT, 
+		       (OP_FEE_RATE + DECODE(SALE_FEE_DIFF_YN, 'Y' , T.FEE_DESC  , SALE_FEE_RATE ) + TRUST_FEE_RATE + MNG_FEE_RATE + ETC_AMT + (SELECT INVEST_FEE_RATE 
+		         FROM TB_FUND_M 
+		        WHERE FUND_CD = #{fCode}
+		       )) AS CTOT ,
+		       DECODE(SALE_CHARGE_DIFF_YN, 'Y', '*' || TO_CHAR(T.FEE_DESC ,  '0D999')  , '' || TO_CHAR(SALE_CHARGE_RATE,  '0D999') ) SALE_CHARGE_RATE
+		       ,NVL(SALE_AFTER_CHARGE, '') SALE_AFTER_CHARGE
+		  FROM TB_FUND_CLASS_L D,
+		         (SELECT * 
+			         FROM TB_TERM_FEE_L 
+			        WHERE FEE_TYPE = '1' 
+			              AND TO_CHAR(SYSDATE,'YYYYMMDD') BETWEEN START_DATE AND END_DATE 
+			       ) T ,
+		         (SELECT * 
+			         FROM TB_TERM_FEE_L 
+			        WHERE FEE_TYPE = '2' 
+			              AND TO_CHAR(SYSDATE,'YYYYMMDD') BETWEEN START_DATE AND END_DATE 
+			       ) T2
+		 WHERE D.FUND_CD = #{fCode}
+	       AND D.FUND_CD = T.FUND_CD(+) 
+	       AND D.CLASS_CD = T.CLASS_CD(+) 
+	       AND D.FUND_CD = T2.FUND_CD(+) 
+	       AND D.CLASS_CD = T2.CLASS_CD(+) 
+		 ORDER BY D.SORT_NUM, D.CLASS_CD
+	</select>
+	<select id="selectCharge003" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT FEE_DESC, 
+		       OP_FEE_RATE, 
+		        DECODE(SALE_FEE_DIFF_YN, 'Y' , '*', '' ) || TO_CHAR(SALE_FEE_RATE,  '0D999') AS SALE_FEE_RATE, 
+		       TRUST_FEE_RATE, 
+		       MNG_FEE_RATE, 
+		       ETC_AMT, 
+		       NVL(CLASS_NM, '투자신탁') CLASS_NM, 
+		       JOIN_SDESC, 
+		       REFUND_CHARGE, 
+		       (NVL(OP_FEE_RATE, 0) + NVL(SALE_FEE_RATE, 0) + NVL(TRUST_FEE_RATE, 0) + NVL(MNG_FEE_RATE, 0) + NVL(ETC_AMT, 0) ) AS TOT, 
+		       (NVL(OP_FEE_RATE, 0) + NVL(SALE_FEE_RATE, 0) + NVL(TRUST_FEE_RATE, 0) + NVL(MNG_FEE_RATE, 0) + NVL(ETC_AMT, 0) + 
+		       (SELECT NVL(INVEST_FEE_RATE, 0 ) 
+		         FROM TB_FUND_M 
+		        WHERE FUND_CD = #{fCode}
+		       )) AS CTOT 
+		  FROM 
+		       (SELECT D.FEE_DESC, 
+		              NVL(C.OP_FEE_RATE, D.OP_FEE_RATE ) OP_FEE_RATE, 
+		              NVL(C.SALE_FEE_RATE, DECODE(SALE_FEE_DIFF_YN, 'Y' , T.FEE_DESC, D.SALE_FEE_RATE )) SALE_FEE_RATE, 
+		              NVL(C.TRUST_FEE_RATE, D.TRUST_FEE_RATE ) TRUST_FEE_RATE, 
+		              NVL(C.MNG_FEE_RATE, D.MNG_FEE_RATE ) MNG_FEE_RATE, 
+		              NVL(C.ETC_AMT, D.ETC_AMT ) ETC_AMT, 
+		              CLASS_NM, 
+		              JOIN_SDESC, 
+		              REFUND_CHARGE, 
+		              C.CLASS_CD, 
+		              C.SALE_FEE_DIFF_YN,
+		              SORT_NUM
+		              ,D.SEQ_NO SEQ1 
+                      ,T.SEQ_NO SEQ2
+		         FROM TB_FUND_CLASS_L C, 
+		              (SELECT * 
+		                FROM TB_FUND_DIFF_FEE_L 
+		               WHERE GUBUN = '1' 
+		              ) D, 
+		              (SELECT * 
+		                FROM TB_TERM_FEE_L 
+		               WHERE FEE_TYPE = '2' 
+		                     AND TO_CHAR(SYSDATE,'YYYYMMDD') BETWEEN START_DATE AND END_DATE 
+		              ) T 
+		        WHERE D.FUND_CD = #{fCode}
+		              AND D.FUND_CD = C.FUND_CD(+) 
+		              AND D.CLASS_CD = C.CLASS_CD(+) 
+		              AND D.FUND_CD = T.FUND_CD(+) 
+		              AND D.CLASS_CD = T.CLASS_CD(+) 
+		       ) 
+		ORDER BY SEQ1, SEQ2, SORT_NUM, FEE_DESC, CLASS_CD
+	</select>
+	<select id="selectCharge003_k" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT FEE_DESC, 
+		       OP_FEE_RATE, 
+		        DECODE(SALE_FEE_DIFF_YN, 'Y' , '*', '' ) || TO_CHAR(SALE_FEE_RATE,  '0D999') AS SALE_FEE_RATE, 
+		       TRUST_FEE_RATE, 
+		       MNG_FEE_RATE, 
+		       ETC_AMT, 
+		       NVL(CLASS_NM, '투자신탁') CLASS_NM, 
+		       JOIN_SDESC, 
+		       REFUND_CHARGE, 
+		       (NVL(OP_FEE_RATE, 0) + NVL(SALE_FEE_RATE, 0) + NVL(TRUST_FEE_RATE, 0) + NVL(MNG_FEE_RATE, 0) + NVL(ETC_AMT, 0) ) AS TOT, 
+		       (NVL(OP_FEE_RATE, 0) + NVL(SALE_FEE_RATE, 0) + NVL(TRUST_FEE_RATE, 0) + NVL(MNG_FEE_RATE, 0) + NVL(ETC_AMT, 0) + 
+		       (SELECT NVL(INVEST_FEE_RATE, 0 ) 
+		         FROM TB_FUND_M 
+		        WHERE FUND_CD = #{fCode}
+		       )) AS CTOT 
+		  FROM 
+		       (SELECT D.FEE_DESC, 
+		              NVL(C.OP_FEE_RATE, D.OP_FEE_RATE ) OP_FEE_RATE, 
+		              NVL(C.SALE_FEE_RATE, DECODE(SALE_FEE_DIFF_YN, 'Y' , T.FEE_DESC, D.SALE_FEE_RATE )) SALE_FEE_RATE, 
+		              NVL(C.TRUST_FEE_RATE, D.TRUST_FEE_RATE ) TRUST_FEE_RATE, 
+		              NVL(C.MNG_FEE_RATE, D.MNG_FEE_RATE ) MNG_FEE_RATE, 
+		              NVL(C.ETC_AMT, D.ETC_AMT ) ETC_AMT, 
+		              CLASS_NM, 
+		              JOIN_SDESC, 
+		              REFUND_CHARGE, 
+		              C.CLASS_CD, 
+		              C.SALE_FEE_DIFF_YN,
+		              SORT_NUM 
+		         FROM TB_FUND_CLASS_L C, 
+		              (SELECT * 
+		                FROM TB_FUND_DIFF_FEE_L 
+		               WHERE GUBUN = '1' 
+		              ) D, 
+		              (SELECT * 
+		                FROM TB_TERM_FEE_L 
+		               WHERE FEE_TYPE = '2' 
+		                     AND TO_CHAR(SYSDATE,'YYYYMMDD') BETWEEN START_DATE AND END_DATE 
+		              ) T 
+		        WHERE C.FUND_CD = #{fCode}
+		              AND C.FUND_CD = D.FUND_CD(+) 
+		              AND C.CLASS_CD = D.CLASS_CD(+) 
+		              AND C.FUND_CD = T.FUND_CD(+) 
+		              AND C.CLASS_CD = T.CLASS_CD(+) 
+		     ORDER BY D.SEQ_NO, T.SEQ_NO, C.SORT_NUM, D.FEE_DESC, C.CLASS_CD 
+		       ) 
+	</select>
+	<select id="selectCharge004" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT D.FUND_CD, 
+		       D.CLASS_CD, 
+		       D.CLASS_NM,
+		       T.SEQ_NO, 
+		       TO_CHAR(TO_DATE(T.START_DATE, 'yyyyMMdd'), 'yyyy.MM.dd') START_DATE,
+		       TO_CHAR(TO_DATE(T.END_DATE, 'yyyyMMdd'), 'yyyy.MM.dd') END_DATE,
+		       T.FEE_DESC 
+		  FROM TB_FUND_CLASS_L D, 
+		       (SELECT * 
+		         FROM TB_TERM_FEE_L 
+		        WHERE FEE_TYPE = '1' 
+		     ORDER BY SEQ_NO
+		       ) T 
+		 WHERE D.FUND_CD = #{fCode}
+		       AND D.FUND_CD = T.FUND_CD 
+		       AND D.CLASS_CD = T.CLASS_CD
+		ORDER BY SORT_NUM, CLASS_CD, START_DATE
+	</select>
+	<select id="selectCharge004_2" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT D.FUND_CD, 
+		       D.CLASS_CD, 
+		       D.CLASS_NM,
+		       T.SEQ_NO, 
+		       TO_CHAR(TO_DATE(T.START_DATE, 'yyyyMMdd'), 'yyyy.MM.dd') START_DATE,
+		       TO_CHAR(TO_DATE(T.END_DATE, 'yyyyMMdd'), 'yyyy.MM.dd') END_DATE,
+		       T.FEE_DESC 
+		  FROM TB_FUND_CLASS_L D, 
+		       (SELECT * 
+		         FROM TB_TERM_FEE_L 
+		        WHERE FEE_TYPE = '2' 
+		     ORDER BY SEQ_NO
+		       ) T 
+		 WHERE D.FUND_CD = #{fCode}
+		       AND D.FUND_CD = T.FUND_CD 
+		       AND D.CLASS_CD = T.CLASS_CD
+		ORDER BY SORT_NUM, CLASS_CD, START_DATE
+	</select>
+	<select id="contDateChk" parameterType="java.util.HashMap" resultType="int">
+		SELECT COUNT(*) AS CNT 
+		  FROM TB_FUND_M 
+		 WHERE FUND_CD = #{fCode}
+		   AND CONT_DATE &lt;= TO_CHAR(ADD_MONTHS(SYSDATE, -12), 'YYYYMMDD')  
+	</select>
+	<select id="selectCharge005" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+        SELECT CLASS_CD,
+            CLASS_NM,
+            FEE_AMT1_1, 
+            FEE_AMT1_3, 
+            FEE_AMT1_5, 
+            FEE_AMT1_10, 
+            FEE_AMT2_1, 
+            FEE_AMT2_3, 
+            FEE_AMT2_5, 
+            FEE_AMT2_10,
+            ASSOC_CD_NEW_CLASS,  
+            ASSOC_CD_NEW_MOTHER
+		FROM
+		    (
+		    SELECT s1.CLASS_CD, 
+               NVL(( SELECT CLASS_NM FROM TB_FUND_CLASS_L WHERE CLASS_CD = s1.CLASS_CD AND FUND_CD = #{fCode}), '투자신탁') AS CLASS_NM,
+               s1.FEE_AMT1 AS FEE_AMT1_1, 
+               s1.FEE_AMT3 AS FEE_AMT1_3, 
+               s1.FEE_AMT5 AS FEE_AMT1_5, 
+               s1.FEE_AMT10 AS FEE_AMT1_10, 
+               s2.FEE_AMT1 AS FEE_AMT2_1, 
+               s2.FEE_AMT3 AS FEE_AMT2_3, 
+               s2.FEE_AMT5 AS FEE_AMT2_5, 
+               s2.FEE_AMT10 AS FEE_AMT2_10,
+               NVL(s3.ASSOC_CD_NEW, '111111111') ASSOC_CD_NEW_CLASS,  /* 클래스의 협회분류코드 (없을 경우 조건이 참이든 거짓이든 상관 없기 때문에 더미값 넣음) */
+               s4.ASSOC_CD_NEW ASSOC_CD_NEW_MOTHER                    /* 위 조건에도 불구하고 본펀드의 협회분류코드를 참조하여 일반형이면 조회되도록 */
+          	FROM 
+               (SELECT CLASS_CD, 
+                      FEE_AMT1, 
+                      FEE_AMT3, 
+                      FEE_AMT5, 
+                      FEE_AMT10 
+                 FROM TB_FUND_DIFF_FEE_L 
+                WHERE FUND_CD =  #{fCode}
+                      AND GUBUN = '2' 
+                      AND SEQ_NO = '1' 
+               ) S1, 
+               (SELECT CLASS_CD, 
+                      FEE_AMT1, 
+                      FEE_AMT3, 
+                      FEE_AMT5, 
+                      FEE_AMT10 
+                 FROM TB_FUND_DIFF_FEE_L 
+                WHERE FUND_CD =  #{fCode}
+                      AND GUBUN = '2' 
+                      AND SEQ_NO = '2' 
+               ) S2,
+               (SELECT CLASS_CD
+                           , ASSOC_CD_NEW
+                           , SORT_NUM
+                      FROM TB_FUND_CLASS_L
+                        WHERE FUND_CD =  #{fCode}
+               ) S3, /* 차등보수클래스중 환매수수료없는 것은 리스트에서 보여줄필요 없다. (구글닥 662), 클래스의 협회 분류 코드를 알기 위한 서브 쿼리*/
+               (SELECT ASSOC_CD_NEW 
+                   FROM TB_FUND_M
+                 WHERE FUND_CD = #{fCode}
+               ) S4 /* 클래스 펀드가 없는 경우 본펀드의 협회 분류 코드를 참고하여 종류형이 아니면 리스트를 보여준다. */
+         WHERE S1.CLASS_CD = S2.CLASS_CD
+           AND S2.CLASS_CD = S3.CLASS_CD(+)
+         ORDER BY SORT_NUM
+           )
+	WHERE SUBSTR(ASSOC_CD_NEW_CLASS, 9, 1) > 0            /*차등보수클래스중 환매수수료없는 것은 리스트에서 보여줄필요 없다 (S3을 참조) */
+      OR SUBSTR(ASSOC_CD_NEW_MOTHER, 6, 1) = 'Z'          /* 위 조건에도 불구하고 (OR 조건) 일반형 펀드의 경우에는 본펀드 기준의 데이터를 보여줘야함 (S4를 참조) */ 
+	</select>
+	<select id="spMakeInvestFeeDate" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		call SP_MAKE_INVEST_CHARGE_DATA(#{fCode})
+	</select>
+	<select id="selectCharge006" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		select class_cd, class_nm, 
+				decode(SALE_AFTER_CHARGE_YN, 'Y', fee_amt1_1 + 16, fee_amt1_1) fee_amt1_1, fee_amt1_3, fee_amt1_5, fee_amt1_10, 
+				decode(SALE_AFTER_CHARGE_YN, 'Y', fee_amt2_1 + 16, fee_amt2_1) fee_amt2_1, fee_amt2_3, fee_amt2_5, fee_amt2_10 
+		from
+		(
+			SELECT l.CLASS_CD
+			      ,FUND_NM AS CLASS_NM
+			      ,SUM(DECODE(MONTH_CNT,12,FEE_AMT1,0)) AS FEE_AMT1_1  /*1년후-피투자보수 미포함*/
+			      ,SUM(DECODE(MONTH_CNT,36,FEE_AMT1,0)) AS FEE_AMT1_3  /*3년후-피투자보수 미포함*/
+			      ,SUM(DECODE(MONTH_CNT,60,FEE_AMT1,0)) AS FEE_AMT1_5  /*5년후-피투자보수 미포함*/
+			      ,SUM(DECODE(MONTH_CNT,120,FEE_AMT1,0)) AS FEE_AMT1_10/*10년후-피투자보수 미포함*/
+			      ,SUM(DECODE(MONTH_CNT,12,FEE_AMT2,0)) AS FEE_AMT2_1  /*1년후-피투자보수 포함*/
+			      ,SUM(DECODE(MONTH_CNT,36,FEE_AMT2,0)) AS FEE_AMT2_3  /*3년후-피투자보수 포함*/
+			      ,SUM(DECODE(MONTH_CNT,60,FEE_AMT2,0)) AS FEE_AMT2_5  /*5년후-피투자보수 포함*/
+			      ,SUM(DECODE(MONTH_CNT,120,FEE_AMT2,0)) AS FEE_AMT2_10/*10년후-피투자보수 포함*/
+			      , (select decode(max(SALE_AFTER_CHARGE), null,'N', 'Y')  from tb_fund_class_l where class_cd = l.class_cd) SALE_AFTER_CHARGE_YN
+			  FROM TB_INV_TERM_CHARGE_L l
+			 WHERE l.FUND_CD = #{fCode}  
+			   AND INQ_TYPE = '1'
+			GROUP BY CLASS_CD ,FUND_NM 
+			ORDER BY 1
+		)
+	</select>
+	<select id="selectChargeGrp" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT CLASS_CD
+		      ,FUND_NM
+		      ,MONTH_CNT
+		      ,FEE_AMT1
+		  FROM TB_INV_TERM_CHARGE_L
+		 WHERE FUND_CD = #{fCode}  
+		   AND INQ_TYPE = '2'  
+		 ORDER BY CLASS_CD,MONTH_CNT
+	</select>
+	<select id="selectMofundCharge" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+         SELECT FUND_NM 
+               ,DECODE(SALE_CHARGE_DIFF_YN, 'Y', '*' , '') || TO_CHAR(SALE_CHARGE_RATE,  '0D999') AS SALE_CHARGE_RATE /*선취수수료*/ 
+               ,REFUND_CHARGE /*환매수수료*/ 
+               ,OP_FEE_RATE /*운용보수*/ 
+               ,DECODE(SALE_FEE_DIFF_YN, 'Y' , '*', '' ) || TO_CHAR(SALE_FEE_RATE,  '0D999') AS SALE_FEE_RATE /*판매보수*/ 
+               ,TRUST_FEE_RATE /*수탁보수*/ 
+               ,MNG_FEE_RATE /*사무보수*/ 
+               ,(NVL(OP_FEE_RATE,0)+NVL(SALE_FEE_RATE,0)+NVL(TRUST_FEE_RATE,0)+NVL(MNG_FEE_RATE,0)) TOT_FEE_RATE /*총보수.비용*/
+               ,SALE_AFTER_CHARGE 
+               ,MO_FUND_CD,JA_FUND_CD,SORT_NUM,CLASS_CD
+               ,(SELECT count(distinct(child_fund_cd)) FROM TB_MOJA_FUND_L WHERE FUND_CD IN (SELECT FUND_CD FROM TB_MOJA_FUND_L WHERE CHILD_FUND_CD = #{fCode} UNION ALL SELECT #{fCode} FROM dual)) JA_FUND_CNT
+               ,(SELECT count(distinct(fund_cd)) FROM tb_fund_m WHERE fund_cd IN (SELECT child_fund_cd FROM tb_moja_fund_l WHERE fund_cd IN (SELECT fund_cd FROM tb_moja_fund_l WHERE child_fund_cd = #{fCode} UNION ALL SELECT #{fCode} FROM DUAL)) AND fee_diff_yn = 'Y') FEE_DIFF_CNT
+               ,(SELECT COUNT(*) FROM TB_MOJA_FUND_L WHERE fund_cd in (SELECT fund_cd FROM TB_MOJA_FUND_L WHERE child_fund_cd = #{fCode})) MO_CHI_CNT
+          FROM 
+               (SELECT '' AS MO_FUND_CD ,
+                      A.FUND_CD AS JA_FUND_CD ,
+                      0 AS SORT_NUM ,
+                      '' AS CLASS_CD ,
+                      A.FUND_NM ,
+                      A.SALE_CHARGE_RATE ,
+                      A.REFUND_CHARGE ,
+                      A.OP_FEE_RATE ,
+                      NVL(A.SALE_FEE_RATE, DECODE(FEE_DIFF_YN, 'Y' , T.FEE_DESC, D.SALE_FEE_RATE )) SALE_FEE_RATE, 
+                      A.TRUST_FEE_RATE ,
+                      A.MNG_FEE_RATE
+                      , 'N' SALE_CHARGE_DIFF_YN
+                      , FEE_DIFF_YN SALE_FEE_DIFF_YN
+                      , A.SALE_AFTER_CHARGE
+                 FROM TB_FUND_M A
+                      ,(SELECT * 
+                        FROM TB_FUND_DIFF_FEE_L 
+                       WHERE GUBUN = '1' 
+                      ) D, 
+                      (SELECT * 
+                        FROM TB_TERM_FEE_L 
+                       WHERE FEE_TYPE = '2' 
+                             AND TO_CHAR(SYSDATE,'YYYYMMDD') BETWEEN START_DATE AND END_DATE 
+                      ) T
+                WHERE A.FUND_CD =  #{fCode}
+                  AND SUBSTR(A.ASSOC_CD_NEW,6,1) = 'Z'
+                  AND SUBSTR(A.ASSOC_CD_NEW,5,1) != '3'
+                  AND A.FUND_CD = D.FUND_CD(+) 
+                  AND A.FUND_CD = T.FUND_CD(+) 
+
+           UNION ALL
+           
+                 SELECT B.FUND_CD AS MO_FUND_CD ,
+                      A.FUND_CD AS JA_FUND_CD ,
+                      0 AS SORT_NUM ,
+                      '' AS CLASS_CD ,
+                      A.FUND_NM ,
+                      A.SALE_CHARGE_RATE ,
+                      A.REFUND_CHARGE ,
+                      A.OP_FEE_RATE ,
+                      NVL(A.SALE_FEE_RATE, DECODE(FEE_DIFF_YN, 'Y' , T.FEE_DESC, D.SALE_FEE_RATE )) SALE_FEE_RATE, 
+                      A.TRUST_FEE_RATE ,
+                      A.MNG_FEE_RATE
+                      , 'N' SALE_CHARGE_DIFF_YN
+                      , FEE_DIFF_YN
+                      , A.SALE_AFTER_CHARGE
+                 FROM TB_FUND_M A ,
+                      (
+                        SELECT MAX(MO_FUND.FUND_CD) FUND_CD, 
+                               MO_FUND.CHILD_FUND_CD 
+                          FROM TB_MOJA_FUND_L JA_FUND , 
+                               TB_MOJA_FUND_L MO_FUND 
+                         WHERE JA_FUND.CHILD_FUND_CD = #{fCode}  
+                               AND JA_FUND.FUND_CD = MO_FUND.FUND_CD
+                         GROUP BY MO_FUND.CHILD_FUND_CD
+                      ) B 
+                      ,(SELECT * 
+                        FROM TB_FUND_DIFF_FEE_L 
+                       WHERE GUBUN = '1' 
+                      ) D, 
+                      (SELECT * 
+                        FROM TB_TERM_FEE_L 
+                       WHERE FEE_TYPE = '2' 
+                             AND TO_CHAR(SYSDATE,'YYYYMMDD') BETWEEN START_DATE AND END_DATE 
+                      ) T 
+                WHERE A.FUND_CD = B.CHILD_FUND_CD 
+                      AND SUBSTR(A.ASSOC_CD_NEW,6,1) = 'Z' 
+                      AND A.FUND_CD = D.FUND_CD(+) 
+                      AND A.FUND_CD = T.FUND_CD(+) 
+                                          
+                   UNION ALL 
+                   
+               SELECT B.FUND_CD AS MO_FUND_CD ,
+                      A.FUND_CD AS JA_FUND_CD ,
+                      C.SORT_NUM ,
+                      C.CLASS_CD AS CLASS_CD ,
+                      DECODE(FEE_DIFF_YN, 'Y', '**' , '') || A.FUND_NM || ' ' || C.CLASS_NM AS FUND_NM ,
+                      NVL(C.SALE_CHARGE_RATE, DECODE(SALE_CHARGE_DIFF_YN, 'Y' , T1.FEE_DESC, C.SALE_CHARGE_RATE )) SALE_CHARGE_RATE, 
+                      C.REFUND_CHARGE ,
+                      NVL(C.OP_FEE_RATE, D.OP_FEE_RATE) OP_FEE_RATE,
+                      NVL(C.SALE_FEE_RATE, DECODE(SALE_FEE_DIFF_YN, 'Y' , T2.FEE_DESC, D.SALE_FEE_RATE )) SALE_FEE_RATE, 
+                      NVL(C.TRUST_FEE_RATE, D.TRUST_FEE_RATE) TRUST_FEE_RATE,
+                      NVL(C.MNG_FEE_RATE , D.MNG_FEE_RATE) MNG_FEE_RATE
+                      ,SALE_CHARGE_DIFF_YN
+                      ,SALE_FEE_DIFF_YN
+                      , C.SALE_AFTER_CHARGE
+                 FROM TB_FUND_M A ,
+                      (
+                        SELECT MAX(MO_FUND.FUND_CD) FUND_CD, 
+                               MO_FUND.CHILD_FUND_CD 
+                          FROM TB_MOJA_FUND_L JA_FUND , 
+                               TB_MOJA_FUND_L MO_FUND 
+                         WHERE JA_FUND.CHILD_FUND_CD = #{fCode}  
+                               AND JA_FUND.FUND_CD = MO_FUND.FUND_CD
+                         GROUP BY MO_FUND.CHILD_FUND_CD
+                      ) B ,
+                      TB_FUND_CLASS_L C, 
+                      (SELECT * 
+                        FROM TB_FUND_DIFF_FEE_L 
+                       WHERE GUBUN = '1' 
+                       and SEQ_NO = '1'
+                      ) D, 
+                      (SELECT * 
+                        FROM TB_TERM_FEE_L 
+                       WHERE FEE_TYPE = '1' 
+                             AND TO_CHAR(SYSDATE,'YYYYMMDD') BETWEEN START_DATE AND END_DATE 
+                      ) T1, 
+                      (SELECT * 
+                        FROM TB_TERM_FEE_L 
+                       WHERE FEE_TYPE = '2' 
+                             AND TO_CHAR(SYSDATE,'YYYYMMDD') BETWEEN START_DATE AND END_DATE 
+                      ) T2 
+                WHERE A.FUND_CD = B.CHILD_FUND_CD 
+                      AND SUBSTR(A.ASSOC_CD_NEW,6,1) = '1' 
+                      AND A.FUND_CD = C.FUND_CD 
+                      AND C.FUND_CD = D.FUND_CD(+) 
+                      AND C.CLASS_CD = D.CLASS_CD(+) 
+                      AND C.FUND_CD = T1.FUND_CD(+) 
+                      AND C.CLASS_CD = T1.CLASS_CD(+) 
+                      AND C.FUND_CD = T2.FUND_CD(+) 
+                      AND C.CLASS_CD = T2.CLASS_CD(+) 
+               ) 
+        GROUP BY fund_nm,
+                 DECODE (sale_charge_diff_yn, 'Y', '*', '') || TO_CHAR (sale_charge_rate, '0D999'),
+                 refund_charge,
+                 op_fee_rate,
+                 DECODE (sale_fee_diff_yn, 'Y', '*', '') || TO_CHAR (sale_fee_rate, '0D999'),
+                 trust_fee_rate,
+                 mng_fee_rate,
+                 (NVL(OP_FEE_RATE,0)+NVL(SALE_FEE_RATE,0)+NVL(TRUST_FEE_RATE,0)+NVL(MNG_FEE_RATE,0)),
+                 sale_after_charge,
+                 mo_fund_cd,
+                 ja_fund_cd,
+                 sort_num,
+                 class_cd
+        ORDER BY MO_FUND_CD , 
+               JA_FUND_CD , 
+               SORT_NUM , 
+               CLASS_CD
+	</select>
+
+	<select id="selectMofundChargeDiff" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT 
+		    DECODE(FEE_TYPE, 1, '판매수수료',2,'판매보수') GUBUN,
+		    D.FUND_CD, 
+		    D.CLASS_CD, 
+		    A.FUND_NM,       
+		    D.CLASS_NM,
+		    T.SEQ_NO, 
+		    TO_CHAR(TO_DATE(T.START_DATE, 'yyyyMMdd'), 'yyyy.MM.dd') START_DATE,
+		    TO_CHAR(TO_DATE(T.END_DATE, 'yyyyMMdd'), 'yyyy.MM.dd') END_DATE,
+		    T.FEE_DESC 
+		FROM TB_FUND_M a, TB_FUND_CLASS_L D, 
+		      (
+		        SELECT MAX(MO_FUND.FUND_CD) FUND_CD, 
+		               MO_FUND.CHILD_FUND_CD 
+		          FROM TB_MOJA_FUND_L JA_FUND , 
+		               TB_MOJA_FUND_L MO_FUND 
+		         WHERE JA_FUND.CHILD_FUND_CD = #{fCode}  
+		               AND JA_FUND.FUND_CD = MO_FUND.FUND_CD
+		         GROUP BY MO_FUND.CHILD_FUND_CD
+		      ) B ,
+		      TB_TERM_FEE_L T
+		WHERE a.FUND_CD = B.CHILD_FUND_CD 
+		  AND A.FUND_CD = d.FUND_CD 
+		  AND D.FUND_CD = T.FUND_CD 
+		  AND D.CLASS_CD = T.CLASS_CD(+)
+		ORDER BY FEE_TYPE, SORT_NUM, CLASS_CD, START_DATE
+	</select>
+	
+	<select id="selectMoNetManList" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT LISTAGG( FUND_NM, '
+' ) WITHIN GROUP (ORDER BY FUND_NM ) FUND_NM,
+		comp_nm, manager_nm, work_desc 
+		FROM 
+		        (
+				SELECT 
+				       (SELECT FUND_NM 
+				         FROM TB_FUND_M 
+				        WHERE FUND_CD = L.FUND_CD 
+				       ) FUND_NM, 
+				       (SELECT NVL(COMP_NM, COMP_ENM) 
+				         FROM TB_COMPANY_M 
+				        WHERE COMP_CD = CONS_COMP_CD
+				       ) COMP_NM, 
+				       (SELECT MANAGER_NM 
+				         FROM TB_MANAGER_M 
+				        WHERE MANAGER_ID = L.MANAGER_ID 
+				       ) MANAGER_NM, 
+				       (SELECT WORK_DESC 
+				         FROM TB_MANAGER_M 
+				        WHERE MANAGER_ID = L.MANAGER_ID 
+				       ) WORK_DESC 
+				  FROM TB_FUND_CONS_COMP_L L 
+				 WHERE WORK_CD != '1' 
+				       AND FUND_CD IN 
+				       (SELECT FUND_CD 
+				         FROM TB_MOJA_FUND_L 
+				        WHERE CHILD_FUND_CD = #{fCode} 
+			            UNION ALL
+			            SELECT #{fCode} FROM DUAL 
+				       ) 
+			       ) 
+        group by comp_nm, manager_nm, work_desc
+	</select>
+	
+	<select id="selectDoctype2Index" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT LVL_NUM ,
+		       NM ,
+		       INDEX_CD
+		  FROM (SELECT LVL_NUM , LPAD(' ' ,(LVL_NUM - 1) * 6 , ' ' ) || INDEX_NM AS NM, INDEX_CD
+		          FROM TB_INDEX_M 
+		         WHERE DOC_TYPE = '2'  
+		           AND LVL_NUM <![CDATA[ <= ]]> 2    
+		        UNION ALL
+		        SELECT 1 , '[제2부 별첨1] 모집합투자기구에 관한 사항' , '299999998' AS INDEX_CD
+		          FROM TB_FUND_M
+		         WHERE FUND_CD = #{fCode}
+		           AND SUBSTR(ASSOC_CD_NEW,5,1) = '3'
+		        UNION ALL
+		        SELECT 1 , 
+		              CASE WHEN SUBSTR(ASSOC_CD_NEW,5,1) = '3' THEN '[제2부 별첨2] 전환형집합투자기구에 관한 사항' 
+		                   ELSE '[제2부 별첨1] 전환형집합투자기구에 관한 사항' END AS NM , '299999999' AS INDEX_CD
+		          FROM TB_FUND_M
+		         WHERE FUND_CD = #{fCode}
+		           AND CHG_YN = 'Y'
+		       )
+		ORDER BY INDEX_CD 
+	</select>
+	<select id="selectDoctype4Index" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT A.LVL_NUM , LPAD(' ' ,(A.LVL_NUM - 1) * 6 , ' ' ) || INDEX_NM AS NM, A.INDEX_CD 
+		  FROM TB_INDEX_M A 
+		 WHERE A.DOC_TYPE = '4' 
+		   AND A.INDEX_CD <![CDATA[ >= ]]>  '200000000' 
+		   AND A.INDEX_CD NOT IN ( SELECT '304000000' FROM TB_FUND_M WHERE FUND_CD = #{fCode} AND CHG_YN = 'N') 
+		   AND A.LVL_NUM <![CDATA[ <= ]]> 2 
+		ORDER BY A.INDEX_CD 
+	</select>
+	<select id="selectCharge005_grp_cnt" parameterType="java.util.HashMap" resultType="int">
+		SELECT COUNT(*) 
+	  	  FROM TB_INV_TERM_CHARGE_L 
+		 WHERE fund_cd = #{fCode} 
+	       AND inq_type = '2' 
+	       AND (((fund_nm LIKE '%A' OR fund_nm LIKE '%A-e') OR fund_nm LIKE '%C') OR fund_nm LIKE '%C-e')
+    </select>
+	<select id="selectCharge005_grp" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT MONTHS || '`^`' || AMT_A ||'`^`' ||AMT_A_E ||'`^`' ||AMT_C ||'`^`' ||AMT_C_E ||'`^`' ||AMT_TEMP1 ||'`^`' ||AMT_TEMP2 ||'`^`' ||'^;^'  AS CONTENT
+		  FROM (
+		        SELECT MONTHS
+		              ,SUM(AMT_A) AS AMT_A 
+		              ,SUM(AMT_A_E) AS AMT_A_E
+		              ,SUM(AMT_C) AS AMT_C
+		              ,SUM(AMT_C_E) AS AMT_C_E  
+		              ,SUM(AMT_TEMP1) AS AMT_TEMP1  
+		              ,SUM(AMT_TEMP2) AS AMT_TEMP2   
+		          FROM (
+		                SELECT B.MONTH_CNT AS MONTHS
+		                      ,NVL(A.FEE_AMT1,0) AS AMT_A
+		                      ,0 AS AMT_A_E
+		                      ,0 AS AMT_C
+		                      ,0 AS AMT_C_E  
+		                      ,0 AS AMT_TEMP1  
+		                      ,0 AS AMT_TEMP2   
+		                  FROM TB_INV_TERM_CHARGE_L A
+		                      ,(SELECT MONTH_CNT FROM TB_INV_TERM_CHARGE_L WHERE INQ_TYPE = '2' AND ROWNUM <![CDATA[ <= ]]> 36 ) B 
+		                 WHERE A.FUND_CD (+)= #{fCode}
+		                   AND A.INQ_TYPE (+)= '2'
+		                   AND A.FUND_NM (+)LIKE '%A'
+		                   AND B.MONTH_CNT = A.MONTH_CNT(+)   
+		                UNION ALL
+		                SELECT B.MONTH_CNT AS MONTHS
+		                      ,0 AS AMT_A
+		                      ,NVL(A.FEE_AMT1,0) AS AMT_A_E
+		                      ,0 AS AMT_C
+		                      ,0 AS AMT_C_E  
+		                      ,0 AS AMT_TEMP1  
+		                      ,0 AS AMT_TEMP2        
+		                  FROM TB_INV_TERM_CHARGE_L A
+		                      ,(SELECT MONTH_CNT FROM TB_INV_TERM_CHARGE_L WHERE INQ_TYPE = '2' AND ROWNUM <![CDATA[ <= ]]> 36 ) B 
+		                 WHERE A.FUND_CD (+)= #{fCode}
+		                   AND A.INQ_TYPE (+)= '2'
+		                   AND A.FUND_NM (+)LIKE '%A-e' 
+		                   AND B.MONTH_CNT = A.MONTH_CNT(+)  
+		                UNION ALL
+		                SELECT B.MONTH_CNT AS MONTHS
+		                      ,0 AS AMT_A
+		                      ,0 AS AMT_A_E
+		                      ,NVL(A.FEE_AMT1,0) AS AMT_C
+		                      ,0 AS AMT_C_E  
+		                      ,0 AS AMT_TEMP1  
+		                      ,0 AS AMT_TEMP2
+		                  FROM TB_INV_TERM_CHARGE_L A
+		                      ,(SELECT MONTH_CNT FROM TB_INV_TERM_CHARGE_L WHERE INQ_TYPE = '2' AND ROWNUM <![CDATA[ <= ]]> 36 ) B 
+		                 WHERE A.FUND_CD (+)= #{fCode}
+		                   AND A.INQ_TYPE (+)= '2'
+		                   AND A.FUND_NM (+)LIKE '%C' 
+		                   AND B.MONTH_CNT = A.MONTH_CNT(+)  
+		                UNION ALL
+		                SELECT B.MONTH_CNT AS MONTHS
+		                      ,0 AS AMT_A
+		                      ,0 AS AMT_A_E
+		                      ,0 AS AMT_C
+		                      ,NVL(A.FEE_AMT1,0) AS AMT_C_E  
+		                      ,0 AS AMT_TEMP1  
+		                      ,0 AS AMT_TEMP2    
+		                  FROM TB_INV_TERM_CHARGE_L A
+		                      ,(SELECT MONTH_CNT FROM TB_INV_TERM_CHARGE_L WHERE INQ_TYPE = '2' AND ROWNUM <![CDATA[ <= ]]>  36 ) B 
+		                 WHERE A.FUND_CD (+)= #{fCode} 
+		                   AND A.INQ_TYPE (+)= '2'
+		                   AND A.FUND_NM (+)LIKE '%C-e' 
+		                   AND B.MONTH_CNT = A.MONTH_CNT(+)    
+		                UNION ALL    
+		                SELECT B.MONTH_CNT AS MONTHS
+		                      ,0 AS AMT_A
+		                      ,0 AS AMT_A_E
+		                      ,0 AS AMT_C
+		                      ,0 AS AMT_C_E  
+		                      ,0 AS AMT_TEMP1  
+		                      ,0 AS AMT_TEMP2      
+		                  FROM TB_INV_TERM_CHARGE_L A
+		                      ,(SELECT MONTH_CNT FROM TB_INV_TERM_CHARGE_L WHERE INQ_TYPE = '2' AND ROWNUM <![CDATA[ <= ]]> 36 ) B 
+		                 WHERE A.FUND_CD (+)= #{fCode}
+		                   AND A.INQ_TYPE (+)= '2'
+		                   AND A.FUND_NM (+)LIKE 'TEMP1'
+		                   AND B.MONTH_CNT = A.MONTH_CNT(+)  
+		                UNION ALL        
+		                SELECT B.MONTH_CNT AS MONTHS
+		                      ,0 AS AMT_A
+		                      ,0 AS AMT_A_E
+		                      ,0 AS AMT_C
+		                      ,0 AS AMT_C_E  
+		                      ,0 AS AMT_TEMP1  
+		                      ,0 AS AMT_TEMP2 
+		                  FROM TB_INV_TERM_CHARGE_L A
+		                      ,(SELECT MONTH_CNT FROM TB_INV_TERM_CHARGE_L WHERE INQ_TYPE = '2' AND ROWNUM <![CDATA[ <= ]]> 36 ) B 
+		                 WHERE A.FUND_CD (+)= #{fCode}
+		                   AND A.INQ_TYPE (+)= '2'
+		                   AND A.FUND_NM (+)LIKE 'TEMP2'
+		                   AND B.MONTH_CNT = A.MONTH_CNT(+)
+		           )  
+		        GROUP BY MONTHS   
+		        ORDER BY  MONTHS
+		)
+	</select>
+	<select id="select209010203" parameterType="java.util.HashMap" resultMap="resultMap3">
+		SELECT INDEX_CD, 
+		       DECODE(FUND_CD, #{fCode}, '', (SELECT FUND_NM FROM TB_FUND_M M WHERE M.FUND_CD = L.FUND_CD)) AS FUND_NM,
+		       '' || DOC_DESC AS DOC_DESC 
+		  FROM TB_DOCUMENT_L L
+		 WHERE INDEX_CD IN( '209010203', '209010204')
+		       AND FUND_CD IN 
+		       (SELECT FUND_CD 
+		         FROM TB_MOJA_FUND_L 
+		        WHERE CHILD_FUND_CD = #{fCode}
+		           UNION ALL 
+		       SELECT #{fCode}
+		         FROM dual 
+		       )
+		   
+		    and DOC_DESC is not null
+	</select>
+	<select id="selectPchgChk" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT NVL( BF_REFUND_PAY_DAY, '-' ) BF_REFUND_PAY_DAY, 
+			   NVL( AF_REFUND_PAY_DAY, '-' ) AF_REFUND_PAY_DAY, 
+			   NVL( PCHG_NM, '-' ) PCHG_NM
+		FROM (
+				SELECT ( SELECT S_CODE_NM
+						   FROM TB_COMMON_L C
+						   WHERE C.L_CODE = '011'
+							 AND C.S_CODE = BF_REFUND_PAY_DAY ) AS BF_REFUND_PAY_DAY,
+						 ( SELECT S_CODE_NM
+						   FROM TB_COMMON_L C
+						   WHERE C.L_CODE = '011'
+							 AND C.S_CODE = AF_REFUND_PAY_DAY ) AS AF_REFUND_PAY_DAY,
+						 ( SELECT S_CODE_NM
+						   FROM TB_COMMON_L C
+						   WHERE C.L_CODE = '020'
+							 AND C.S_CODE = PCHG_CD ) AS PCHG_NM
+				FROM ( SELECT AF_REFUND_PAY_DAY - ADD_DATE AS AF_REFUND_PAY_DAY,
+							  BF_REFUND_PAY_DAY - ADD_DATE AS BF_REFUND_PAY_DAY, 
+							  PCHG_CD
+					   FROM ( SELECT
+								  CASE WHEN PCHG_YN = 'Y' 
+								  THEN DECODE( PCHG_CD, '01', '1', '2' )
+								  ELSE '2' END 
+								  AS ADD_DATE, 
+								  PCHG_CD, AF_REFUND_PAY_DAY, BF_REFUND_PAY_DAY
+							  FROM TB_FUND_M
+							  WHERE fund_cd = #{fCode}
+							 )
+					 )
+				)
+	</select>
+</mapper> 
